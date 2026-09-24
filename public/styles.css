@@ -469,3 +469,11 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
   .protect__col { padding: 26px 20px; }
   .photo--specs { box-shadow: -10px 10px 0 var(--signal); }
 }
+.calc__delivery { display: block; margin-top: 6px; font-size: .8rem; color: rgba(238,236,230,.6); }
+
+/* ---------- Very narrow screens ---------- */
+@media (max-width: 640px) {
+  .cards, .specs__grid, .protect, .inside__grid, .order__grid, .faq, .scheme { grid-template-columns: minmax(0, 1fr); }
+  .section__title { font-size: clamp(1.45rem, 8.2vw, 2rem); overflow-wrap: break-word; }
+  .card h3 { overflow-wrap: break-word; }
+}
