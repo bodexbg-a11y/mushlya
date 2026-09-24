@@ -32,10 +32,11 @@
   const countUp = (el) => {
     const target = +el.dataset.count;
     const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
     const t0 = performance.now();
     const step = (t) => {
       const k = Math.min((t - t0) / 1400, 1);
-      el.textContent = Math.round(target * (1 - Math.pow(1 - k, 3))) + suffix;
+      el.textContent = prefix + Math.round(target * (1 - Math.pow(1 - k, 3))) + suffix;
       if (k < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -60,15 +61,15 @@
   });
   setPart('1');
 
-  // Calculator: ~1 м довжини на 4 особи (двоярусні лави), мінімум 4 м
+  // Calculator: один модуль — до 12 місць
+  const SEATS = 12;
   const range = $('#calcRange');
   const updateCalc = () => {
     const people = +range.value;
-    const len = Math.max(4, Math.ceil(people / 4 / 2) * 2);
-    const mods = len / 2;
+    const mods = Math.ceil(people / SEATS);
     $('#calcPeople').textContent = people;
-    $('#calcLen').textContent = len + ' м';
     $('#calcMods').textContent = mods;
+    $('#calcSeats').textContent = mods * SEATS;
     range.style.setProperty('--p', ((people - range.min) / (range.max - range.min)) * 100 + '%');
     const tube = $('#calcTube');
     if (tube.childElementCount !== mods) {
@@ -84,7 +85,7 @@
     formCapacity.value = range.value;
   });
   $$('[data-model]').forEach((b) => b.addEventListener('click', () => {
-    formMessage.value = `Цікавить модель ${b.dataset.model}. `;
+    formMessage.value = `Цікавить варіант: ${b.dataset.model}. `;
   }));
 
   // Phone mask
