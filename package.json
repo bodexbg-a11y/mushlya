@@ -1,0 +1,7 @@
+{
+  "name": "mushlya-ukryttia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Сайт модульних укриттів МУШЛЯ",
+  "scripts": { "start": "node server.js" }
+}
