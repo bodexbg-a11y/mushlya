@@ -90,6 +90,19 @@
     formMessage.value = `Цікавить варіант: ${b.dataset.model}. `;
   }));
 
+  // Gallery lightbox
+  const lb = $('#lightbox');
+  const lbImg = $('img', lb);
+  const closeLb = () => { lb.hidden = true; lbImg.src = ''; };
+  $$('.gallery__item').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    lbImg.src = a.getAttribute('href');
+    lbImg.alt = $('img', a).alt;
+    lb.hidden = false;
+  }));
+  lb.addEventListener('click', (e) => { if (e.target !== lbImg) closeLb(); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+
   // Phone mask
   const phone = $('input[name="phone"]');
   phone.addEventListener('input', () => {
