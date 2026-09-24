@@ -423,3 +423,28 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .calc__result--wide { grid-column: 1 / -1; padding-top: 16px; border-top: 1px solid var(--line); }
 .calc__result--wide b { color: var(--signal); }
 @media (max-width: 640px) { .calc__result--wide b { font-size: 1.6rem; } }
+
+/* ---------- About ---------- */
+.about__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.about__item { background: var(--graphite); border: 1px solid var(--line); border-radius: var(--r); padding: 32px; transition: border-color .3s, transform .3s var(--ease); }
+.about__item:hover { border-color: rgba(255,176,0,.5); transform: translateY(-4px); }
+.about__flag { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--signal); color: var(--ink); font: 900 .95rem var(--f-display); margin-bottom: 28px; }
+.about__item h3 { font-size: 1.2rem; text-transform: uppercase; margin-bottom: 12px; }
+.about__item p { color: rgba(238,236,230,.65); font-size: .95rem; }
+.about__roles { list-style: none; padding: 0; margin: 48px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.about__roles li { padding: 24px 24px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.about__roles b { font: 800 1.4rem var(--f-display); color: var(--signal); text-transform: uppercase; }
+.about__roles span { color: rgba(238,236,230,.65); font-size: .92rem; }
+
+/* ---------- Footer legal ---------- */
+.footer__legal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 36px; padding: 32px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.footer__legal .mono { color: var(--signal); font-size: .68rem; margin-bottom: 10px; }
+.footer__legal p { font-size: .88rem; color: rgba(238,236,230,.7); line-height: 1.7; }
+.footer__legal b { color: var(--paper); }
+.footer__legal a { text-decoration: none; }
+.footer__legal a:hover { color: var(--signal); }
+.footer .footer__copy { margin-top: 24px; }
+@media (max-width: 1080px) {
+  .about__grid, .about__roles, .footer__legal { grid-template-columns: 1fr; }
+  .about__grid { max-width: 560px; }
+}
