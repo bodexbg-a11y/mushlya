@@ -460,26 +460,12 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .protect__plus { margin-top: 20px; padding: 16px; border-radius: var(--r); background: rgba(255,176,0,.1); font-size: .92rem; color: rgba(238,236,230,.8); }
 .protect__plus b { color: var(--signal); }
 
-/* ---------- Hospital ---------- */
-.hospital { background: var(--paper-2); }
-.hospital__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: start; }
-.hospital .section__head { margin-bottom: 40px; }
-.hospital__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-.hospital__cols h3 { font-size: 1rem; text-transform: uppercase; margin-bottom: 6px; }
-.hospital__sub { font-size: .8rem; font-weight: 700; color: #a26f00; margin: 10px 0 6px; }
-.hospital__cols ul { list-style: none; padding: 0; margin: 8px 0 0; }
-.hospital__cols li { padding: 7px 0; border-top: 1px solid rgba(0,0,0,.12); font-size: .92rem; }
-.hospital__cols p { font-size: .92rem; }
-.hospital__flow { font-weight: 700; }
-.photo--hospital { position: sticky; top: 110px; aspect-ratio: 924 / 496; box-shadow: 14px 14px 0 var(--ink); }
-
 @media (max-width: 1080px) {
-  .specs__grid, .hospital__grid { grid-template-columns: 1fr; gap: 48px; }
-  .photo--hospital { position: static; }
+  .specs__grid { grid-template-columns: 1fr; gap: 48px; }
 }
 @media (max-width: 640px) {
   .spec-table div { grid-template-columns: 1fr; gap: 2px; }
-  .protect, .hospital__cols { grid-template-columns: 1fr; }
+  .protect { grid-template-columns: 1fr; }
   .protect__col { padding: 26px 20px; }
   .photo--specs { box-shadow: -10px 10px 0 var(--signal); }
 }
