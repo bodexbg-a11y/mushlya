@@ -63,6 +63,7 @@
 
   // Calculator: один модуль — до 12 місць
   const SEATS = 12;
+  const PRICE = 800000; // грн за модуль, мінімальна ціна
   const range = $('#calcRange');
   const updateCalc = () => {
     const people = +range.value;
@@ -70,6 +71,7 @@
     $('#calcPeople').textContent = people;
     $('#calcMods').textContent = mods;
     $('#calcSeats').textContent = mods * SEATS;
+    $('#calcPrice').textContent = (mods * PRICE).toLocaleString('uk-UA');
     range.style.setProperty('--p', ((people - range.min) / (range.max - range.min)) * 100 + '%');
     const tube = $('#calcTube');
     if (tube.childElementCount !== mods) {

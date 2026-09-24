@@ -413,3 +413,13 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 @media (max-width: 640px) {
   .calc__tube i { flex-basis: 30px; height: 30px; }
 }
+
+/* ---------- Prices ---------- */
+.model__len { margin-bottom: 8px; }
+.model__price { font: 800 1.6rem var(--f-display); color: var(--signal); margin-bottom: 24px; letter-spacing: -.02em; }
+.model__price small { font: 500 .8rem var(--f-body); color: rgba(238,236,230,.55); letter-spacing: 0; }
+.model--featured .model__price { color: #a26f00; }
+.model--featured .model__price small { color: var(--muted); }
+.calc__result--wide { grid-column: 1 / -1; padding-top: 16px; border-top: 1px solid var(--line); }
+.calc__result--wide b { color: var(--signal); }
+@media (max-width: 640px) { .calc__result--wide b { font-size: 1.6rem; } }
