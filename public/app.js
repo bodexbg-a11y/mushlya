@@ -63,7 +63,7 @@
 
   // Calculator: один модуль — до 12 місць
   const SEATS = 12;
-  const PRICE = 800000; // грн за модуль, мінімальна ціна
+  const PRICE = 22500; // $ за модуль, мінімальна ціна
   const range = $('#calcRange');
   const updateCalc = () => {
     const people = +range.value;
