@@ -118,7 +118,7 @@ p { margin: 0; }
 .eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 500 .78rem var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(238,236,230,.7); border: 1px solid var(--line); padding: 8px 14px; border-radius: 100px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 0 rgba(255,176,0,.6); animation: pulse 2s infinite; }
 @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(255,176,0,0); } 100% { box-shadow: 0 0 0 0 rgba(255,176,0,0); } }
-.hero__title { font-size: clamp(2.4rem, 5.2vw, 4.4rem); font-weight: 900; margin: 28px 0 28px; text-transform: uppercase; letter-spacing: -.035em; line-height: 1.04; }
+.hero__title { font-size: clamp(2.4rem, 5.2vw, 4.4rem); font-weight: 900; margin: 0 0 28px; text-transform: uppercase; letter-spacing: -.035em; line-height: 1.04; }
 .hero__title em { font-style: normal; color: var(--signal); position: relative; }
 .hero__title em::after { content: ""; position: absolute; left: 0; right: 0; bottom: .06em; height: .08em; background: var(--signal); transform: scaleX(0); transform-origin: left; animation: underline 1s .9s var(--ease) forwards; }
 @keyframes underline { to { transform: scaleX(1); } }
@@ -195,7 +195,7 @@ circle.bp-part { fill: #9cc3ef; }
 .blueprint circle.is-active.bp-part { fill: var(--signal); }
 .bp-markers g.is-active circle { fill: var(--signal); stroke: var(--signal); }
 .bp-markers g.is-active text { fill: var(--ink); }
-.scheme__hint { margin-top: 12px; opacity: .6; font-size: .7rem; }
+.scheme__hint { margin-top: 12px; opacity: .6; font-size: .85rem; }
 
 .parts { list-style: none; margin: 0; padding: 0; counter-reset: p; }
 .parts li { counter-increment: p; padding: 22px 0 22px 64px; border-top: 1px solid var(--line); position: relative; cursor: default; transition: padding .3s var(--ease); }
