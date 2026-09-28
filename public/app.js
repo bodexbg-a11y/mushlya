@@ -187,8 +187,22 @@
     $('#cfgSumOpts').textContent = opts;
     lenInput.style.setProperty('--p', ((cfg.len - lenInput.min) / (lenInput.max - lenInput.min)) * 100 + '%');
     drawTube();
-    return `Ø ${fmt(cfg.diam)} м × ${fmt(cfg.len)} м, ${T.mods}: ${cfg.mods}, ${T.people}: ${cfg.people}, ${T.extra}: ${opts}`;
+    const text = `Ø ${fmt(cfg.diam)} м × ${fmt(cfg.len)} м, ${T.mods}: ${cfg.mods}, ${T.people}: ${cfg.people}, ${T.extra}: ${opts}`;
+    if (touched) toForm(text);
+    return text;
   };
+
+  // Усе, що клієнт обрав у конфігураторі, автоматично потрапляє в заявку
+  let touched = false;
+  const toForm = (text) => {
+    $('#formConfigText').textContent = text;
+    $('#formConfigInput').value = text;
+    $('#formConfig').hidden = false;
+    const cap = $('#formCapacity');
+    if (cap) cap.value = cfg.people;
+  };
+  $('#config').addEventListener('input', () => { touched = true; }, true);
+  $('#config').addEventListener('click', (e) => { if (e.target.closest('button, label')) touched = true; }, true);
 
   $$('input[name="cfgDiam"]').forEach((r) => r.addEventListener('change', () => { cfg.diam = +r.value; summary(); }));
   lenInput.addEventListener('input', () => { cfg.len = +lenInput.value; summary(); });
@@ -213,14 +227,7 @@
   }));
   summary();
 
-  const formCapacity = $('#formCapacity');
-  $('#cfgSubmit').addEventListener('click', () => {
-    const text = summary();
-    $('#formConfigText').textContent = text;
-    $('#formConfigInput').value = text;
-    $('#formConfig').hidden = false;
-    formCapacity.value = cfg.people;
-  });
+  $('#cfgSubmit').addEventListener('click', () => { touched = true; summary(); });
   }
 
   // Gallery lightbox
