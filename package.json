@@ -3,5 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "description": "Сайт модульних укриттів МУШЛЯ",
-  "scripts": { "start": "node server.js" }
+  "scripts": {
+    "start": "node server.js",
+    "set-domain": "node scripts/set-domain.js"
+  },
+  "dependencies": {
+    "nodemailer": "^10.0.11"
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }

@@ -1,20 +1,30 @@
-# МУШЛЯ — сайт модульних укриттів
+# Сайт модульних укриттів
 
-Запуск локально (Node 18+, без залежностей):
+## Локально
 
+    npm install
     npm start
 
-Сайт: http://localhost:3030
+Сайт: http://localhost:3030 · заявки зберігаються у `leads.json`.
 
-## Налаштування на хостингу
+## Vercel — заявки в Telegram і на пошту
 
-| Змінна | Навіщо |
+Форма відправляє заявку на `/api/lead` (файл `api/lead.js`).
+Налаштування: **Vercel → Project → Settings → Environment Variables**:
+
+| Змінна | Значення |
 |---|---|
-| `SITE_URL` | адреса сайту, напр. `https://mushlya.com.ua` — для canonical, Open Graph, sitemap |
-| `ADMIN_KEY` | секретний ключ для перегляду заявок |
-| `PORT` | порт (за замовчуванням 3030) |
+| `TELEGRAM_BOT_TOKEN` | токен бота від @BotFather |
+| `TELEGRAM_CHAT_ID` | необовʼязково — якщо не задано, бот пише тому, хто останнім написав йому |
+| `GMAIL_USER` | `sheltermeua@gmail.com` |
+| `GMAIL_APP_PASSWORD` | пароль додатка Google (16 символів) |
+| `LEAD_EMAIL` | необовʼязково — куди слати заявки (за замовчуванням `sheltermeua@gmail.com`) |
 
-Заявки зберігаються у `leads.json`. Переглянути: `/api/leads?key=ВАШ_ADMIN_KEY`.
-Без ключа список заявок недоступний.
+Після додавання змінних зробіть **Redeploy**.
+Якщо жоден канал не налаштований — форма покаже клієнту помилку, а не «прийнято».
 
-SEO: `/robots.txt` і `/sitemap.xml` генеруються автоматично.
+## Новий домен
+
+    npm run set-domain -- https://ваш-домен
+
+Оновлює canonical, Open Graph, `robots.txt` і `sitemap.xml`. Потім закомітьте й запуште.
