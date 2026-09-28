@@ -23,8 +23,12 @@
 Після додавання змінних зробіть **Redeploy**.
 Якщо жоден канал не налаштований — форма покаже клієнту помилку, а не «прийнято».
 
-## Новий домен
+## Сторінки та SEO
 
-    npm run set-domain -- https://ваш-домен
+Сайт: https://www.shelterme.com.ua (адреса й бренд — у `site.config.json`).
 
-Оновлює canonical, Open Graph, `robots.txt` і `sitemap.xml`. Потім закомітьте й запуште.
+- `public/index.html` — головна (UA), верстається вручну; SEO-теги, шапка й підвал оновлюються збіркою між маркерами `<!-- ... :START/END -->`.
+- `scripts/pages.js` — тексти посадкових сторінок (UA/RU), заголовки, описи, FAQ.
+- `npm run build` — генерує сторінки, `sitemap.xml`, `robots.txt`, розмітку Schema.org і версії CSS/JS.
+
+Після будь-яких змін у текстах, стилях чи скриптах: `npm run build`, потім commit і push.

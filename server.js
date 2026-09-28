@@ -24,8 +24,9 @@ const TYPES = {
   '.webp': 'image/webp',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
+  '.webmanifest': 'application/manifest+json; charset=utf-8',
 };
-const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.json', '.txt', '.xml', '.svg']);
+const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.json', '.txt', '.xml', '.svg', '.webmanifest']);
 
 function send(req, res, code, body, ext = '.json', headers = {}) {
   if (COMPRESSIBLE.has(ext) && /\bgzip\b/.test(req.headers['accept-encoding'] || '')) {
@@ -75,7 +76,7 @@ http
       if (!ADMIN_KEY || key !== ADMIN_KEY) return send(req, res, 404, 'Не знайдено', '.txt');
       return send(req, res, 200, fs.existsSync(LEADS) ? fs.readFileSync(LEADS) : '[]');
     }
-    const file = path.normalize(path.join(PUBLIC, url === '/' ? 'index.html' : url));
+    const file = path.normalize(path.join(PUBLIC, url.endsWith('/') ? url + 'index.html' : url));
     if (!file.startsWith(PUBLIC)) return send(req, res, 403, 'Forbidden', '.txt');
     fs.readFile(file, (err, buf) => {
       if (err) return send(req, res, 404, 'Не знайдено', '.txt');

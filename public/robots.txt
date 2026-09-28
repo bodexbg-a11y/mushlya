@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://mushlya-seven.vercel.app/sitemap.xml
+Sitemap: https://www.shelterme.com.ua/sitemap.xml

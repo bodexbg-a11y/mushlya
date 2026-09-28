@@ -2,7 +2,19 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
-  $('#year').textContent = new Date().getFullYear();
+  const RU = document.documentElement.lang === 'ru';
+  const T = RU ? {
+    mods: 'модулей', people: 'людей', extra: 'дополнительно', name: 'Укажите ваше имя',
+    phone: 'Укажите полный номер телефона', consent: 'Нужно согласие на обработку данных',
+    server: 'Ошибка сервера', fail: 'Не удалось отправить. Попробуйте ещё раз или позвоните нам.',
+  } : {
+    mods: 'модулів', people: 'людей', extra: 'додатково', name: "Вкажіть ваше ім'я",
+    phone: 'Вкажіть повний номер телефону', consent: 'Потрібна згода на обробку даних',
+    server: 'Помилка сервера', fail: 'Не вдалося надіслати. Спробуйте ще раз або зателефонуйте.',
+  };
+
+  const year = $('#year');
+  if (year) year.textContent = new Date().getFullYear();
 
   // Header on scroll
   const header = $('.header');
@@ -10,6 +22,7 @@
   const orderSec = $('#order');
   const onScroll = () => {
     header.classList.toggle('is-scrolled', scrollY > 30);
+    if (!fab || !orderSec) return;
     const r = orderSec.getBoundingClientRect();
     fab.classList.toggle('is-hidden', scrollY < 500 || (r.top < innerHeight && r.bottom > 0));
   };
@@ -61,7 +74,8 @@
   });
   setPart('1');
 
-  // Configurator
+  // Configurator (є лише на сторінках з #cfgLen)
+  if ($('#cfgLen')) {
   const SCALE = 36; // px на 1 м — однаковий для довжини, діаметра та людини
   const GROUND = 176;
   const cfg = { diam: 2.5, len: 8, mods: 1, people: 12, opts: [] };
@@ -113,7 +127,7 @@
     $('#cfgSumOpts').textContent = opts;
     lenInput.style.setProperty('--p', ((cfg.len - lenInput.min) / (lenInput.max - lenInput.min)) * 100 + '%');
     drawTube();
-    return `Ø ${fmt(cfg.diam)} м × ${fmt(cfg.len)} м, модулів: ${cfg.mods}, людей: ${cfg.people}, додатково: ${opts}`;
+    return `Ø ${fmt(cfg.diam)} м × ${fmt(cfg.len)} м, ${T.mods}: ${cfg.mods}, ${T.people}: ${cfg.people}, ${T.extra}: ${opts}`;
   };
 
   $$('input[name="cfgDiam"]').forEach((r) => r.addEventListener('change', () => { cfg.diam = +r.value; summary(); }));
@@ -147,19 +161,25 @@
     $('#formConfig').hidden = false;
     formCapacity.value = cfg.people;
   });
+  }
 
   // Gallery lightbox
   const lb = $('#lightbox');
-  const lbImg = $('img', lb);
-  const closeLb = () => { lb.hidden = true; lbImg.src = ''; };
-  $$('.gallery__item').forEach((a) => a.addEventListener('click', (e) => {
-    e.preventDefault();
-    lbImg.src = a.getAttribute('href');
-    lbImg.alt = $('img', a).alt;
-    lb.hidden = false;
-  }));
-  lb.addEventListener('click', (e) => { if (e.target !== lbImg) closeLb(); });
-  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+  if (lb) {
+    const lbImg = $('img', lb);
+    const closeLb = () => { lb.hidden = true; lbImg.src = ''; };
+    $$('.gallery__item').forEach((a) => a.addEventListener('click', (e) => {
+      e.preventDefault();
+      lbImg.src = a.getAttribute('href');
+      lbImg.alt = $('img', a).alt;
+      lb.hidden = false;
+    }));
+    lb.addEventListener('click', (e) => { if (e.target !== lbImg) closeLb(); });
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+  }
+
+  const form = $('#leadForm');
+  if (!form) return;
 
   // Phone mask
   const phone = $('input[name="phone"]');
@@ -178,7 +198,6 @@
   });
 
   // Form
-  const form = $('#leadForm');
   const status = $('#formStatus');
   const success = $('#formSuccess');
 
@@ -197,9 +216,9 @@
     const fd = new FormData(form);
     const nameInput = form.elements.name;
     let ok = true;
-    if (!String(fd.get('name')).trim()) { setError(nameInput, "Вкажіть ваше ім'я"); ok = false; } else setError(nameInput);
-    if (String(fd.get('phone')).replace(/\D/g, '').length < 12) { setError(phone, 'Вкажіть повний номер телефону'); ok = false; } else setError(phone);
-    if (!fd.get('consent')) { status.textContent = 'Потрібна згода на обробку даних'; status.className = 'form__status is-error'; ok = false; }
+    if (!String(fd.get('name')).trim()) { setError(nameInput, T.name); ok = false; } else setError(nameInput);
+    if (String(fd.get('phone')).replace(/\D/g, '').length < 12) { setError(phone, T.phone); ok = false; } else setError(phone);
+    if (!fd.get('consent')) { status.textContent = T.consent; status.className = 'form__status is-error'; ok = false; }
     if (!ok) return;
 
     status.textContent = '';
@@ -209,16 +228,16 @@
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(fd)),
+        body: JSON.stringify({ ...Object.fromEntries(fd), page: location.pathname }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.ok) throw new Error(data.error || 'Помилка сервера');
+      if (!res.ok || !data.ok) throw new Error(data.error || T.server);
       success.hidden = false;
       form.reset();
-      $('#formConfig').hidden = true;
-      $('#formConfigInput').value = '';
+      const cfgBox = $('#formConfig');
+      if (cfgBox) { cfgBox.hidden = true; $('#formConfigInput').value = ''; }
     } catch (err) {
-      status.textContent = err.message || 'Не вдалося надіслати. Спробуйте ще раз або зателефонуйте.';
+      status.textContent = err.message || T.fail;
       status.className = 'form__status is-error';
     } finally {
       form.classList.remove('is-loading');
