@@ -70,7 +70,10 @@ http
   .createServer((req, res) => {
     const [rawPath, query = ''] = req.url.split('?');
     const url = decodeURIComponent(rawPath);
-    if (req.method === 'POST' && url === '/api/lead') return handleLead(req, res);
+    if (req.method === 'POST' && (url === '/api/lead' || url === '/api/lead/')) return handleLead(req, res);
+    if (url === '/api/health' || url === '/api/health/') {
+      return send(req, res, 200, JSON.stringify({ ok: true, channels: require('./lib/leads').channels() }));
+    }
     if (req.method === 'GET' && url === '/api/leads') {
       const key = new URLSearchParams(query).get('key');
       if (!ADMIN_KEY || key !== ADMIN_KEY) return send(req, res, 404, 'Не знайдено', '.txt');
