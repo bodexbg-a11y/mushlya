@@ -551,3 +551,21 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
   .footer__cols { grid-template-columns: 1fr; text-align: left; }
   .hero--page { padding: 110px 0 64px; }
 }
+
+/* ---------- Quick callback ---------- */
+.callback { margin-top: 28px; padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.04); max-width: 560px; }
+.callback__label { font-size: .92rem; color: rgba(238,236,230,.8); margin-bottom: 12px; }
+.callback__row { display: flex; gap: 10px; }
+.callback input { flex: 1; min-width: 0; font: 600 1rem var(--f-body); color: var(--paper); background: var(--ink); border: 1.5px solid var(--steel-2); border-radius: var(--r); padding: 14px 16px; }
+.callback input:focus { outline: none; border-color: var(--signal); box-shadow: 0 0 0 4px rgba(255,176,0,.25); }
+.callback .btn { white-space: nowrap; }
+.callback__msg { font-size: .88rem; margin-top: 8px; min-height: 1.2em; }
+.callback__msg.is-error { color: #ff8a8e; }
+.callback__msg.is-ok { color: var(--signal); font-weight: 700; }
+.callback.is-loading .btn { opacity: .7; pointer-events: none; }
+.callback.is-done .callback__row { display: none; }
+.hero__actions + .callback { margin-top: 24px; }
+@media (max-width: 640px) {
+  .callback__row { flex-direction: column; }
+  .callback .btn { width: 100%; }
+}

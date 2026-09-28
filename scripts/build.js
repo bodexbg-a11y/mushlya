@@ -225,7 +225,7 @@ function landing(p) {
         <a href="#order" class="btn btn--primary">${L.getCalc} <span aria-hidden="true">→</span></a>
         <a href="${p.calcHref}" class="btn btn--ghost">${L.toConfig}</a>
       </div>
-    </div>
+${callback(p.lang)}    </div>
     <div class="hero__visual">
       <figure class="photo photo--hero">
         <img src="/img/${p.image}.webp" alt="${esc(p.imageAlt)}" width="1050" height="1400" fetchpriority="high">
@@ -305,6 +305,20 @@ ${p.faq.map(([q, a], i) => `      <details${i === 0 ? ' open' : ''}>\n        <s
 ${orderForm(p)}
 
 </main>`;
+}
+
+const CB = {"uk": ["Не хочете розбиратися? Залиште номер — передзвонимо й усе розрахуємо", "Передзвоніть мені", "Телефон"], "ru": ["Не хотите разбираться? Оставьте номер — перезвоним и всё рассчитаем", "Перезвоните мне", "Телефон"]};
+function callback(lang) {
+  const [label, btn, aria] = CB[lang];
+  return `      <form class="callback" novalidate>
+        <p class="callback__label">${label}</p>
+        <div class="callback__row">
+          <input type="tel" name="phone" autocomplete="tel" placeholder="+38 (0__) ___-__-__" aria-label="${aria}" required>
+          <button type="submit" class="btn btn--primary">${btn}</button>
+        </div>
+        <p class="callback__msg" role="status" aria-live="polite"></p>
+      </form>
+`;
 }
 
 function configurator(p) {

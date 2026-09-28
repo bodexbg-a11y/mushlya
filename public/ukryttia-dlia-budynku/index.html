@@ -129,7 +129,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=c2838b0a">
+  <link rel="stylesheet" href="/styles.css?v=ecb1858a">
 </head>
 <body>
 
@@ -173,6 +173,14 @@
         <a href="#order" class="btn btn--primary">Отримати розрахунок <span aria-hidden="true">→</span></a>
         <a href="/#config" class="btn btn--ghost">Зібрати в конфігураторі</a>
       </div>
+      <form class="callback" novalidate>
+        <p class="callback__label">Не хочете розбиратися? Залиште номер — передзвонимо й усе розрахуємо</p>
+        <div class="callback__row">
+          <input type="tel" name="phone" autocomplete="tel" placeholder="+38 (0__) ___-__-__" aria-label="Телефон" required>
+          <button type="submit" class="btn btn--primary">Передзвоніть мені</button>
+        </div>
+        <p class="callback__msg" role="status" aria-live="polite"></p>
+      </form>
     </div>
     <div class="hero__visual">
       <figure class="photo photo--hero">
@@ -373,6 +381,6 @@
 
 <a href="#order" class="fab" aria-label="Залишити заявку">Заявка</a>
 
-<script src="/app.js?v=d47c6240"></script>
+<script src="/app.js?v=beff051a"></script>
 </body>
 </html>

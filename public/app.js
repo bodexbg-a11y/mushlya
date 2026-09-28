@@ -7,11 +7,71 @@
     mods: 'модулей', people: 'людей', extra: 'дополнительно', name: 'Укажите ваше имя',
     phone: 'Укажите полный номер телефона', consent: 'Нужно согласие на обработку данных',
     server: 'Ошибка сервера', fail: 'Не удалось отправить. Попробуйте ещё раз или позвоните нам.',
+    cbName: 'Обратный звонок', cbOk: 'Спасибо! Перезвоним в течение рабочего дня.',
   } : {
     mods: 'модулів', people: 'людей', extra: 'додатково', name: "Вкажіть ваше ім'я",
     phone: 'Вкажіть повний номер телефону', consent: 'Потрібна згода на обробку даних',
     server: 'Помилка сервера', fail: 'Не вдалося надіслати. Спробуйте ще раз або зателефонуйте.',
+    cbName: 'Зворотний дзвінок', cbOk: 'Дякуємо! Передзвонимо протягом робочого дня.',
   };
+
+  // Конверсії для реклами: спрацює, якщо на сайті підключені GA4 / Google Ads / Meta Pixel
+  const trackLead = (form) => {
+    try {
+      (window.dataLayer = window.dataLayer || []).push({ event: 'generate_lead', form });
+      if (window.gtag) window.gtag('event', 'generate_lead', { form });
+      if (window.fbq) window.fbq('track', 'Lead', { form });
+    } catch (e) { /* аналітика не повинна ламати форму */ }
+  };
+  const sendLead = async (payload) => {
+    const res = await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...payload, page: location.pathname }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) throw new Error(data.error || T.server);
+  };
+
+  // Маска телефону для всіх полів
+  const maskPhone = (input) => input.addEventListener('input', () => {
+    let d = input.value.replace(/\D/g, '');
+    if (d.startsWith('0')) d = '38' + d;
+    if (d && !d.startsWith('38')) d = '38' + d;
+    d = d.slice(0, 12);
+    const p = d.slice(2);
+    let out = '+38';
+    if (p.length) out += ' (' + p.slice(0, 3);
+    if (p.length >= 3) out += ') ' + p.slice(3, 6);
+    if (p.length >= 6) out += '-' + p.slice(6, 8);
+    if (p.length >= 8) out += '-' + p.slice(8, 10);
+    input.value = d ? out : '';
+  });
+  $$('input[type="tel"]').forEach(maskPhone);
+
+  // Швидка форма «Передзвоніть мені»
+  $$('.callback').forEach((cb) => {
+    const input = $('input[type="tel"]', cb);
+    const msg = $('.callback__msg', cb);
+    cb.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (input.value.replace(/\D/g, '').length < 12) {
+        msg.textContent = T.phone; msg.className = 'callback__msg is-error'; input.focus();
+        return;
+      }
+      cb.classList.add('is-loading');
+      try {
+        await sendLead({ name: T.cbName, phone: input.value, message: T.cbName });
+        trackLead('callback');
+        cb.classList.add('is-done');
+        msg.textContent = T.cbOk; msg.className = 'callback__msg is-ok';
+      } catch (err) {
+        msg.textContent = err.message || T.fail; msg.className = 'callback__msg is-error';
+      } finally {
+        cb.classList.remove('is-loading');
+      }
+    });
+  });
 
   const year = $('#year');
   if (year) year.textContent = new Date().getFullYear();
@@ -181,21 +241,7 @@
   const form = $('#leadForm');
   if (!form) return;
 
-  // Phone mask
-  const phone = $('input[name="phone"]');
-  phone.addEventListener('input', () => {
-    let d = phone.value.replace(/\D/g, '');
-    if (d.startsWith('0')) d = '38' + d;
-    if (d && !d.startsWith('38')) d = '38' + d;
-    d = d.slice(0, 12);
-    const p = d.slice(2);
-    let out = '+38';
-    if (p.length) out += ' (' + p.slice(0, 3);
-    if (p.length >= 3) out += ') ' + p.slice(3, 6);
-    if (p.length >= 6) out += '-' + p.slice(6, 8);
-    if (p.length >= 8) out += '-' + p.slice(8, 10);
-    phone.value = d ? out : '';
-  });
+  const phone = form.elements.phone;
 
   // Form
   const status = $('#formStatus');
@@ -225,13 +271,8 @@
     status.className = 'form__status';
     form.classList.add('is-loading');
     try {
-      const res = await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...Object.fromEntries(fd), page: location.pathname }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.ok) throw new Error(data.error || T.server);
+      await sendLead(Object.fromEntries(fd));
+      trackLead('main');
       success.hidden = false;
       form.reset();
       const cfgBox = $('#formConfig');
