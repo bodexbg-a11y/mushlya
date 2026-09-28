@@ -105,6 +105,8 @@ function organization() {
     url: abs('/'),
     logo: abs('/apple-touch-icon.png'),
     email: EMAIL,
+    telephone: '+380771138924',
+    contactPoint: { '@type': 'ContactPoint', telephone: '+380771138924', contactType: 'sales', areaServed: 'UA', availableLanguage: ['uk', 'ru'] },
     address: { '@type': 'PostalAddress', addressLocality: 'Південноукраїнськ', addressRegion: 'Миколаївська область', addressCountry: 'UA' },
     areaServed: { '@type': 'Country', name: 'Україна' },
   };
@@ -164,7 +166,7 @@ function header(p) {
 ${nav}${lang}
     </nav>
     <div class="header__cta">
-      <a href="tel:+380000000000" class="header__phone">+38 (000) 000-00-00</a>
+      <a href="tel:+380771138924" class="header__phone">+38 (077) 113-89-24</a>
       <a href="${p.calcHref}" class="btn btn--primary btn--sm">${t.calc}</a>
     </div>
     <button class="burger" id="burger" aria-label="${t.menu}" aria-expanded="false"><span></span><span></span></button>
@@ -199,7 +201,7 @@ function footer(p) {
       <div>
         <p class="footer__h">${BRAND}</p>
         <p>${t.office}<br>${t.delivery}</p>
-        <p><a href="tel:+380000000000">+38 (000) 000-00-00</a><br><a href="mailto:${EMAIL}">${EMAIL}</a></p>
+        <p><a href="tel:+380771138924">+38 (077) 113-89-24</a><br><a href="mailto:${EMAIL}">${EMAIL}</a></p>
       </div>
     </div>
     <p class="footer__copy">© <span id="year"></span> ${BRAND}. ${t.rights}</p>
@@ -404,7 +406,7 @@ function orderForm(p) {
       <h2 class="section__title">${F.title}</h2>
       <p class="section__lead">${F.lead}</p>
       <ul class="contacts">
-        <li><span class="mono">${F.phone}</span><a href="tel:+380000000000">+38 (000) 000-00-00</a></li>
+        <li><span class="mono">${F.phone}</span><a href="tel:+380771138924">+38 (077) 113-89-24</a></li>
         <li><span class="mono">Email</span><a href="mailto:${EMAIL}">${EMAIL}</a></li>
         <li><span class="mono">${F.hours}</span><b>${F.hoursVal}</b></li>
         <li><span class="mono">${F.office}</span><b>${UI[p.lang].office}</b></li>
