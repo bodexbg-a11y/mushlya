@@ -213,11 +213,12 @@
   </script>
   
 <!-- SEO:END -->
-  <link rel="preload" as="image" href="/img/hero-render.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="/img/hero-render.webp" imagesrcset="/img/hero-render-600.webp 600w, /img/hero-render.webp 1086w" imagesizes="(max-width: 1080px) 92vw, 540px" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=b47288bd">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"></noscript>
+  <link rel="stylesheet" href="/styles.css?v=6a8f9c0a">
 </head>
 <body>
 
@@ -257,21 +258,21 @@
   <div class="hero__ribs" aria-hidden="true"></div>
   <div class="container hero__grid">
     <div class="hero__content">
-      <h1 class="hero__title reveal">
+      <h1 class="hero__title">
         <span class="hero__kicker">Модульні укриття та бомбосховища</span>
         Укриття,<br>
         яке <em>стоїть</em><br>
         між вами<br>
         і&nbsp;війною
       </h1>
-      <p class="hero__lead reveal">
+      <p class="hero__lead">
         Модульні укриття ShelterMe — швидкоспоруджувані захисні споруди з цільним поліетиленовим корпусом без стиків. Виготовлення та доставка готовим модулем по Україні: укриття для школи, дитячого садка, приватного будинку чи підприємства.
       </p>
-      <div class="hero__actions reveal">
+      <div class="hero__actions">
         <a href="#config" class="btn btn--primary">Зібрати укриття <span aria-hidden="true">→</span></a>
         <a href="#construction" class="btn btn--ghost">Як це влаштовано</a>
       </div>
-      <form class="callback reveal" novalidate>
+      <form class="callback" novalidate>
         <p class="callback__label">Не хочете розбиратися? Залиште номер — передзвонимо й усе розрахуємо</p>
         <div class="callback__row">
           <input type="tel" name="phone" autocomplete="tel" placeholder="+38 (0__) ___-__-__" aria-label="Телефон" required>
@@ -286,9 +287,9 @@
       </dl>
     </div>
 
-    <div class="hero__visual reveal">
+    <div class="hero__visual">
       <figure class="photo photo--hero photo--render">
-        <img src="/img/hero-render.webp" alt="Модульне укриття ShelterMe у розрізі: вхід через люк, засипка ґрунтом, двоярусні місця всередині" width="1086" height="1448" fetchpriority="high">
+        <img src="/img/hero-render.webp" srcset="/img/hero-render-600.webp 600w, /img/hero-render.webp 1086w" sizes="(max-width: 1080px) 92vw, 540px" alt="Модульне укриття ShelterMe у розрізі: вхід через люк, засипка ґрунтом, двоярусні місця всередині" width="1086" height="1448" fetchpriority="high">
         <figcaption>Візуалізація: укриття у дворі приватного будинку</figcaption>
       </figure>
     </div>
@@ -508,12 +509,12 @@
       <p class="section__lead">Модулі на виробництві та всередині — без візуалізацій.</p>
     </div>
     <div class="gallery__grid">
-      <a class="gallery__item" href="/img/interior-3.webp"><img src="/img/interior-3.webp" alt="Інтер'єр модуля: двоярусні місця та прохід" width="1500" height="2000" loading="lazy"><span>Інтер'єр модуля: двоярусні місця та прохід</span></a>
-      <a class="gallery__item" href="/img/modules-outdoor.webp"><img src="/img/modules-outdoor.webp" alt="Два модулі на опорах перед відвантаженням" width="1500" height="1125" loading="lazy"><span>Два модулі на опорах перед відвантаженням</span></a>
-      <a class="gallery__item" href="/img/entrance.webp"><img src="/img/entrance.webp" alt="Тамбур: сходи до шахти та двері в приміщення" width="1200" height="1600" loading="lazy"><span>Тамбур: сходи до шахти та двері в приміщення</span></a>
-      <a class="gallery__item" href="/img/wall.webp"><img src="/img/wall.webp" alt="Товщина стінки та вертикальна шахта" width="1600" height="1200" loading="lazy"><span>Товщина стінки та вертикальна шахта</span></a>
-      <a class="gallery__item" href="/img/interior-2.webp"><img src="/img/interior-2.webp" alt="Освітлення, розетки, місця для сидіння" width="960" height="1280" loading="lazy"><span>Освітлення, розетки, місця для сидіння</span></a>
-      <a class="gallery__item" href="/img/exterior.webp"><img src="/img/exterior.webp" alt="Модуль у цеху" width="1280" height="960" loading="lazy"><span>Модуль у цеху</span></a>
+      <a class="gallery__item" href="/img/interior-3.webp"><img src="/img/interior-3.webp" alt="Фото інтерʼєру модульного укриття ShelterMe з двоярусними місцями вздовж стін" width="1500" height="2000" loading="lazy"><span>Інтер'єр модуля: двоярусні місця та прохід</span></a>
+      <a class="gallery__item" href="/img/modules-outdoor.webp"><img src="/img/modules-outdoor.webp" alt="Фото двох поліетиленових модулів укриття на опорах на майданчику" width="1500" height="1125" loading="lazy"><span>Два модулі на опорах перед відвантаженням</span></a>
+      <a class="gallery__item" href="/img/entrance.webp"><img src="/img/entrance.webp" alt="Фото тамбура укриття зі сходами до вертикальної шахти" width="1200" height="1600" loading="lazy"><span>Тамбур: сходи до шахти та двері в приміщення</span></a>
+      <a class="gallery__item" href="/img/wall.webp"><img src="/img/wall.webp" alt="Фото зрізу товстої стінки модуля і гофрованої вертикальної шахти" width="1600" height="1200" loading="lazy"><span>Товщина стінки та вертикальна шахта</span></a>
+      <a class="gallery__item" href="/img/interior-2.webp"><img src="/img/interior-2.webp" alt="Фото освітлення та місць для сидіння всередині укриття" width="960" height="1280" loading="lazy"><span>Освітлення, розетки, місця для сидіння</span></a>
+      <a class="gallery__item" href="/img/exterior.webp"><img src="/img/exterior.webp" alt="Фото готового модуля укриття у виробничому цеху" width="1280" height="960" loading="lazy"><span>Модуль у цеху</span></a>
     </div>
   </div>
 </section>
