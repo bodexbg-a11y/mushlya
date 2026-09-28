@@ -49,6 +49,7 @@ function handleLead(req, res) {
       capacity: String(data.capacity || '').slice(0, 20),
       region: String(data.region || '').slice(0, 100),
       message: String(data.message || '').slice(0, 2000),
+      config: String(data.config || '').slice(0, 500),
     };
     let leads = [];
     try {
