@@ -23,6 +23,8 @@ const UI = {
     calc: 'Розрахувати',
     lead: 'Залишити заявку',
     fab: 'Заявка',
+    call: 'Подзвонити',
+    messengers: 'Месенджери',
     langLabel: 'Русский',
     langShort: 'RU',
     footerFor: 'Укриття для',
@@ -39,6 +41,8 @@ const UI = {
     calc: 'Рассчитать',
     lead: 'Оставить заявку',
     fab: 'Заявка',
+    call: 'Позвонить',
+    messengers: 'Мессенджеры',
     langLabel: 'Українська',
     langShort: 'UA',
     footerFor: 'Укрытие для',
@@ -49,6 +53,35 @@ const UI = {
   },
 };
 const EMAIL = 'sheltermeua@gmail.com';
+const PHONE = '380771138924';
+const PHONE_TXT = '+38 (077) 113-89-24';
+const MSG = {
+  uk: 'Добрий день! Цікавить модульне укриття ShelterMe.',
+  ru: 'Здравствуйте! Интересует модульное укрытие ShelterMe.',
+};
+const ICONS = {
+  telegram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1l-4.8-1.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>',
+  viber: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.9 2 3 5.4 3 10.3c0 2.7 1.2 5 3.2 6.6V21l3.5-2.1c.7.1 1.5.2 2.3.2 5.1 0 9-3.4 9-8.3S17.1 2 12 2zm4.6 11.6c-.2.6-1.1 1.1-1.6 1.2-.4.1-1 .1-1.6-.1-3-1-5-4-5.1-4.2-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.1 1.4z"/></svg>',
+  whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.8 14.2c-.2.7-1.4 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.8-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.8-.2 1.5z"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>',
+};
+const messengers = (lang) => [
+  ['telegram', 'Telegram', `https://t.me/+${PHONE}`],
+  ['viber', 'Viber', `viber://chat?number=%2B${PHONE}`],
+  ['whatsapp', 'WhatsApp', `https://wa.me/${PHONE}?text=${encodeURIComponent(MSG[lang])}`],
+];
+const msgLinks = (lang, cls) => messengers(lang)
+  .map(([k, label, href]) => `<a class="${cls} ${cls}--${k}" href="${href}" target="_blank" rel="noopener" data-contact="${k}" aria-label="${label}">${ICONS[k]}<span>${label}</span></a>`)
+  .join('');
+
+function dock(p) {
+  const t = UI[p.lang];
+  return `<div class="dock" id="dock">
+  <a class="dock__call" href="tel:+${PHONE}" data-contact="phone">${ICONS.phone}<span>${t.call}</span></a>
+  <div class="dock__msg">${msgLinks(p.lang, 'mbtn')}</div>
+  <a class="dock__lead" href="#order">${t.fab}</a>
+</div>`;
+}
 
 const logoSvg = `<svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
         <path d="M6 32V20a14 14 0 0 1 28 0v12" />
@@ -206,7 +239,9 @@ function footer(p) {
     </div>
     <p class="footer__copy">© <span id="year"></span> ${BRAND}. ${t.rights}</p>
   </div>
-</footer>`;
+</footer>
+
+${dock(p)}`;
 }
 
 // ---------------- landing page body ----------------
@@ -406,7 +441,8 @@ function orderForm(p) {
       <h2 class="section__title">${F.title}</h2>
       <p class="section__lead">${F.lead}</p>
       <ul class="contacts">
-        <li><span class="mono">${F.phone}</span><a href="tel:+380771138924">+38 (077) 113-89-24</a></li>
+        <li><span class="mono">${F.phone}</span><a href="tel:+${PHONE}" data-contact="phone">${PHONE_TXT}</a></li>
+        <li><span class="mono">${UI[p.lang].messengers}</span><div class="contacts__msg">${msgLinks(p.lang, 'mbtn')}</div></li>
         <li><span class="mono">Email</span><a href="mailto:${EMAIL}">${EMAIL}</a></li>
         <li><span class="mono">${F.hours}</span><b>${F.hoursVal}</b></li>
         <li><span class="mono">${F.office}</span><b>${UI[p.lang].office}</b></li>
@@ -472,8 +508,6 @@ ${landing(p)}
 
 ${footer(p)}
 
-<a href="#order" class="fab" aria-label="${t.lead}">${t.fab}</a>
-
 <script src="/app.js"></script>
 </body>
 </html>
@@ -500,6 +534,7 @@ for (const p of pages.all) {
     html = between(html, '<!-- SEO:START -->', '<!-- SEO:END -->', '  ' + head(p) + '\n  ');
     html = between(html, '<!-- HEADER:START -->', '<!-- HEADER:END -->', header(p));
     html = between(html, '<!-- FOOTER:START -->', '<!-- FOOTER:END -->', footer(p));
+    html = between(html, '<!-- MSG:START -->', '<!-- MSG:END -->', `        <li><span class="mono">${UI[p.lang].messengers}</span><div class="contacts__msg">${msgLinks(p.lang, 'mbtn')}</div></li>`);
     fs.writeFileSync(file, html);
   } else {
     const dir = path.join(PUB, p.path);

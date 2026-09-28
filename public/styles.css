@@ -569,3 +569,35 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
   .callback__row { flex-direction: column; }
   .callback .btn { width: 100%; }
 }
+
+/* ---------- Messengers + contact dock ---------- */
+.mbtn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 700; font-size: .9rem; color: #fff; border-radius: 100px; padding: 9px 14px 9px 10px; transition: transform .2s var(--ease), filter .2s; }
+.mbtn svg { width: 20px; height: 20px; flex: none; }
+.mbtn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.mbtn--telegram { background: #229ed9; }
+.mbtn--viber { background: #7360f2; }
+.mbtn--whatsapp { background: #1fa855; }
+.contacts__msg { display: flex; flex-wrap: wrap; gap: 8px; }
+.contacts li:has(.contacts__msg) { align-items: center; }
+
+.fab { display: none !important; }
+.dock { position: fixed; right: 20px; bottom: 20px; z-index: 40; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; transition: transform .3s var(--ease), opacity .3s; }
+.dock.is-hidden { transform: translateY(20px); opacity: 0; pointer-events: none; }
+.dock__call { display: none; }
+.dock__msg { display: flex; flex-direction: column; gap: 10px; }
+.dock__msg .mbtn { width: 52px; height: 52px; padding: 0; justify-content: center; box-shadow: 0 10px 24px -8px rgba(0,0,0,.5); }
+.dock__msg .mbtn svg { width: 26px; height: 26px; }
+.dock__msg .mbtn span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.dock__lead { display: none; }
+@media (max-width: 640px) {
+  .dock { left: 0; right: 0; bottom: 0; flex-direction: row; align-items: stretch; gap: 6px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); background: rgba(17,19,22,.94); backdrop-filter: blur(12px); border-top: 1px solid var(--line); }
+  .dock.is-hidden { transform: translateY(100%); opacity: 1; }
+  .dock__call, .dock__lead { display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex: 1; border-radius: 10px; font-weight: 800; font-size: .9rem; text-decoration: none; min-height: 46px; }
+  .dock__call { background: var(--steel-2); color: var(--paper); }
+  .dock__call svg { width: 18px; height: 18px; }
+  .dock__lead { background: var(--signal); color: var(--ink); }
+  .dock__msg { flex-direction: row; gap: 6px; }
+  .dock__msg .mbtn { width: 46px; height: 46px; border-radius: 10px; box-shadow: none; }
+  .dock__msg .mbtn svg { width: 22px; height: 22px; }
+  body { padding-bottom: 70px; }
+}

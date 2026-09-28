@@ -49,6 +49,15 @@
   });
   $$('input[type="tel"]').forEach(maskPhone);
 
+  // Кліки по телефону й месенджерах — теж звернення для реклами
+  $$('[data-contact]').forEach((a) => a.addEventListener('click', () => {
+    try {
+      (window.dataLayer = window.dataLayer || []).push({ event: 'contact', method: a.dataset.contact });
+      if (window.gtag) window.gtag('event', 'contact', { method: a.dataset.contact });
+      if (window.fbq) window.fbq('track', 'Contact', { method: a.dataset.contact });
+    } catch (e) { /* ignore */ }
+  }));
+
   // Швидка форма «Передзвоніть мені»
   $$('.callback').forEach((cb) => {
     const input = $('input[type="tel"]', cb);
@@ -78,13 +87,13 @@
 
   // Header on scroll
   const header = $('.header');
-  const fab = $('.fab');
+  const fab = $('#dock');
   const orderSec = $('#order');
   const onScroll = () => {
     header.classList.toggle('is-scrolled', scrollY > 30);
     if (!fab || !orderSec) return;
     const r = orderSec.getBoundingClientRect();
-    fab.classList.toggle('is-hidden', scrollY < 500 || (r.top < innerHeight && r.bottom > 0));
+    fab.classList.toggle('is-hidden', r.top < innerHeight * 0.6 && r.bottom > 0);
   };
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
