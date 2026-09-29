@@ -649,3 +649,22 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
   .logo__house { width: 24px; height: 24px; }
   .logo__word { font-size: .95rem; }
 }
+
+/* ---------- FAQ illustration ---------- */
+.faq-aside { margin-top: 32px; max-width: 380px; }
+.faq-aside__art { width: 100%; height: auto; display: block; border-radius: 18px; box-shadow: 0 24px 50px -24px rgba(0,0,0,.45); }
+.faq-aside__bg { fill: var(--ink); }
+.faq-aside__arch { fill: none; stroke: var(--signal); stroke-width: 6; stroke-linecap: round; }
+.faq-aside__arch--thin { stroke-width: 2; stroke-dasharray: 6 6; opacity: .55; }
+.faq-aside__ground { stroke: #8a6d3b; stroke-width: 2; stroke-dasharray: 8 6; }
+.faq-aside__q { font: 900 118px var(--f-display); fill: var(--signal); }
+.faq-aside__s { font: 800 14px var(--f-mono); letter-spacing: .2em; fill: rgba(238,236,230,.55); }
+.faq-aside__t { font: 800 1.15rem var(--f-display); text-transform: uppercase; margin-top: 22px; }
+.faq-aside__d { color: var(--muted); margin-top: 8px; font-size: .95rem; }
+.faq-aside__btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.faq-aside__btns .btn--sm { padding: 11px 18px; }
+@media (max-width: 1080px) { .faq-aside { max-width: 460px; } }
+/* Приклад ціни в конфігураторі */
+.cfg__price { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 14px; padding: 14px 16px; border-radius: 8px; background: rgba(255,176,0,.1); border: 1px solid rgba(255,176,0,.35); }
+.cfg__price span { font-size: .8rem; color: rgba(238,236,230,.7); }
+.cfg__price b { font: 800 1.05rem var(--f-display); color: var(--signal); }

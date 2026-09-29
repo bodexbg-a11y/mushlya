@@ -336,6 +336,7 @@ ${p.configurator ? configurator(p) : ''}
   <div class="container faq">
     <div class="section__head">
       <h2 class="section__title">${L.faqTitle}</h2>
+${faqAside(p.lang)}
     </div>
     <div class="faq__list">
 ${p.faq.map(([q, a], i) => `      <details${i === 0 ? ' open' : ''}>\n        <summary>${q}</summary>\n        <p>${a}</p>\n      </details>`).join('\n')}
@@ -386,6 +387,31 @@ function ukraineMap(lang) {
         </figcaption>
         <!-- Map data: @svg-maps/ukraine by Olesia Ladanai, CC BY 4.0 -->
       </figure>`;
+}
+
+// Ілюстрація біля «Часті запитання» + швидкий контакт
+const FAQ_ASIDE = {
+  uk: { t: 'Не знайшли відповіді?', d: 'Напишіть або зателефонуйте — відповімо на будь-яке питання про укриття.', call: 'Подзвонити' },
+  ru: { t: 'Не нашли ответа?', d: 'Напишите или позвоните — ответим на любой вопрос об укрытии.', call: 'Позвонить' },
+};
+function faqAside(lang) {
+  const t = FAQ_ASIDE[lang];
+  return `      <div class="faq-aside">
+        <svg class="faq-aside__art" viewBox="0 0 320 220" aria-hidden="true">
+          <rect width="320" height="220" rx="18" class="faq-aside__bg"/>
+          <path d="M40 196V120a120 120 0 0 1 240 0v76" class="faq-aside__arch"/>
+          <path d="M62 196V122a98 98 0 0 1 196 0v74" class="faq-aside__arch faq-aside__arch--thin"/>
+          <line x1="24" y1="196" x2="296" y2="196" class="faq-aside__ground"/>
+          <text x="160" y="170" text-anchor="middle" class="faq-aside__q">?</text>
+          <text x="78" y="92" class="faq-aside__s">FAQ</text>
+        </svg>
+        <p class="faq-aside__t">${t.t}</p>
+        <p class="faq-aside__d">${t.d}</p>
+        <div class="faq-aside__btns">
+          <a class="btn btn--primary btn--sm" href="tel:+${PHONE}" data-contact="phone">${t.call}</a>
+          ${msgLinks(lang, 'mbtn').split('</a>')[0]}</a>
+        </div>
+      </div>`;
 }
 
 function configurator(p) {
@@ -453,6 +479,7 @@ ${C.opts.map((o) => `            <label><input type="checkbox" value="${o.toLowe
           <div><dt>${C.sumPeople}</dt><dd id="cfgSumPeople">12</dd></div>
           <div><dt>${C.extra}</dt><dd id="cfgSumOpts">—</dd></div>
         </dl>
+        <div class="cfg__price"><span>${C.priceExample}</span><b>${C.priceText}</b></div>
         <a href="#leadForm" class="btn btn--primary btn--block btn--lg" id="cfgSubmit">${C.submit} <span aria-hidden="true">→</span></a>
         <p class="cfg__note">${C.note}</p>
       </div>
@@ -566,6 +593,7 @@ for (const p of pages.all) {
     html = between(html, '<!-- HEADER:START -->', '<!-- HEADER:END -->', header(p));
     html = between(html, '<!-- FOOTER:START -->', '<!-- FOOTER:END -->', footer(p));
     html = between(html, '<!-- MAP:START -->', '<!-- MAP:END -->', '      ' + ukraineMap(p.lang));
+    html = between(html, '<!-- FAQASIDE:START -->', '<!-- FAQASIDE:END -->', faqAside(p.lang));
     html = between(html, '<!-- MSG:START -->', '<!-- MSG:END -->', `        <li><span class="mono">${UI[p.lang].messengers}</span><div class="contacts__msg">${msgLinks(p.lang, 'mbtn')}</div></li>`);
     fs.writeFileSync(file, html);
   } else {
