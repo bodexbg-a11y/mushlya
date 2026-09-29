@@ -197,7 +197,7 @@ function header(p) {
   return `<header class="header" id="top">
   <div class="container header__inner">
     <a href="${home}" class="logo" aria-label="${BRAND} — ${t.toHome}">
-      <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="148" height="48">
+      <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="154" height="48">
     </a>
     <nav class="nav" id="nav">
 ${nav}${lang}
@@ -220,7 +220,7 @@ function footer(p) {
   <div class="container">
     <div class="footer__inner">
       <a href="${home}" class="logo">
-        <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="148" height="48" loading="lazy">
+        <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="154" height="48" loading="lazy">
       </a>
       <a href="#order" class="btn btn--primary btn--sm">${t.lead}</a>
     </div>
@@ -580,8 +580,19 @@ const crypto = require('crypto');
 const ver = (f) => crypto.createHash('md5').update(fs.readFileSync(path.join(PUB, f))).digest('hex').slice(0, 8);
 const V = { css: ver('styles.css'), js: ver('app.js') };
 const htmlFiles = pages.all.map((p) => path.join(PUB, p.path, 'index.html'));
+const imgVer = {};
+const withVer = (url) => {
+  const clean = url.split('?')[0];
+  const file = path.join(PUB, clean);
+  if (!fs.existsSync(file)) return url;
+  if (!imgVer[clean]) imgVer[clean] = crypto.createHash('md5').update(fs.readFileSync(file)).digest('hex').slice(0, 8);
+  return `${clean}?v=${imgVer[clean]}`;
+};
 for (const f of htmlFiles) {
   const html = fs.readFileSync(f, 'utf8')
+    .replace(/(src|href)="(\/img\/[^"?]+)(\?v=\w+)?"/g, (m, attr, url) => `${attr}="${withVer(url)}"`)
+    .replace(/(srcset|imagesrcset)="([^"]+)"/g, (m, attr, list) =>
+      `${attr}="${list.replace(/(\/img\/[^\s?,]+)(\?v=\w+)?/g, (u, url) => withVer(url))}"`)
     .replace(/href="\/styles\.css(\?v=\w+)?"/, `href="/styles.css?v=${V.css}"`)
     .replace(/src="\/app\.js(\?v=\w+)?"/, `src="/app.js?v=${V.js}"`);
   fs.writeFileSync(f, html);
