@@ -32,3 +32,7 @@
 - `npm run build` — генерує сторінки, `sitemap.xml`, `robots.txt`, розмітку Schema.org і версії CSS/JS.
 
 Після будь-яких змін у текстах, стилях чи скриптах: `npm run build`, потім commit і push.
+
+## Ліцензії
+
+Карта України: [@svg-maps/ukraine](https://github.com/VictorCazanave/svg-maps/tree/master/packages/ukraine), автор Olesia Ladanai, CC BY 4.0 (контури спрощено, назви областей українською).

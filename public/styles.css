@@ -606,3 +606,32 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .photo--render { aspect-ratio: 1086 / 1448; clip-path: none; box-shadow: 0 40px 80px -30px rgba(0,0,0,.7); }
 .photo--render::before { display: none; }
 .photo--render:hover img { transform: none; }
+
+/* ---------- Ukraine map ---------- */
+.ua-map { margin: 36px 0 0; }
+.ua-map svg { width: 100%; height: auto; display: block; overflow: visible; }
+.ua-map__r { fill: #dcd8cd; stroke: #f6f4ee; stroke-width: 1.4; stroke-linejoin: round; transition: fill .25s; }
+.ua-map__r:hover { fill: #c9c3b4; }
+.ua-map__r.is-home { fill: var(--signal); }
+.ua-map__r.is-home:hover { fill: var(--signal-2); }
+.ua-map__pin circle { fill: var(--ink); }
+.ua-map__pin .ua-map__dot { fill: var(--signal); }
+.ua-map__pin .ua-map__pulse { fill: rgba(17,19,22,.18); transform-box: fill-box; transform-origin: center; animation: pin 2.4s ease-out infinite; }
+@keyframes pin { from { transform: scale(.4); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+.ua-map figcaption { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 14px; font-size: .85rem; color: var(--muted); }
+.ua-map__legend { display: inline-flex; align-items: center; gap: 8px; }
+.ua-map__legend::before { content: ""; width: 12px; height: 12px; border-radius: 3px; background: #dcd8cd; }
+.ua-map__legend--home::before { background: var(--signal); }
+.section--dark .ua-map__r { fill: #2a2e35; stroke: var(--ink); }
+.section--dark .ua-map__r:hover { fill: #363b43; }
+.section--dark .ua-map__r.is-home { fill: var(--signal); }
+.section--dark .ua-map__pin circle:not(.ua-map__dot):not(.ua-map__pulse) { fill: var(--paper); }
+.section--dark .ua-map__pin .ua-map__pulse { fill: rgba(255,255,255,.2); }
+.section--dark .ua-map figcaption { color: rgba(238,236,230,.7); }
+.section--dark .ua-map__legend::before { background: #2a2e35; }
+.section--dark .ua-map__legend--home::before { background: var(--signal); }
+@media (max-width: 1080px) { .ua-map { max-width: 560px; } }
+
+/* ---------- Card icons ---------- */
+.card__num.card__icon { width: 52px; height: 52px; }
+.card__icon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }

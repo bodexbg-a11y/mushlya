@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const pages = require('./pages');
+const MAP = require('./ukraine-map.json');
 
 const root = path.join(__dirname, '..');
 const PUB = path.join(root, 'public');
@@ -287,6 +288,7 @@ ${p.benefits.map(([h, t], i) => `      <article class="benefit"><span class="ben
   <div class="container seo__grid">
     <div class="section__head">
       <h2 class="section__title">${p.textTitle}</h2>
+      ${p.map ? ukraineMap(p.lang) : ''}
     </div>
     <div class="prose">
 ${p.text.map((x) => (x.startsWith('<') ? `      ${x}` : `      <p>${x}</p>`)).join('\n')}
@@ -357,6 +359,32 @@ function callback(lang) {
         <p class="callback__msg" role="status" aria-live="polite"></p>
       </form>
 `;
+}
+
+// Карта України за областями (дані: @svg-maps/ukraine, CC BY 4.0)
+const MAP_TXT = {
+  uk: { office: 'Офіс — Південноукраїнськ', delivery: 'Доставка по всій Україні', aria: 'Карта України: доставка модульних укриттів у всі області' },
+  ru: { office: 'Офис — Южноукраинск', delivery: 'Доставка по всей Украине', aria: 'Карта Украины: доставка модульных укрытий во все области' },
+};
+function ukraineMap(lang) {
+  const t = MAP_TXT[lang];
+  // Південноукраїнськ: 47.82° пн. ш., 31.17° сх. д. — у межах Миколаївської області
+  const [x1, y1, x2, y2] = MAP.boxes.mykolaiv;
+  const px = Math.round(x1 + ((31.17 - 30.25) / 3.0) * (x2 - x1));
+  const py = Math.round(y1 + ((48.3 - 47.82) / 1.9) * (y2 - y1));
+  const regions = MAP.regions
+    .map((r) => `<path class="ua-map__r${r.id === 'mykolaiv' ? ' is-home' : ''}" d="${r.d}"><title>${r.name}${r.id === 'kyiv-city' || r.id === 'crimea' ? '' : ' область'}</title></path>`)
+    .join('');
+  return `<figure class="ua-map">
+        <svg viewBox="0 0 1000 670" role="img" aria-label="${t.aria}">${regions}
+          <g class="ua-map__pin" transform="translate(${px} ${py})"><circle r="22" class="ua-map__pulse"/><circle r="9"/><circle r="3.5" class="ua-map__dot"/></g>
+        </svg>
+        <figcaption>
+          <span class="ua-map__legend ua-map__legend--home">${t.office}</span>
+          <span class="ua-map__legend">${t.delivery}</span>
+        </figcaption>
+        <!-- Map data: @svg-maps/ukraine by Olesia Ladanai, CC BY 4.0 -->
+      </figure>`;
 }
 
 function configurator(p) {
@@ -536,6 +564,7 @@ for (const p of pages.all) {
     html = between(html, '<!-- SEO:START -->', '<!-- SEO:END -->', '  ' + head(p) + '\n  ');
     html = between(html, '<!-- HEADER:START -->', '<!-- HEADER:END -->', header(p));
     html = between(html, '<!-- FOOTER:START -->', '<!-- FOOTER:END -->', footer(p));
+    html = between(html, '<!-- MAP:START -->', '<!-- MAP:END -->', '      ' + ukraineMap(p.lang));
     html = between(html, '<!-- MSG:START -->', '<!-- MSG:END -->', `        <li><span class="mono">${UI[p.lang].messengers}</span><div class="contacts__msg">${msgLinks(p.lang, 'mbtn')}</div></li>`);
     fs.writeFileSync(file, html);
   } else {
