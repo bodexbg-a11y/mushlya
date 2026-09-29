@@ -197,7 +197,7 @@ function header(p) {
   return `<header class="header" id="top">
   <div class="container header__inner">
     <a href="${home}" class="logo" aria-label="${BRAND} — ${t.toHome}">
-      <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="154" height="48">
+      <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="264" height="48">
     </a>
     <nav class="nav" id="nav">
 ${nav}${lang}
@@ -220,7 +220,7 @@ function footer(p) {
   <div class="container">
     <div class="footer__inner">
       <a href="${home}" class="logo">
-        <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="154" height="48" loading="lazy">
+        <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="264" height="48" loading="lazy">
       </a>
       <a href="#order" class="btn btn--primary btn--sm">${t.lead}</a>
     </div>
