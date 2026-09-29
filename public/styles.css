@@ -636,7 +636,16 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .card__num.card__icon { width: 52px; height: 52px; }
 .card__icon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ---------- Logo image ---------- */
-.logo__img { display: block; height: 40px; width: auto; }
-.footer .logo__img { height: 44px; }
-@media (max-width: 640px) { .logo__img { height: 34px; } }
+
+/* ---------- Logo: вектор + текст ---------- */
+.logo { gap: 10px; color: var(--signal); }
+.logo__house { width: 26px; height: 26px; flex: none; fill: currentColor; }
+.logo__word { font: 900 1.05rem/1 var(--f-display); letter-spacing: .03em; color: currentColor; white-space: nowrap; }
+.logo__word b { font-weight: 900; margin-left: .32em; }
+.footer { --logo-bg: #0a0b0d; }
+.footer .logo__house { width: 30px; height: 30px; }
+.footer .logo__word { font-size: 1.2rem; }
+@media (max-width: 640px) {
+  .logo__house { width: 24px; height: 24px; }
+  .logo__word { font-size: .95rem; }
+}

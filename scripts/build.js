@@ -197,7 +197,7 @@ function header(p) {
   return `<header class="header" id="top">
   <div class="container header__inner">
     <a href="${home}" class="logo" aria-label="${BRAND} — ${t.toHome}">
-      <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="264" height="48">
+      <svg class="logo__house" viewBox="0 0 100 100" aria-hidden="true"><path d="M8 94V40L50 6l42 34v54z"/><path d="M24 94V48L50 27l26 21v46" fill="none" stroke="var(--logo-bg, #111316)" stroke-width="9" stroke-linejoin="round"/><rect x="42" y="62" width="16" height="32" fill="var(--logo-bg, #111316)"/></svg><span class="logo__word">SHELTER<b>ME</b></span>
     </a>
     <nav class="nav" id="nav">
 ${nav}${lang}
@@ -220,7 +220,7 @@ function footer(p) {
   <div class="container">
     <div class="footer__inner">
       <a href="${home}" class="logo">
-        <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="264" height="48" loading="lazy">
+        <svg class="logo__house" viewBox="0 0 100 100" aria-hidden="true"><path d="M8 94V40L50 6l42 34v54z"/><path d="M24 94V48L50 27l26 21v46" fill="none" stroke="var(--logo-bg, #111316)" stroke-width="9" stroke-linejoin="round"/><rect x="42" y="62" width="16" height="32" fill="var(--logo-bg, #111316)"/></svg><span class="logo__word">SHELTER<b>ME</b></span>
       </a>
       <a href="#order" class="btn btn--primary btn--sm">${t.lead}</a>
     </div>
