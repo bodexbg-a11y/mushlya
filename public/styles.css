@@ -635,3 +635,8 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 /* ---------- Card icons ---------- */
 .card__num.card__icon { width: 52px; height: 52px; }
 .card__icon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Logo image ---------- */
+.logo__img { display: block; height: 44px; width: auto; }
+.footer .logo__img { height: 48px; }
+@media (max-width: 640px) { .logo__img { height: 42px; } }

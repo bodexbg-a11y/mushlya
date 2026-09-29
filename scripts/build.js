@@ -137,7 +137,7 @@ function organization() {
     '@id': abs('/#org'),
     name: BRAND,
     url: abs('/'),
-    logo: abs('/apple-touch-icon.png'),
+    logo: abs('/img/logo.png'),
     email: EMAIL,
     sameAs: ['https://t.me/sheltermeua'],
     telephone: '+380771138924',
@@ -197,8 +197,7 @@ function header(p) {
   return `<header class="header" id="top">
   <div class="container header__inner">
     <a href="${home}" class="logo" aria-label="${BRAND} — ${t.toHome}">
-      ${logoSvg}
-      <span class="logo__text">${BRAND}<small>${t.tagline}</small></span>
+      <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="148" height="48">
     </a>
     <nav class="nav" id="nav">
 ${nav}${lang}
@@ -221,8 +220,7 @@ function footer(p) {
   <div class="container">
     <div class="footer__inner">
       <a href="${home}" class="logo">
-        ${logoSvg}
-        <span class="logo__text">${BRAND}<small>${t.tagline}</small></span>
+        <img class="logo__img" src="/img/logo.webp" alt="${BRAND} — ${t.tagline}" width="148" height="48" loading="lazy">
       </a>
       <a href="#order" class="btn btn--primary btn--sm">${t.lead}</a>
     </div>
