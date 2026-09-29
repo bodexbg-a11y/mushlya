@@ -151,16 +151,19 @@ function website(p) {
   return { '@context': 'https://schema.org', '@type': 'WebSite', '@id': abs('/#website'), name: BRAND, url: abs('/'), inLanguage: p.lang, publisher: { '@id': abs('/#org') } };
 }
 
+// Послуга, а не Product: у Product Google вимагає ціну або відгуки, яких у нас немає
 function product(p) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Product',
+    '@type': 'Service',
     name: p.product,
+    serviceType: p.lang === 'uk' ? 'Модульні укриття та бомбосховища' : 'Модульные укрытия и бомбоубежища',
     description: p.description,
-    image: [abs('/img/og.jpg'), abs('/img/interior-3.webp'), abs('/img/modules-outdoor.webp')],
+    image: abs('/img/og.jpg'),
+    provider: { '@id': abs('/#org') },
     brand: { '@type': 'Brand', name: BRAND },
-    category: p.lang === 'uk' ? 'Модульні укриття' : 'Модульные укрытия',
-    additionalProperty: pages.specs[p.lang].slice(0, 5).map(([name, value]) => ({ '@type': 'PropertyValue', name, value })),
+    areaServed: { '@type': 'Country', name: 'Україна' },
+    url: abs(p.path),
   };
 }
 
