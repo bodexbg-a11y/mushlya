@@ -702,3 +702,27 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
   .trust__grid { grid-template-columns: minmax(0, 1fr); }
   .trust__item { padding: 18px; }
 }
+
+/* ---------- Інфографіка «Переріз модуля» ---------- */
+.specs-art { margin: 0; background: #0c1a2b; border: 1px solid rgba(120,170,230,.25); border-radius: var(--r); padding: 20px; color: #9cc3ef; box-shadow: -18px 18px 0 var(--signal); }
+.specs-art__svg { width: 100%; height: auto; display: block; }
+.sa-head { font: 700 17px var(--f-mono); letter-spacing: .12em; fill: #9cc3ef; }
+.sa-ground { stroke: #9cc3ef; stroke-width: 1.5; stroke-dasharray: 6 5; }
+.sa-wall { fill: none; stroke: var(--signal); stroke-width: 22; }
+.sa-in { fill: #0f2640; }
+.sa-edge { fill: none; stroke: #ffd27a; stroke-width: 1.5; }
+.sa-line { stroke: #9cc3ef; stroke-width: 2.5; }
+.sa-dim path { stroke: #9cc3ef; stroke-opacity: .7; fill: none; }
+.sa-dim text { font: 600 19px var(--f-mono); fill: #9cc3ef; }
+.sa-drops path { fill: #5fb0ff; fill-opacity: .8; }
+.sa-mk circle { fill: #0c1a2b; stroke: var(--signal); stroke-width: 2.5; }
+.sa-mk text { font: 800 17px var(--f-mono); fill: var(--signal); text-anchor: middle; }
+.specs-art__tiles { list-style: none; counter-reset: sa; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.specs-art__tiles li { counter-increment: sa; position: relative; border: 1px solid rgba(120,170,230,.25); border-radius: var(--r); padding: 12px 12px 12px 48px; background: rgba(15,38,64,.6); }
+.specs-art__tiles li::before { content: counter(sa); position: absolute; left: 12px; top: 12px; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--signal); color: var(--signal); font: 800 13px/22px var(--f-mono); text-align: center; }
+.specs-art__tiles b { display: block; font: 800 1.05rem/1.1 var(--f-display); color: #fff; margin-bottom: 4px; white-space: nowrap; }
+.specs-art__tiles span { display: block; font-size: .8rem; line-height: 1.35; color: #b9d3f0; }
+@media (max-width: 560px) {
+  .specs-art { padding: 14px; box-shadow: -10px 10px 0 var(--signal); }
+  .specs-art__tiles { grid-template-columns: 1fr; }
+}

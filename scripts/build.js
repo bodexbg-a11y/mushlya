@@ -310,9 +310,7 @@ ${p.text.map((x) => (x.startsWith('<') ? `      ${x}` : `      <p>${x}</p>`)).jo
 ${pages.specs[p.lang].map(([k, v]) => `        <div><dt>${k}</dt><dd>${v}</dd></div>`).join('\n')}
       </dl>
     </div>
-    <figure class="photo photo--specs">
-      <img src="/img/${p.image2 || 'modules-outdoor'}.webp" alt="${esc(p.image2Alt || L.photoAlt)}" width="1400" height="1050" loading="lazy">
-    </figure>
+    ${specsArt(p.lang)}
   </div>
 </section>
 
@@ -435,6 +433,68 @@ ${t.items.map(([ic, h, d]) => `      <li class="trust__item"><span class="trust_
     </ul>
   </div>
 </section>`;
+}
+
+// Інфографіка-переріз біля «Технічних характеристик»
+const SPECS_ART = {
+  uk: {
+    head: 'Переріз модуля', aria: 'Інфографіка: переріз модуля укриття з позначенням матеріалу, стінки, класу горючості та вологостійкості',
+    soil: 'ґрунт 2–3 м', sand: 'піщана подушка 300–500 мм', diam: 'Ø 2,2–3,0 м',
+    tiles: [
+      ['HDPE', 'поліетилен високої щільності, цільний корпус без швів'],
+      ['100–150 мм', 'товщина стінки за розрахунком навантаження'],
+      ['Г2', 'клас горючості матеріалу (пожежна безпека)'],
+      ['IPX8', 'вологостійкість: захист при тривалому зануренні'],
+    ],
+  },
+  ru: {
+    head: 'Разрез модуля', aria: 'Инфографика: разрез модуля укрытия с обозначением материала, стенки, класса горючести и влагостойкости',
+    soil: 'грунт 2–3 м', sand: 'песчаная подушка 300–500 мм', diam: 'Ø 2,2–3,0 м',
+    tiles: [
+      ['HDPE', 'полиэтилен высокой плотности, цельный корпус без швов'],
+      ['100–150 мм', 'толщина стенки по расчёту нагрузки'],
+      ['Г2', 'класс горючести материала (пожарная безопасность)'],
+      ['IPX8', 'влагостойкость: защита при длительном погружении'],
+    ],
+  },
+};
+function specsArt(lang) {
+  const t = SPECS_ART[lang];
+  const mk = [[219, 154], [414, 235], [300, 121], [219, 316]];
+  const drop = (x, y) => `<path d="M${x} ${y - 9}c4 6 6 9 6 12a6 6 0 0 1-12 0c0-3 2-6 6-12z"/>`;
+  return `<figure class="specs-art">
+      <svg viewBox="0 0 600 440" class="specs-art__svg" role="img" aria-label="${t.aria}">
+        <defs>
+          <pattern id="sa-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="currentColor" stroke-opacity=".08"/></pattern>
+          <pattern id="sa-soil" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#8a6d3b" stroke-opacity=".5" stroke-width="2"/></pattern>
+          <pattern id="sa-sand" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#c9a86a" fill-opacity=".7"/><circle cx="6" cy="6" r="1" fill="#c9a86a" fill-opacity=".5"/></pattern>
+        </defs>
+        <rect width="600" height="440" fill="url(#sa-grid)"/>
+        <text x="30" y="36" class="sa-head">${t.head.toUpperCase()}</text>
+        <path d="M30 60 H570" class="sa-ground"/>
+        <path d="M30 60 H570 V400 H30Z" fill="url(#sa-soil)" opacity=".7"/>
+        <rect x="150" y="358" width="300" height="38" fill="url(#sa-sand)"/>
+        <circle cx="300" cy="235" r="114" class="sa-wall"/>
+        <circle cx="300" cy="235" r="103" class="sa-in"/>
+        <circle cx="300" cy="235" r="125" class="sa-edge"/>
+        <circle cx="300" cy="235" r="103" class="sa-edge"/>
+        <path d="M220 300 H380" class="sa-line"/>
+        <g class="sa-dim">
+          <path d="M197 212 H403 M197 205 V219 M403 205 V219"/>
+          <text x="300" y="200" text-anchor="middle">${t.diam}</text>
+          <path d="M80 60 V110 M73 60 H87 M73 110 H87"/>
+          <text x="94" y="93">${t.soil}</text>
+          <text x="300" y="424" text-anchor="middle">${t.sand}</text>
+        </g>
+        <g class="sa-drops">${drop(160, 330)}${drop(182, 352)}${drop(140, 356)}</g>
+        <g class="sa-mk">
+${mk.map(([x, y], i) => `          <g><circle cx="${x}" cy="${y}" r="16"/><text x="${x}" y="${y + 6}">${i + 1}</text></g>`).join('\n')}
+        </g>
+      </svg>
+      <ol class="specs-art__tiles">
+${t.tiles.map(([v, d]) => `        <li><b>${v}</b><span>${d}</span></li>`).join('\n')}
+      </ol>
+    </figure>`;
 }
 
 // Ілюстрація біля «Часті запитання» + швидкий контакт
@@ -643,6 +703,7 @@ for (const p of pages.all) {
     html = between(html, '<!-- MAP:START -->', '<!-- MAP:END -->', '      ' + ukraineMap(p.lang));
     html = between(html, '<!-- FAQASIDE:START -->', '<!-- FAQASIDE:END -->', faqAside(p.lang));
     html = between(html, '<!-- TRUST:START -->', '<!-- TRUST:END -->', trustBlock(p.lang));
+    html = between(html, '<!-- SPECSART:START -->', '<!-- SPECSART:END -->', '    ' + specsArt(p.lang));
     html = between(html, '<!-- MSG:START -->', '<!-- MSG:END -->', `        <li><span class="mono">${UI[p.lang].messengers}</span><div class="contacts__msg">${msgLinks(p.lang, 'mbtn')}</div></li>`);
     fs.writeFileSync(file, html);
   } else {
