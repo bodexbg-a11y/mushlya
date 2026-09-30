@@ -99,10 +99,13 @@ function head(p) {
         `<link rel="alternate" hreflang="${alt.lang}" href="${abs(alt.path)}">`,
         `<link rel="alternate" hreflang="x-default" href="${abs(p.lang === 'uk' ? p.path : alt.path)}">`,
       ].join('\n  ')
-    : `<link rel="alternate" hreflang="${p.lang}" href="${abs(p.path)}">`;
+    : [
+        `<link rel="alternate" hreflang="${p.lang}" href="${abs(p.path)}">`,
+        `<link rel="alternate" hreflang="x-default" href="${abs(p.path)}">`,
+      ].join('\n  ');
   const locale = p.lang === 'uk' ? 'uk_UA' : 'ru_UA';
   const img = abs('/img/og.jpg');
-  const ld = [organization(), website(p), ...(p.product ? [product(p)] : []), ...(p.path !== '/' && p.path !== '/ru/' ? [breadcrumbs(p)] : []), ...(p.faq ? [faqLd(p)] : [])];
+  const ld = [organization(), website(p), ...(p.product || p.h1 ? [product(p)] : []), ...(p.path !== '/' && p.path !== '/ru/' ? [breadcrumbs(p)] : []), ...(p.faq ? [faqLd(p)] : [])];
   return `<title>${esc(p.title)}</title>
   <meta name="description" content="${esc(p.description)}">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -156,7 +159,7 @@ function product(p) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: p.product,
+    name: p.product || `${p.h1} ${BRAND}`,
     serviceType: p.lang === 'uk' ? 'Модульні укриття та бомбосховища' : 'Модульные укрытия и бомбоубежища',
     description: p.description,
     image: abs('/img/og.jpg'),

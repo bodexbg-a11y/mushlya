@@ -19,5 +19,17 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/index.html",
+      "destination": "/ru/",
+      "permanent": true
+    }
   ]
 }
