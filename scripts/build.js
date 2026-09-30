@@ -320,7 +320,7 @@ ${p.forWhom ? forWhomBlock(p.forWhom) : ''}
       <h2 class="section__title">${p.textTitle}</h2>
       ${p.map ? ukraineMap(p.lang) : ''}
     </div>
-    <div class="prose"${p.path === '/ru/' ? ' id="seoText" data-collapse data-more="Читать далее" data-less="Свернуть"' : ''}>
+    <div class="prose">
 ${p.text.map((x) => (x.startsWith('<') ? `      ${x}` : `      <p>${x}</p>`)).join('\n')}
     </div>
   </div>
