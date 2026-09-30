@@ -726,3 +726,12 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
   .specs-art { padding: 14px; box-shadow: -10px 10px 0 var(--signal); }
   .specs-art__tiles { grid-template-columns: 1fr; }
 }
+
+/* ---------- Таблиця місткості ---------- */
+.cap-table-wrap { overflow-x: auto; margin: 8px 0 24px; -webkit-overflow-scrolling: touch; }
+.cap-table { width: 100%; border-collapse: collapse; font-size: .95rem; min-width: 460px; }
+.cap-table th, .cap-table td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.cap-table thead th { font: 600 .72rem var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--signal); border-bottom: 2px solid var(--signal); }
+.cap-table tbody th { color: var(--paper); font-weight: 700; }
+.cap-table td b { color: var(--signal); }
+.cap-table tbody tr:hover { background: rgba(255,255,255,.03); }
