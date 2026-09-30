@@ -302,4 +302,22 @@
   });
   $('#formAgain').addEventListener('click', () => { success.hidden = true; });
   $$('input', form).forEach((i) => i.addEventListener('input', () => setError(i)));
+
+  // Згорнутий SEO-текст: увесь текст у HTML (Google його бачить), на екрані — перший абзац і кнопка
+  $$('[data-collapse]').forEach((box) => {
+    box.classList.add('is-collapsed');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'more-btn';
+    btn.setAttribute('aria-controls', box.id);
+    btn.setAttribute('aria-expanded', 'false');
+    btn.textContent = box.dataset.more;
+    box.after(btn);
+    btn.addEventListener('click', () => {
+      const open = box.classList.toggle('is-collapsed') === false;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? box.dataset.less : box.dataset.more;
+      if (!open) box.scrollIntoView({ block: 'nearest' });
+    });
+  });
 })();

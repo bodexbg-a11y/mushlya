@@ -320,7 +320,7 @@ ${p.forWhom ? forWhomBlock(p.forWhom) : ''}
       <h2 class="section__title">${p.textTitle}</h2>
       ${p.map ? ukraineMap(p.lang) : ''}
     </div>
-    <div class="prose">
+    <div class="prose"${p.path === '/ru/' ? ' id="seoText" data-collapse data-more="Читать далее" data-less="Свернуть"' : ''}>
 ${p.text.map((x) => (x.startsWith('<') ? `      ${x}` : `      <p>${x}</p>`)).join('\n')}
     </div>
   </div>
@@ -501,7 +501,7 @@ ${fw.cards.map(card).join('\n')}
 const SPECS_ART = {
   uk: {
     head: 'Переріз модуля', aria: 'Інфографіка: переріз модуля укриття з позначенням матеріалу, стінки, вологостійкості та ґрунтового покриття',
-    soil: 'ґрунт 2–3 м', sand: 'піщана подушка 300–500 мм', diam: 'Ø 2,2–3,0 м',
+    soil: 'ґрунт 2–3 м', sand: 'піщана подушка 300–500 мм', diam: 'Ø 2,0–3,0 м',
     tiles: [
       ['HDPE', 'поліетилен високої щільності, цільний корпус без швів'],
       ['100–150 мм', 'товщина стінки за розрахунком навантаження'],
@@ -511,7 +511,7 @@ const SPECS_ART = {
   },
   ru: {
     head: 'Разрез модуля', aria: 'Инфографика: разрез модуля укрытия с обозначением материала, стенки, влагостойкости и грунтового покрытия',
-    soil: 'грунт 2–3 м', sand: 'песчаная подушка 300–500 мм', diam: 'Ø 2,2–3,0 м',
+    soil: 'грунт 2–3 м', sand: 'песчаная подушка 300–500 мм', diam: 'Ø 2,0–3,0 м',
     tiles: [
       ['HDPE', 'полиэтилен высокой плотности, цельный корпус без швов'],
       ['100–150 мм', 'толщина стенки по расчёту нагрузки'],
@@ -598,7 +598,7 @@ function configurator(p) {
         <div class="cfg__group">
           <p class="cfg__label">${C.diam}</p>
           <div class="cfg__seg" role="radiogroup" aria-label="${C.diam}">
-            <label><input type="radio" name="cfgDiam" value="2.2"><span>2,2 м</span></label>
+            <label><input type="radio" name="cfgDiam" value="2"><span>2,0 м</span></label>
             <label><input type="radio" name="cfgDiam" value="2.5" checked><span>2,5 м</span></label>
             <label><input type="radio" name="cfgDiam" value="3"><span>3 м</span></label>
           </div>
