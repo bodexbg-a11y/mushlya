@@ -291,6 +291,7 @@ ${p.benefits.map(([h, t], i) => `      <article class="benefit"><span class="ben
     </div>
   </div>
 </section>
+${p.forWhom ? forWhomBlock(p.forWhom) : ''}
 
 <section class="section section--dark">
   <div class="container seo__grid">
@@ -437,6 +438,42 @@ ${t.items.map(([ic, h, d]) => `      <li class="trust__item"><span class="trust_
     </ul>
   </div>
 </section>`;
+}
+
+// Блок «Для кого» (картки об'єктів) — як на українській головній
+const FW_ICONS = {
+  school: '<path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-5h6v5M12 8.5v2.5"/>',
+  kinder: '<path d="M4 21V11l8-6 8 6v10z"/><path d="M12 18s-3-1.7-3-3.5a1.6 1.6 0 0 1 3-.9 1.6 1.6 0 0 1 3 .9c0 1.8-3 3.5-3 3.5z"/>',
+  house: '<path d="M3 11l9-7 9 7M5 10v11h14V10M10 21v-6h4v6"/>',
+  osbb: '<path d="M6 21V3h12v18M3 21h18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/>',
+  factory: '<path d="M3 21V11l5 3v-3l5 3v-3l5 3V5h3v16zM7 18h2M11 18h2M15 18h2"/>',
+};
+function forWhomBlock(fw) {
+  const card = (c, i) => c.icon === '+'
+    ? `      <article class="card card--accent">
+        <div class="card__num mono">+</div>
+        <h3>${c.h}</h3>
+        <p>${c.t}</p>
+        <a href="${c.href}" class="card__link">${c.link}</a>
+      </article>`
+    : `      <article class="card${i === 0 ? ' card--big' : ''}">
+        <div class="card__num card__icon"><svg viewBox="0 0 24 24" aria-hidden="true">${FW_ICONS[c.icon]}</svg></div>
+        <h3>${c.h}</h3>
+        <p>${c.t}</p>${c.tags ? `\n        <ul class="tags">${c.tags.map((x) => `<li>${x}</li>`).join('')}</ul>` : ''}
+        <a href="${c.href}" class="card__link">${c.link}</a>
+      </article>`;
+  return `<section class="section" id="for-whom">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">${fw.title}</h2>
+      <p class="section__lead">${fw.lead}</p>
+    </div>
+    <div class="cards">
+${fw.cards.map(card).join('\n')}
+    </div>
+  </div>
+</section>
+`;
 }
 
 // Інфографіка-переріз біля «Технічних характеристик»
