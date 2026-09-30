@@ -21,6 +21,8 @@
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.shelterme.com.ua/ukryttia-dlia-dytsadka/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shelterme.com.ua/ru/ukrytie-dlya-detskogo-sada/"/>
   </url>
   <url>
     <loc>https://www.shelterme.com.ua/ukryttia-dlia-budynku/</loc>
@@ -59,6 +61,14 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.shelterme.com.ua/ru/ukrytie-dlya-shkoly/"/>
     <xhtml:link rel="alternate" hreflang="uk" href="https://www.shelterme.com.ua/ukryttia-dlia-shkoly/"/>
+  </url>
+  <url>
+    <loc>https://www.shelterme.com.ua/ru/ukrytie-dlya-detskogo-sada/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shelterme.com.ua/ru/ukrytie-dlya-detskogo-sada/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.shelterme.com.ua/ukryttia-dlia-dytsadka/"/>
   </url>
   <url>
     <loc>https://www.shelterme.com.ua/ru/ukrytie-dlya-doma/</loc>

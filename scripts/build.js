@@ -199,7 +199,8 @@ function header(p) {
   const nav = p.nav.map(([href, label, sub]) => sub
     ? `      <div class="nav__drop"><a href="${href}" class="nav__parent">${label}</a><div class="nav__sub">${sub.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')}</div></div>`
     : `      <a href="${href}">${label}</a>`).join('\n');
-  const lang = alt ? `\n      <a href="${alt.path}" class="nav__lang" hreflang="${alt.lang}" lang="${alt.lang}" aria-label="${t.langLabel}">${t.langShort}</a>` : '';
+  const other = alt ? alt : { path: p.lang === 'uk' ? '/ru/' : '/', lang: p.lang === 'uk' ? 'ru' : 'uk' };
+  const lang = `\n      <a href="${other.path}" class="nav__lang" hreflang="${other.lang}" lang="${other.lang}" aria-label="${t.langLabel}">${t.langShort}</a>`;
   return `<header class="header" id="top">
   <div class="container header__inner">
     <a href="${home}" class="logo" aria-label="${BRAND} — ${t.toHome}">
