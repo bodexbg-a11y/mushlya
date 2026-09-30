@@ -2,18 +2,18 @@
 // Після змін запустіть: npm run build
 
 const UA_FOR = [['/ukryttia-dlia-shkoly/', 'Укриття для школи'], ['/ukryttia-dlia-dytsadka/', 'Укриття для садочка'], ['/ukryttia-dlia-budynku/', 'Укриття для будинку'], ['/ukryttia-dlia-osbb-ta-biznesu/', 'Для ОСББ і бізнесу']];
-const RU_FOR = [['/ru/ukrytie-dlya-shkoly/', 'Укрытие для школы'], ['/ru/ukrytie-dlya-detskogo-sada/', 'Укрытие для детсада'], ['/ru/ukrytie-dlya-doma/', 'Укрытие для дома']];
-// Однакове меню на всіх сторінках (як на головній)
 const UA_NAV = [
-  ['/#for-whom', 'Для кого', UA_FOR],
-  ['/#construction', 'Конструкція'],
-  ['/#protection', 'Захист'],
+  ['/ukryttia-dlia-shkoly/', 'Для школи'],
+  ['/ukryttia-dlia-dytsadka/', 'Для садочка'],
+  ['/ukryttia-dlia-budynku/', 'Для будинку'],
+  ['/ukryttia-dlia-osbb-ta-biznesu/', 'ОСББ і бізнес'],
   ['/#config', 'Конфігуратор'],
-  ['/#gallery', 'Фото'],
   ['#faq', 'Питання'],
 ];
 const RU_NAV = [
-  ['/ru/', 'Для кого', RU_FOR],
+  ['/ru/ukrytie-dlya-shkoly/', 'Для школы'],
+  ['/ru/ukrytie-dlya-detskogo-sada/', 'Для детсада'],
+  ['/ru/ukrytie-dlya-doma/', 'Для дома'],
   ['/ru/#config', 'Конфигуратор'],
   ['#faq', 'Вопросы'],
 ];

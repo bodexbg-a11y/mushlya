@@ -88,7 +88,7 @@ p { margin: 0; }
 .logo__text { font: 900 1.25rem/1 var(--f-display); letter-spacing: .02em; display: flex; flex-direction: column; }
 .logo__text small { font: 500 .62rem/1.4 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; opacity: .6; margin-top: 3px; }
 .nav { display: flex; gap: 28px; margin-left: auto; }
-.nav a { text-decoration: none; font-weight: 600; font-size: .92rem; opacity: .8; position: relative; padding: 6px 0; transition: opacity .2s; }
+.nav a { white-space: nowrap; text-decoration: none; font-weight: 600; font-size: .92rem; opacity: .8; position: relative; padding: 6px 0; transition: opacity .2s; }
 .nav a::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--signal); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
 .nav a:hover { opacity: 1; }
 .nav a:hover::after { transform: scaleX(1); }
@@ -735,3 +735,13 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .cap-table tbody th { color: var(--paper); font-weight: 700; }
 .cap-table td b { color: var(--signal); }
 .cap-table tbody tr:hover { background: rgba(255,255,255,.03); }
+
+/* менше відступів у меню на вужчих десктопах, щоб пункти не переносились */
+@media (min-width: 1081px) and (max-width: 1320px) {
+  .nav { gap: 18px; }
+  .nav a { font-size: .86rem; }
+  .header__phone { font-size: .8rem; }
+}
+@media (min-width: 1081px) and (max-width: 1220px) {
+  .header__phone { display: none; }
+}
