@@ -192,7 +192,10 @@ function header(p) {
   const t = UI[p.lang];
   const home = p.lang === 'uk' ? '/' : '/ru/';
   const alt = p.alt && byPath[p.alt];
-  const nav = p.nav.map(([href, label]) => `      <a href="${href}">${label}</a>`).join('\n');
+  // Пункт меню може мати підпункти (сторінки) — Google бере їх для sitelinks
+  const nav = p.nav.map(([href, label, sub]) => sub
+    ? `      <div class="nav__drop"><a href="${href}" class="nav__parent">${label}</a><div class="nav__sub">${sub.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')}</div></div>`
+    : `      <a href="${href}">${label}</a>`).join('\n');
   const lang = alt ? `\n      <a href="${alt.path}" class="nav__lang" hreflang="${alt.lang}" lang="${alt.lang}" aria-label="${t.langLabel}">${t.langShort}</a>` : '';
   return `<header class="header" id="top">
   <div class="container header__inner">

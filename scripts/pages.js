@@ -118,7 +118,7 @@ const all = [
     imageAlt: 'Модульне укриття ShelterMe з поліетилену',
     product: 'Модульне укриття ShelterMe',
     faqFromHtml: true,
-    nav: [['#for-whom', 'Для кого'], ['#construction', 'Конструкція'], ['#protection', 'Захист'], ['#config', 'Конфігуратор'], ['#gallery', 'Фото'], ['#faq', 'Питання']],
+    nav: [['#for-whom', 'Для кого', [['/ukryttia-dlia-shkoly/', 'Укриття для школи'], ['/ukryttia-dlia-dytsadka/', 'Укриття для садочка'], ['/ukryttia-dlia-budynku/', 'Укриття для будинку'], ['/ukryttia-dlia-osbb-ta-biznesu/', 'Для ОСББ і бізнесу']]], ['#construction', 'Конструкція'], ['#protection', 'Захист'], ['#config', 'Конфігуратор'], ['#gallery', 'Фото'], ['#faq', 'Питання']],
     calcHref: '#config',
   },
 
