@@ -105,7 +105,7 @@ function head(p) {
       ].join('\n  ');
   const locale = p.lang === 'uk' ? 'uk_UA' : 'ru_UA';
   const img = abs('/img/og.jpg');
-  const ld = [organization(), website(p), ...(p.product || p.h1 ? [product(p)] : []), ...(p.path !== '/' && p.path !== '/ru/' ? [breadcrumbs(p)] : []), ...(p.faq ? [faqLd(p)] : [])];
+  const ld = [organization(), website(p), ...(p.product || p.h1 ? [product(p)] : []), ...(p.path === '/' || p.path === '/ru/' ? [priceExample(p)] : []), ...(p.path !== '/' && p.path !== '/ru/' ? [breadcrumbs(p)] : []), ...(p.faq ? [faqLd(p)] : [])];
   return `<title>${esc(p.title)}</title>
   <meta name="description" content="${esc(p.description)}">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -167,6 +167,27 @@ function product(p) {
     brand: { '@type': 'Brand', name: BRAND },
     areaServed: { '@type': 'Country', name: 'Україна' },
     url: abs(p.path),
+  };
+}
+
+// Товар із реальною ціною прикладу (Ø 2,5 × 6,25 м) — Google може показати ціну у видачі
+function priceExample(p) {
+  const uk = p.lang === 'uk';
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: uk ? 'Модульне укриття ShelterMe Ø 2,5 × 6,25 м' : 'Модульное укрытие ShelterMe Ø 2,5 × 6,25 м',
+    description: uk ? 'Модульне підземне укриття на 20–24 місця для сидіння, цільний корпус з HDPE без стиків, ДСТУ 9195:2022.' : 'Модульное подземное укрытие на 20–24 сидячих места, цельный корпус из HDPE без стыков, ДСТУ 9195:2022.',
+    image: abs('/img/og.jpg'),
+    brand: { '@type': 'Brand', name: BRAND },
+    offers: {
+      '@type': 'Offer',
+      price: '1250000',
+      priceCurrency: 'UAH',
+      availability: 'https://schema.org/PreOrder',
+      url: abs(p.path),
+      seller: { '@id': abs('/#org') },
+    },
   };
 }
 

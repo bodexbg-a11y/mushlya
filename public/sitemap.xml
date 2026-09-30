@@ -37,6 +37,8 @@
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.shelterme.com.ua/ukryttia-dlia-osbb-ta-biznesu/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shelterme.com.ua/ru/ukrytie-dlya-osmd-i-predpriyatiya/"/>
   </url>
   <url>
     <loc>https://www.shelterme.com.ua/ukryttia-na-20-30-50-osib/</loc>
@@ -77,6 +79,14 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.shelterme.com.ua/ru/ukrytie-dlya-doma/"/>
     <xhtml:link rel="alternate" hreflang="uk" href="https://www.shelterme.com.ua/ukryttia-dlia-budynku/"/>
+  </url>
+  <url>
+    <loc>https://www.shelterme.com.ua/ru/ukrytie-dlya-osmd-i-predpriyatiya/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shelterme.com.ua/ru/ukrytie-dlya-osmd-i-predpriyatiya/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.shelterme.com.ua/ukryttia-dlia-osbb-ta-biznesu/"/>
   </url>
   <url>
     <loc>https://www.shelterme.com.ua/ru/ukrytie-na-20-30-50-chelovek/</loc>
