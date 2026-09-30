@@ -276,7 +276,7 @@ ${callback(p.lang)}    </div>
     </div>
   </div>
 </section>
-
+${p.trust ? trustBlock(p.lang) : ''}
 <section class="section">
   <div class="container">
     <div class="section__head">
@@ -390,6 +390,51 @@ function ukraineMap(lang) {
         </figcaption>
         <!-- Map data: @svg-maps/ukraine by Olesia Ladanai, CC BY 4.0 -->
       </figure>`;
+}
+
+// Блок «Чому нам довіряють»
+const TRUST_ICONS = {
+  dstu: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+  protocol: '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 14l2 2 4-4"/>',
+  warranty: '<circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7"/><path d="M10 9l1.5 1.5L14.5 7.5"/>',
+  delivery: '<path d="M2 6h12v10H2zM14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
+  passport: '<path d="M9 3h6v3H9z"/><path d="M7 4.5H5V21h14V4.5h-2M8.5 11h7M8.5 15h7"/>',
+  time: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+};
+const TRUST = {
+  uk: {
+    title: 'Чому нам довіряють',
+    items: [
+      ['dstu', 'ДСТУ 9195:2022', 'Сертифікат відповідності на швидкоспоруджувані захисні споруди'],
+      ['protocol', 'Протокол випробувань', 'Випробування в незалежній лабораторії — надаємо на запит'],
+      ['warranty', 'Гарантія 10 років', 'Гарантійні зобовʼязання фіксуються в договорі'],
+      ['delivery', 'Доставка по Україні', 'Спецтранспортом із краном прямо на ваш обʼєкт'],
+      ['passport', 'Технічний паспорт', 'Разом із модулем передаємо повний пакет документів'],
+      ['time', '~24 робочі дні', 'Орієнтовний строк виготовлення модуля'],
+    ],
+  },
+  ru: {
+    title: 'Почему нам доверяют',
+    items: [
+      ['dstu', 'ДСТУ 9195:2022', 'Сертификат соответствия на быстровозводимые защитные сооружения'],
+      ['protocol', 'Протокол испытаний', 'Испытания в независимой лаборатории — предоставляем по запросу'],
+      ['warranty', 'Гарантия 10 лет', 'Гарантийные обязательства фиксируются в договоре'],
+      ['delivery', 'Доставка по Украине', 'Спецтранспортом с краном прямо на ваш объект'],
+      ['passport', 'Технический паспорт', 'Вместе с модулем передаём полный пакет документов'],
+      ['time', '~24 рабочих дня', 'Ориентировочный срок изготовления модуля'],
+    ],
+  },
+};
+function trustBlock(lang) {
+  const t = TRUST[lang];
+  return `<section class="trust" id="trust" aria-label="${t.title}">
+  <div class="container">
+    <h2 class="trust__title">${t.title}</h2>
+    <ul class="trust__grid">
+${t.items.map(([ic, h, d]) => `      <li class="trust__item"><span class="trust__icon"><svg viewBox="0 0 24 24" aria-hidden="true">${TRUST_ICONS[ic]}</svg></span><div><b>${h}</b><span>${d}</span></div></li>`).join('\n')}
+    </ul>
+  </div>
+</section>`;
 }
 
 // Ілюстрація біля «Часті запитання» + швидкий контакт
@@ -597,6 +642,7 @@ for (const p of pages.all) {
     html = between(html, '<!-- FOOTER:START -->', '<!-- FOOTER:END -->', footer(p));
     html = between(html, '<!-- MAP:START -->', '<!-- MAP:END -->', '      ' + ukraineMap(p.lang));
     html = between(html, '<!-- FAQASIDE:START -->', '<!-- FAQASIDE:END -->', faqAside(p.lang));
+    html = between(html, '<!-- TRUST:START -->', '<!-- TRUST:END -->', trustBlock(p.lang));
     html = between(html, '<!-- MSG:START -->', '<!-- MSG:END -->', `        <li><span class="mono">${UI[p.lang].messengers}</span><div class="contacts__msg">${msgLinks(p.lang, 'mbtn')}</div></li>`);
     fs.writeFileSync(file, html);
   } else {

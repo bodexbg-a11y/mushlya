@@ -685,3 +685,20 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
   .nav.is-open .nav__sub { position: static; opacity: 1; visibility: visible; transform: none; background: none; border: 0; box-shadow: none; padding: 0 0 6px 14px; min-width: 0; }
   .nav.is-open .nav__sub a { border-bottom: 0; font-size: 1rem; padding: 10px 0 !important; }
 }
+
+/* ---------- Trust ---------- */
+.trust { background: var(--ink); color: var(--paper); padding: 64px 0; border-bottom: 1px solid var(--line); }
+.trust__title { font-size: clamp(1.4rem, 2.6vw, 2rem); text-transform: uppercase; margin-bottom: 32px; }
+.trust__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.trust__item { display: flex; gap: 16px; align-items: flex-start; padding: 22px; background: var(--graphite); border: 1px solid var(--line); border-radius: 10px; transition: border-color .3s, transform .3s var(--ease); }
+.trust__item:hover { border-color: rgba(255,176,0,.5); transform: translateY(-3px); }
+.trust__icon { flex: none; width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; background: rgba(255,176,0,.12); color: var(--signal); }
+.trust__icon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.trust__item b { display: block; font: 800 1.05rem var(--f-display); text-transform: uppercase; color: var(--paper); margin-bottom: 6px; }
+.trust__item span { font-size: .9rem; color: rgba(238,236,230,.7); line-height: 1.5; }
+@media (max-width: 1080px) { .trust__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .trust { padding: 48px 0; }
+  .trust__grid { grid-template-columns: minmax(0, 1fr); }
+  .trust__item { padding: 18px; }
+}
