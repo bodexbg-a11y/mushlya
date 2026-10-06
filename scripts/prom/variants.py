@@ -279,6 +279,7 @@ def main():
     <sales_notes>предоплата</sales_notes>
     <name>{e(v['name_ru'])}</name>
     <name_ua>{e(v['name_ua'])}</name_ua>
+    <vendor>SHELTER ME</vendor>
     <vendorCode>{v['code']}</vendorCode>
     <country_of_origin>Украина</country_of_origin>
     <description><![CDATA[{description(v, 'ru', hero_fn, kit_fn)}]]></description>

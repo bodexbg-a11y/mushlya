@@ -7,7 +7,7 @@ import os
 import re
 import xml.etree.ElementTree as ET
 
-FEEDS = [os.path.expanduser('~/Downloads/products_feed.xml'), os.path.expanduser('~/Downloads/shelterme-new-products.xml')]
+FEEDS = [os.path.expanduser('~/Downloads/shelterme-prom-update.xml'), os.path.expanduser('~/Downloads/shelterme-new-products.xml')]
 OUT = os.path.expanduser('~/Downloads/shelterme-merchant-feed.xml')
 SITE = 'https://www.shelterme.com.ua'
 CATEGORY = '5835'  # Home & Garden > Emergency Preparedness
