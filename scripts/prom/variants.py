@@ -12,6 +12,9 @@ from render import hero, kit, render
 FEED_IN = os.path.expanduser('~/Downloads/products_feed.xml')
 FEED_OUT = os.path.expanduser('~/Downloads/shelterme-new-products.xml')
 IMG = 'https://www.shelterme.com.ua/img/prom/'
+# Категорія маркетплейсу «Захисні споруди цивільного захисту». Групу на сайті не вказуємо —
+# товари потрапляють у кореневу групу.
+PORTAL_URL = 'https://prom.ua/ua/Zaschitnye-sooruzheniya-grazhdanskoj'
 
 KW_UA = ', '.join([
     'модульне укриття', 'бомбосховище', 'укриття', 'модульне бомбосховище', 'бомбосховище купити', 'укриття купити',
@@ -242,11 +245,13 @@ def main():
         pics = [IMG + hero_fn, IMG + kit_fn] + b['pictures'][:5]
         n = 2 if v.get('double') else 1
         size1 = v['size'].replace(' × 2', '')
-        params = [('Тип', 'Модульные'), ('Размещение', 'Подземное'), ('Назначение', v['purpose_ru']),
+        # «Назначение» — фільтр категорії Prom: беремо лише значення, що вже є в наших товарах
+        purpose = 'Для дома' if v['purpose_ru'] in ('Для дома', 'Для ОСМД') else 'Для предприятия'
+        params = [('Тип', 'Модульные'), ('Размещение', 'Подземное'), ('Назначение', purpose),
                   ('Габарити модуля (Ø × довжина)', size1 + (' (2 модулі)' if n == 2 else '')),
                   ('Внутрішній діаметр', f"{v['diam']} м"), ('Довжина', f"{v['len']} м"),
                   ('Кількість модулів', str(n)),
-                  ('Вмісткість', f"{v['seats']} осіб"), ('Кількість місць для сидіння', v['seats']),
+                  ('Вмісткість', f"{v['seats'].replace('–', '-')} осіб"),('Кількість місць для сидіння', v['seats']),
                   ('Кількість спальних місць', v['sleep']),
                   ('Матеріал корпусу', 'HDPE (поліетилен високої щільності)'),
                   ('Корпус', 'цільний, герметичний, без стиків'),
@@ -265,9 +270,10 @@ def main():
         offers.append(f"""<offer id="{v['code']}" available="false">
     <price>{price}</price>
     <currencyId>UAH</currencyId>
-    <categoryId>2</categoryId>
+    <portal_category_url>{PORTAL_URL}</portal_category_url>
 {''.join(f'    <picture>{e(p)}</picture>' + chr(10) for p in pics)}    <pickup>false</pickup>
     <delivery>true</delivery>
+    <sales_notes>предоплата</sales_notes>
     <name>{e(v['name_ru'])}</name>
     <name_ua>{e(v['name_ua'])}</name_ua>
     <vendorCode>{v['code']}</vendorCode>
@@ -288,9 +294,6 @@ def main():
     <currencies>
       <currency id="UAH" rate="1"/>
     </currencies>
-    <categories>
-      <category id="2">Промышленный или оптовый товар</category>
-    </categories>
   <offers>
 {chr(10).join(offers)}
   </offers>
