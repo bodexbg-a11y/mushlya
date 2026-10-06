@@ -5,7 +5,9 @@
 #   python3 scripts/prom/render.py   — див. VARIANTS у scripts/prom/variants.py
 import hashlib
 import html
+import json
 import os
+import re
 import subprocess
 import sys
 
@@ -60,13 +62,39 @@ def kit(title_w, title_o, items, note):
 </div></div>"""
 
 
+CACHE = os.path.join(ROOT, 'scripts', 'prom', 'cache.json')
+
+
+def _cache():
+    try:
+        return json.load(open(CACHE, encoding='utf-8'))
+    except (OSError, ValueError):
+        return {}
+
+
 def render(name, block):
-    """Рендерить блок і повертає назву файлу з хешем (name-xxxxxxxx.png)."""
+    """Рендерить блок і повертає назву файлу з хешем (name-xxxxxxxx.png).
+
+    Якщо HTML блоку не змінився — повертає вже готовий файл: повторний рендер дає інші
+    байти (шрифти), а нова назва змусила б Prom перекачати картинку."""
+    doc = f'<!doctype html><meta charset="utf-8">{FONTS}<style>{CSS}</style><body>{block}</body>'
+    key = hashlib.md5(doc.encode()).hexdigest()
+    cache = _cache()
+    hit = cache.get(name)
+    if hit and hit['html'] == key and os.path.exists(os.path.join(OUT, hit['file'])):
+        return hit['file']
+    if not hit:
+        # перший запуск з кешем: беремо вже згенерований файл, якщо він єдиний
+        old = [f for f in os.listdir(OUT) if re.fullmatch(re.escape(name) + r'-[0-9a-f]{8}\.png', f)]
+        if len(old) == 1:
+            cache[name] = {'html': key, 'file': old[0]}
+            json.dump(cache, open(CACHE, 'w', encoding='utf-8'), indent=1, sort_keys=True)
+            return old[0]
     os.makedirs(TMP, exist_ok=True)
     page = os.path.join(TMP, f'{name}.html')
     shot = os.path.join(TMP, f'{name}.png')
     with open(page, 'w', encoding='utf-8') as f:
-        f.write(f'<!doctype html><meta charset="utf-8">{FONTS}<style>{CSS}</style><body>{block}</body>')
+        f.write(doc)
     subprocess.run([CHROME, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--force-device-scale-factor=1',
                     '--virtual-time-budget=6000', '--window-size=1200,1200', f'--screenshot={shot}', f'file://{page}'],
                    capture_output=True, check=False)
@@ -80,6 +108,8 @@ def render(name, block):
     fn = f'{name}-{hashlib.md5(data).hexdigest()[:8]}.png'
     with open(os.path.join(OUT, fn), 'wb') as f:
         f.write(data)
+    cache[name] = {'html': key, 'file': fn}
+    json.dump(cache, open(CACHE, 'w', encoding='utf-8'), indent=1, sort_keys=True)
     return fn
 
 
