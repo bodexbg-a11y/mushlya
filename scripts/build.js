@@ -185,6 +185,13 @@ function priceExample(p) {
       price: '1250000',
       priceCurrency: 'UAH',
       availability: 'https://schema.org/PreOrder',
+      // Виріб за індивідуальним ТЗ — повернення не передбачене (виробничий брак — за гарантією постачальника).
+      // shippingDetails не вказуємо: вартість доставки індивідуальна (перевізник, кілометраж), а Google вимагає конкретну суму.
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'UA',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+      },
       url: abs(p.path),
       seller: { '@id': abs('/#org') },
     },
