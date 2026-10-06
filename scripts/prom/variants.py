@@ -4,6 +4,7 @@
 #
 #   python3 scripts/prom/variants.py
 import html
+import json
 import os
 import re
 
@@ -15,6 +16,7 @@ IMG = 'https://www.shelterme.com.ua/img/prom/'
 # Категорія маркетплейсу «Захисні споруди цивільного захисту». Групу на сайті не вказуємо —
 # товари потрапляють у кореневу групу.
 PORTAL_URL = 'https://prom.ua/ua/Zaschitnye-sooruzheniya-grazhdanskoj'
+MAIN = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'main_photos.json'), encoding='utf-8'))
 
 KW_UA = ', '.join([
     'модульне укриття', 'бомбосховище', 'укриття', 'модульне бомбосховище', 'бомбосховище купити', 'укриття купити',
@@ -242,7 +244,8 @@ def main():
         kit_fn = render(f"v-{v['code'].lower()}-kit", kit('Комплектація', v['kt'], v['items_ua'],
                                                         'Остаточний склад і вартість комплектації — за технічним завданням замовника.'))
         price = b['price'] * (2 if v.get('double') else 1)
-        pics = [IMG + hero_fn, IMG + kit_fn] + b['pictures'][:5]
+        main = MAIN.get(v['code'])  # головне фото товару (візуалізація в розрізі)
+        pics = ([IMG + main] if main else []) + [IMG + hero_fn, IMG + kit_fn] + b['pictures'][:5]
         n = 2 if v.get('double') else 1
         size1 = v['size'].replace(' × 2', '')
         # «Назначение» — фільтр категорії Prom: беремо лише значення, що вже є в наших товарах
