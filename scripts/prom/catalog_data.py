@@ -22,10 +22,10 @@ OWN = 'https://www.shelterme.com.ua'
 
 
 def local(url):
-    """Своє фото → шлях на сайті; фото з Prom → завантажити в /img/katalog/ (webp)."""
+    """Своє фото → шлях на сайті; фото з Prom → завантажити в /img/katalog/ (jpg)."""
     if url.startswith(OWN):
         return url[len(OWN):]
-    name = hashlib.md5(url.encode()).hexdigest()[:12] + '.webp'
+    name = hashlib.md5(url.encode()).hexdigest()[:12] + '.jpg'
     dst = os.path.join(IMG_DIR, name)
     if not os.path.exists(dst):
         data = None
@@ -40,7 +40,7 @@ def local(url):
             return None
         im = Image.open(io.BytesIO(data)).convert('RGB')
         im.thumbnail((1400, 1400))
-        im.save(dst, 'WEBP', quality=80, method=6)
+        im.save(dst, 'JPEG', quality=85, optimize=True, progressive=True)
     return f'/img/katalog/{name}'
 
 
