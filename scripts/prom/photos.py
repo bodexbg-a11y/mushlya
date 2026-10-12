@@ -21,11 +21,13 @@ def main():
     main_ = {
         'me1': one('p-me1-main-*.jpg'), 'me2': one('p-me2-main-*.jpg'), 'me2xl': one('p-me2xl-main-*.jpg'),
         'me2c': one('p-me2c-main-*.jpg'), 'me2cp': one('p-me2cp-main-*.jpg'),
-        # ще без нових фото — поточне головне фото з Prom
-        'me2ex': '/img/katalog/bfb7b98a7686.jpg', 'me2fl': '/img/katalog/43228804ef72.jpg',
-        'me2fxl': '/img/katalog/2d663d5c1352.jpg', 'me2b': '/img/katalog/c1348ee7a7a8.jpg',
-        'me2cl': '/img/katalog/5ab152529b74.jpg', 'me2exl': '/img/katalog/bfb7b98a7686.jpg',
-        'me2exxl': '/img/katalog/bfb7b98a7686.jpg',
+        'me2ex': one('p-me2ex-main-*.jpg'),
+        'me2fl': one('p-me2fl-main-*.jpg'),
+        'me2fxl': one('p-me2fxl-main-*.jpg'),
+        'me2b': one('p-me2b-main-*.jpg'),
+        'me2cl': one('p-me2cl-main-*.jpg'),
+        'me2exl': one('p-me2exl-main-*.jpg'),
+        'me2exxl': one('p-me2exxl-main-*.jpg'),
     }
     for i in range(1, 11):
         main_[f'me-v{i:02d}'] = one(f'v-me-v{i:02d}-main-*.jpg')
