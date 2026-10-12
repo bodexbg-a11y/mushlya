@@ -30,7 +30,7 @@ def main():
         'me2exxl': one('p-me2exxl-main-*.jpg'),
     }
     for i in range(1, 11):
-        main_[f'me-v{i:02d}'] = one(f'v-me-v{i:02d}-main-*.jpg')
+        main_[f'me-v{i:02d}'] = one(f'p-me-v{i:02d}-main-*.jpg')
     dims = {
         'me1': one('p-me1-dims-*.jpg'), 'me2': one('p-me2-dims-*.jpg'), 'me2xl': one('p-me2xl-dims-*.jpg'),
         'me2c': one('p-me2c-dims-*.jpg'), 'me2cp': one('p-me2cp-dims-*.jpg'),
