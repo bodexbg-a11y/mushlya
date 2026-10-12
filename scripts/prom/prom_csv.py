@@ -29,7 +29,7 @@ def main():
                    o.findtext('description'), o.findtext('description_ua'),
                    'r', o.findtext('price'), 'UAH', 'шт.',
                    ', '.join(p.text for p in o.findall('picture')),
-                   DAYS, o.findtext('vendor') or 'SHELTER ME', 'Україна', o.get('id'), PORTAL_URL]
+                   DAYS, 'Власне виробництво', 'Україна', o.get('id'), PORTAL_URL]
             for p in o.findall('param'):
                 row += [p.get('name'), '', p.text or '']
             w.writerow(row)

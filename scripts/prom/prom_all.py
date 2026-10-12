@@ -25,6 +25,8 @@ def main():
                 body = re.sub(r'\s*<picture>.*?</picture>', '', body, flags=re.S)
                 body = body.replace('    <pickup>', ''.join(f'    <picture>{html.escape(p)}</picture>\n' for p in pics) + '    <pickup>', 1)
             body = re.sub(r'<sales_notes>.*?</sales_notes>', f'<sales_notes>{NOTE}</sales_notes>', body)
+            # Prom приймає виробника лише зі свого довідника — беремо значення з експорту Prom
+            body = re.sub(r'<vendor>.*?</vendor>', '<vendor>Собственное производство</vendor>', body)
             if '<param name="Наявність">' not in body:
                 body = body.replace('<param name="Термін виготовлення">', '<param name="Наявність">під замовлення</param>\n    <param name="Термін виготовлення">', 1)
             offers.append(f'<offer {attrs}>{body}</offer>')
