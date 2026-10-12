@@ -47,6 +47,20 @@ def dims(name, params):
     return cm(str(d)) if d else None, cm(str(ln)) if ln else None
 
 
+_CATALOG = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'catalog.json')
+
+
+def site_pics(gid):
+    """Фото з нашого сайту (scripts/catalog.json): посилання Prom змінюються після оновлень товарів."""
+    if not os.path.exists(_CATALOG):
+        return []
+    import json
+    for it in json.load(open(_CATALOG, encoding='utf-8')):
+        if it['id'] == gid:
+            return [SITE + p for p in it['images']]
+    return []
+
+
 def items():
     seen = set()
     for path in FEEDS:
@@ -59,7 +73,7 @@ def items():
             name = (o.findtext('name_ua') or o.findtext('name') or '').strip()
             name = re.sub(r'\s+', ' ', name)
             params = {p.get('name'): (p.text or '').strip() for p in o.findall('param')}
-            pics = [p.text for p in o.findall('picture') if p.text]
+            pics = site_pics(gid) or [p.text for p in o.findall('picture') if p.text]
             yield dict(id=gid, code=code, title=name[:150], price=o.findtext('price'),
                        desc=text(o.findtext('description_ua') or o.findtext('description')),
                        pics=pics, params=params, dims=dims(name, params))

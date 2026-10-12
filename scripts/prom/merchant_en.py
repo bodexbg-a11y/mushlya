@@ -9,7 +9,7 @@ import os
 import xml.etree.ElementTree as ET
 
 from fix_existing import M
-from merchant import CATEGORY, SITE, cm, slug
+from merchant import CATEGORY, SITE, cm, site_pics, slug
 from variants import V
 
 FEEDS = [os.path.expanduser('~/Downloads/shelterme-prom-update.xml'), os.path.expanduser('~/Downloads/shelterme-new-products.xml')]
@@ -91,7 +91,7 @@ def data():
     for path in FEEDS:
         for o in ET.parse(path).findall('.//offer'):
             code = o.findtext('vendorCode')
-            src[code] = dict(price=o.findtext('price'), pics=[p.text for p in o.findall('picture')])
+            src[code] = dict(price=o.findtext('price'), pics=site_pics(slug(code)) or [p.text for p in o.findall('picture')])
     out = []
     for code, m in M.items():
         out.append(dict(code=code, d=m['diam'], ln=m['len'], s=m['seats'], sl=m['sleep'], kit=None, kit_name=None, double=False,

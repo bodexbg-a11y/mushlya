@@ -104,8 +104,8 @@ function head(p) {
         `<link rel="alternate" hreflang="x-default" href="${abs(p.path)}">`,
       ].join('\n  ');
   const locale = p.lang === 'uk' ? 'uk_UA' : 'ru_UA';
-  const img = abs('/img/og.jpg');
-  const ld = [organization(), website(p), ...(p.product || p.h1 ? [product(p)] : []), ...(p.path === '/' || p.path === '/ru/' ? [priceExample(p)] : []), ...(p.path !== '/' && p.path !== '/ru/' ? [breadcrumbs(p)] : []), ...(p.faq ? [faqLd(p)] : [])];
+  const img = abs(p.ogImage || '/img/og.jpg');
+  const ld = p.ld || [organization(), website(p), ...(p.product || p.h1 ? [product(p)] : []), ...(p.path === '/' || p.path === '/ru/' ? [priceExample(p)] : []), ...(p.path !== '/' && p.path !== '/ru/' ? [breadcrumbs(p)] : []), ...(p.faq ? [faqLd(p)] : [])];
   return `<title>${esc(p.title)}</title>
   <meta name="description" content="${esc(p.description)}">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -267,6 +267,7 @@ function footer(p) {
       <div>
         <p class="footer__h">${t.footerInfo}</p>
         <a href="${home}">${t.home}</a>
+        <a href="/katalog/">${p.lang === 'uk' ? 'Каталог укриттів' : 'Каталог укрытий'}</a>
         ${alt ? `<a href="${alt.path}" hreflang="${alt.lang}">${t.langLabel}</a>` : `<a href="${p.lang === 'uk' ? '/ru/' : '/'}">${t.langLabel}</a>`}
       </div>
       <div>
@@ -782,11 +783,155 @@ for (const p of pages.all) {
   }
 }
 
+// ---------------- каталог товарів (/katalog/…) — сторінки для Google Merchant Center ----------------
+// Дані: scripts/catalog.json (python3 scripts/prom/catalog_data.py) — ті самі id, назви й ціни, що у фіді Merchant.
+const CATALOG = fs.existsSync(path.join(__dirname, 'catalog.json')) ? require('./catalog.json') : [];
+const catalogPages = [];
+if (CATALOG.length) {
+  const base = byPath['/ukryttia-dlia-budynku/'];
+  const money = (n) => `${String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} грн`;
+  const SPEC_KEYS = [
+    ['Габарити модуля (Ø × довжина)', 'Габарити (Ø × довжина)'], ['Кількість модулів', 'Кількість модулів'],
+    ['Кількість місць для сидіння', 'Місць для сидіння'], ['Кількість спальних місць', 'Спальних місць'],
+    ['Матеріал корпусу', 'Матеріал корпусу'], ['Корпус', 'Корпус'], ['Товщина стінки', 'Товщина стінки'],
+    ['Вага модуля', 'Вага модуля'], ['Вологостойкість', 'Вологостійкість'], ['Захисні властивості', 'Захисні властивості'],
+    ['Ґрунтове покриття', 'Ґрунтове покриття'], ['Відповідність', 'Відповідність'], ['Документи', 'Документи'],
+    ['Комплектація', 'Комплектація'], ['Термін виготовлення', 'Термін виготовлення'],
+  ];
+  const DELIVERY = 'спецтранспортом із краном, вартість індивідуальна — залежить від перевізника та відстані';
+  const RETURNS = 'виріб за індивідуальним ТЗ, поверненню не підлягає; виробничий брак — за гарантією';
+  const crumbsLd = (items) => ({
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: items.map(([name, p], i) => ({ '@type': 'ListItem', position: i + 1, name, item: abs(p) })),
+  });
+  const shell = (p, body) => `<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  ${head(p)}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+${header(p)}
+
+${body}
+
+${footer(p)}
+
+<script src="/app.js"></script>
+</body>
+</html>
+`;
+  const pageBase = (extra) => ({ lang: 'uk', nav: base.nav, calcHref: '/#config', ...extra });
+  const card = (it) => `      <a class="kcard" href="/katalog/${it.id}/">
+        <span class="kcard__img"><img src="${it.images[0]}" alt="${esc(it.name)}" width="600" height="600" loading="lazy"></span>
+        <span class="kcard__body">
+          <b class="kcard__title">${esc(it.name)}</b>
+          <span class="kcard__meta">${esc(it.params['Габарити модуля (Ø × довжина)'] || '')} · ${esc(it.params['Кількість місць для сидіння'] || '')} місць</span>
+          <span class="kcard__price">${money(it.price)}</span>
+        </span>
+      </a>`;
+
+  // список товарів
+  const listP = pageBase({
+    path: '/katalog/', title: 'Каталог модульних укриттів і бомбосховищ — ціни | ShelterMe',
+    description: `Каталог модульних укриттів SHELTER ME: ${CATALOG.length} моделей і комплектацій на 12–112 осіб, діаметр 2–3 м. Ціни, характеристики, фото. ДСТУ 9195:2022.`,
+    h1: 'Каталог модульних укриттів', crumb: null, object: 'Приватний будинок',
+  });
+  listP.ld = [organization(), website(listP), crumbsLd([['Головна', '/'], ['Каталог', '/katalog/']]), {
+    '@context': 'https://schema.org', '@type': 'ItemList', name: 'Каталог модульних укриттів SHELTER ME',
+    itemListElement: CATALOG.map((it, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/katalog/${it.id}/`), name: it.name })),
+  }];
+  catalogPages.push([listP, `<section class="section kat">
+  <div class="container">
+    <nav class="kcrumbs" aria-label="Навігація"><a href="/">Головна</a> / <span>Каталог</span></nav>
+    <div class="section__head">
+      <h1 class="section__title">Каталог модульних укриттів</h1>
+      <p class="section__lead">Моделі від 12 до 56 місць в одному модулі та готові комплектації під будинок, ОСББ, школу, садочок чи підприємство. Ціна — за модуль; комплектація й доставка розраховуються індивідуально за вашим ТЗ.</p>
+    </div>
+    <div class="kgrid">
+${CATALOG.map(card).join('\n')}
+    </div>
+  </div>
+</section>
+
+${orderForm(listP)}`]);
+
+  // сторінка товару
+  for (const it of CATALOG) {
+    const url = `/katalog/${it.id}/`;
+    const object = it.purpose === 'Для дома' ? 'Приватний будинок' : 'Підприємство';
+    const p = pageBase({
+      path: url, title: `${it.name} — ${money(it.price)} | ShelterMe`.slice(0, 160),
+      description: `${it.name}. Ціна ${money(it.price)}. Корпус HDPE без стиків, ДСТУ 9195:2022, виготовлення ~24 робочі дні, доставка по Україні.`.slice(0, 300),
+      h1: it.name, object, ogImage: it.images[0],
+    });
+    const text = it.description.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 4900);
+    p.ld = [organization(), crumbsLd([['Головна', '/'], ['Каталог', '/katalog/'], [it.name, url]]), {
+      '@context': 'https://schema.org', '@type': 'Product', name: it.name, sku: it.id, mpn: it.code,
+      image: it.images.slice(0, 6).map(abs), description: text,
+      brand: { '@type': 'Brand', name: BRAND },
+      offers: {
+        '@type': 'Offer', url: abs(url), price: String(it.price), priceCurrency: 'UAH',
+        availability: 'https://schema.org/InStock', itemCondition: 'https://schema.org/NewCondition',
+        seller: { '@id': abs('/#org') },
+        hasMerchantReturnPolicy: { '@type': 'MerchantReturnPolicy', applicableCountry: 'UA', returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted' },
+      },
+    }];
+    const specs = SPEC_KEYS.filter(([k]) => it.params[k]).map(([k, label]) => [label, it.params[k]]);
+    specs.push(['Доставка', DELIVERY], ['Повернення', RETURNS]);
+    const body = `<section class="section prod">
+  <div class="container">
+    <nav class="kcrumbs" aria-label="Навігація"><a href="/">Головна</a> / <a href="/katalog/">Каталог</a> / <span>${esc(it.name)}</span></nav>
+    <div class="prod__grid">
+      <div class="prod__gallery">
+        <a class="prod__main" href="${it.images[0]}"><img src="${it.images[0]}" alt="${esc(it.name)}" width="900" height="900" fetchpriority="high"></a>
+        <div class="prod__thumbs">
+${it.images.slice(1, 9).map((src) => `          <a href="${src}"><img src="${src}" alt="${esc(it.name)}" width="160" height="160" loading="lazy"></a>`).join('\n')}
+        </div>
+      </div>
+      <div class="prod__info">
+        <h1 class="prod__title">${esc(it.name)}</h1>
+        <p class="prod__code mono">Код: ${esc(it.code)}</p>
+        <p class="prod__price">${money(it.price)}</p>
+        <p class="prod__note">Ціна вказана за ${it.params['Кількість модулів'] === '2' ? 'два модулі' : 'модуль'}. Комплектація й доставка розраховуються індивідуально за вашим технічним завданням.</p>
+        <div class="prod__cta">
+          <a href="#order" class="btn btn--primary btn--lg">Отримати розрахунок</a>
+          <a href="tel:+${PHONE}" class="btn btn--ghost btn--lg">${PHONE_TXT}</a>
+        </div>
+        <div class="contacts__msg prod__msg">${msgLinks('uk', 'mbtn')}</div>
+        <dl class="spec-table prod__specs">
+${specs.map(([k, v]) => `          <div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('\n')}
+        </dl>
+      </div>
+    </div>
+    <div class="prod__desc">
+      <h2 class="section__title">Опис</h2>
+${it.description}
+    </div>
+  </div>
+</section>
+
+${orderForm(p).replace('id="formMessage" rows="3" placeholder', `id="formMessage" rows="3" data-product="${esc(it.name)}" placeholder`).replace('></textarea>', `>Цікавить: ${esc(it.name)}</textarea>`)}`;
+    catalogPages.push([p, body]);
+  }
+  for (const [p, body] of catalogPages) {
+    const dir = path.join(PUB, p.path);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'), shell(p, body));
+  }
+}
+
 // версії CSS/JS для скидання кешу браузера після оновлень
 const crypto = require('crypto');
 const ver = (f) => crypto.createHash('md5').update(fs.readFileSync(path.join(PUB, f))).digest('hex').slice(0, 8);
 const V = { css: ver('styles.css'), js: ver('app.js') };
-const htmlFiles = pages.all.map((p) => path.join(PUB, p.path, 'index.html'));
+const htmlFiles = [...pages.all, ...catalogPages.map(([p]) => p)].map((p) => path.join(PUB, p.path, 'index.html'));
 const imgVer = {};
 const withVer = (url) => {
   const clean = url.split('?')[0];
@@ -814,6 +959,7 @@ const urls = pages.all
       : '';
     return `  <url>\n    <loc>${abs(p.path)}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${p.priority || '0.8'}</priority>${links}\n  </url>`;
   })
+  .concat(catalogPages.map(([p]) => `  <url>\n    <loc>${abs(p.path)}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${p.path === '/katalog/' ? '0.8' : '0.6'}</priority>\n  </url>`))
   .join('\n');
 fs.writeFileSync(
   path.join(PUB, 'sitemap.xml'),
@@ -821,4 +967,4 @@ fs.writeFileSync(
 );
 fs.writeFileSync(path.join(PUB, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${abs('/sitemap.xml')}\n`);
 
-console.log(`Готово: ${pages.all.length} сторінок, sitemap.xml, robots.txt → ${SITE}`);
+console.log(`Готово: ${pages.all.length} сторінок + каталог ${catalogPages.length}, sitemap.xml, robots.txt → ${SITE}`);
