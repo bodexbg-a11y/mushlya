@@ -19,6 +19,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 OUT = os.path.join(ROOT, 'scripts', 'catalog.json')
 IMG_DIR = os.path.join(ROOT, 'public', 'img', 'katalog')
 OWN = 'https://www.shelterme.com.ua'
+_PH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'photos.json')
+PHOTOS = json.load(open(_PH, encoding='utf-8')) if os.path.exists(_PH) else {}  # 4 фото в заданому порядку
 
 
 def local(url):
@@ -65,7 +67,7 @@ def main():
             out.append(dict(
                 id=gid, code=code, price=int(float(o.findtext('price'))),
                 name=re.sub(r'\s+', ' ', o.findtext('name_ua')).strip(),
-                images=[x for x in (local(p.text) for p in o.findall('picture')) if x],
+                images=PHOTOS.get(gid) or [x for x in (local(p.text) for p in o.findall('picture')) if x],
                 params=params, purpose=params.get('Назначение', ''),
                 description=clean_desc(o.findtext('description_ua') or ''),
             ))

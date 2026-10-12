@@ -51,10 +51,15 @@ _CATALOG = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__
 
 
 def site_pics(gid):
-    """Фото з нашого сайту (scripts/catalog.json): посилання Prom змінюються після оновлень товарів."""
+    """Фото з нашого сайту: спершу photos.json (4 фото в заданому порядку), інакше catalog.json."""
+    import json
+    photos = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'photos.json')
+    if os.path.exists(photos):
+        p = json.load(open(photos, encoding='utf-8')).get(gid)
+        if p:
+            return [SITE + x for x in p]
     if not os.path.exists(_CATALOG):
         return []
-    import json
     for it in json.load(open(_CATALOG, encoding='utf-8')):
         if it['id'] == gid:
             return [SITE + p for p in it['images']]

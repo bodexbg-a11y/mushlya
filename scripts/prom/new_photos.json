@@ -1,0 +1,22 @@
+{
+ "me1": {
+  "dims": "p-me1-dims-a2aa47a5.jpg",
+  "main": "p-me1-main-67076ad5.jpg"
+ },
+ "me2": {
+  "dims": "p-me2-dims-8812377f.jpg",
+  "main": "p-me2-main-d20d4b40.jpg"
+ },
+ "me2c": {
+  "dims": "p-me2c-dims-e73acdbc.jpg",
+  "main": "p-me2c-main-744f5c90.jpg"
+ },
+ "me2cp": {
+  "dims": "p-me2cp-dims-e259f70e.jpg",
+  "main": "p-me2cp-main-0f3f2c1c.jpg"
+ },
+ "me2xl": {
+  "dims": "p-me2xl-dims-21b96eee.jpg",
+  "main": "p-me2xl-main-e9add9d0.jpg"
+ }
+}
