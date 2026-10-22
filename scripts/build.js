@@ -329,7 +329,7 @@ ${p.forWhom ? forWhomBlock(p.forWhom) : ''}
       ${p.map ? ukraineMap(p.lang) : ''}
     </div>
     <div class="prose">
-${p.text.map((x) => (/^<(h[1-6]|ul|ol|div|figure|table|p)[ >]/.test(x) ? `      ${x}` : `      <p>${x}</p>`)).join('\n')}
+${p.text.map((x) => (x.startsWith('<') ? `      ${x}` : `      <p>${x}</p>`)).join('\n')}
     </div>
   </div>
 </section>
