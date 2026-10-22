@@ -782,3 +782,8 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .prod__desc p, .prod__desc ul { margin: 0 0 14px; }
 .prod__desc h3 { font-size: 1.1rem; margin: 26px 0 10px; }
 @media (max-width: 1080px) { .prod__grid { grid-template-columns: 1fr; gap: 28px; } }
+
+/* фото в текстовому блоці лендингу */
+.prose-fig { margin: 8px 0 22px; }
+.prose-fig img { width: 100%; height: auto; display: block; border-radius: var(--r); }
+.prose-fig figcaption { font-size: .85rem; opacity: .75; margin-top: 8px; }
