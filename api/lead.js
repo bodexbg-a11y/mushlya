@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
   if (!delivered) {
     const reason = ch.telegram || ch.email ? 'delivery_failed' : 'not_configured';
     console.error(`Заявку не доставлено (${reason}):`, lead.name, lead.phone, ch);
-    return res.status(502).json({ ok: false, reason, error: 'Не вдалося надіслати заявку. Будь ласка, напишіть нам у месенджер.' });
+    return res.status(502).json({ ok: false, reason, error: 'Не вдалося надіслати заявку. Будь ласка, зателефонуйте нам.' });
   }
   return res.status(200).json({ ok: true });
 };

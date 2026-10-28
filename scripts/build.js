@@ -55,6 +55,7 @@ const UI = {
 };
 const EMAIL = 'sheltermeua@gmail.com';
 const PHONE = '380771138924';
+const PHONE_TXT = '+38 (077) 113-89-24';
 const MSG = {
   uk: 'Добрий день! Цікавить модульне укриття ShelterMe.',
   ru: 'Здравствуйте! Интересует модульное укрытие ShelterMe.',
@@ -63,6 +64,7 @@ const ICONS = {
   telegram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1l-4.8-1.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>',
   viber: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.9 2 3 5.4 3 10.3c0 2.7 1.2 5 3.2 6.6V21l3.5-2.1c.7.1 1.5.2 2.3.2 5.1 0 9-3.4 9-8.3S17.1 2 12 2zm4.6 11.6c-.2.6-1.1 1.1-1.6 1.2-.4.1-1 .1-1.6-.1-3-1-5-4-5.1-4.2-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.1 1.4z"/></svg>',
   whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.8 14.2c-.2.7-1.4 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.8-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.8-.2 1.5z"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>',
 };
 const messengers = (lang) => [
   ['telegram', 'Telegram', 'https://t.me/sheltermeua'],
@@ -76,6 +78,7 @@ const msgLinks = (lang, cls) => messengers(lang)
 function dock(p) {
   const t = UI[p.lang];
   return `<div class="dock" id="dock">
+  <a class="dock__call" href="tel:+${PHONE}" data-contact="phone">${ICONS.phone}<span>${t.call}</span></a>
   <div class="dock__msg">${msgLinks(p.lang, 'mbtn')}</div>
   <a class="dock__lead" href="#order">${t.fab}</a>
 </div>`;
@@ -140,7 +143,8 @@ function organization() {
     logo: abs('/img/logo.png'),
     email: EMAIL,
     sameAs: ['https://t.me/sheltermeua'],
-    contactPoint: { '@type': 'ContactPoint', email: EMAIL, contactType: 'sales', areaServed: 'UA', availableLanguage: ['uk', 'ru'] },
+    telephone: '+380771138924',
+    contactPoint: { '@type': 'ContactPoint', telephone: '+380771138924', contactType: 'sales', areaServed: 'UA', availableLanguage: ['uk', 'ru'] },
     address: { '@type': 'PostalAddress', addressLocality: 'Південноукраїнськ', addressRegion: 'Миколаївська область', addressCountry: 'UA' },
     areaServed: { '@type': 'Country', name: 'Україна' },
   };
@@ -234,6 +238,7 @@ function header(p) {
 ${nav}${lang}
     </nav>
     <div class="header__cta">
+      <a href="tel:+380771138924" class="header__phone">+38 (077) 113-89-24</a>
       <a href="${p.calcHref}" class="btn btn--primary btn--sm">${t.calc}</a>
     </div>
     <button class="burger" id="burger" aria-label="${t.menu}" aria-expanded="false"><span></span><span></span></button>
@@ -268,7 +273,7 @@ function footer(p) {
       <div>
         <p class="footer__h">${BRAND}</p>
         <p>${t.office}<br>${t.delivery}</p>
-        <p><a href="mailto:${EMAIL}">${EMAIL}</a></p>
+        <p><a href="tel:+380771138924">+38 (077) 113-89-24</a><br><a href="mailto:${EMAIL}">${EMAIL}</a></p>
       </div>
     </div>
     <p class="footer__copy">© <span id="year"></span> ${BRAND}. ${t.rights}</p>
@@ -564,8 +569,8 @@ ${t.tiles.map(([v, d]) => `        <li><b>${v}</b><span>${d}</span></li>`).join(
 
 // Ілюстрація біля «Часті запитання» + швидкий контакт
 const FAQ_ASIDE = {
-  uk: { t: 'Не знайшли відповіді?', d: 'Напишіть нам — відповімо на будь-яке питання про укриття.' },
-  ru: { t: 'Не нашли ответа?', d: 'Напишите нам — ответим на любой вопрос об укрытии.' },
+  uk: { t: 'Не знайшли відповіді?', d: 'Напишіть або зателефонуйте — відповімо на будь-яке питання про укриття.', call: 'Подзвонити' },
+  ru: { t: 'Не нашли ответа?', d: 'Напишите или позвоните — ответим на любой вопрос об укрытии.', call: 'Позвонить' },
 };
 function faqAside(lang) {
   const t = FAQ_ASIDE[lang];
@@ -581,6 +586,7 @@ function faqAside(lang) {
         <p class="faq-aside__t">${t.t}</p>
         <p class="faq-aside__d">${t.d}</p>
         <div class="faq-aside__btns">
+          <a class="btn btn--primary btn--sm" href="tel:+${PHONE}" data-contact="phone">${t.call}</a>
           ${msgLinks(lang, 'mbtn').split('</a>')[0]}</a>
         </div>
       </div>`;
@@ -670,6 +676,7 @@ function orderForm(p) {
       <h2 class="section__title">${F.title}</h2>
       <p class="section__lead">${F.lead}</p>
       <ul class="contacts">
+        <li><span class="mono">${F.phone}</span><a href="tel:+${PHONE}" data-contact="phone">${PHONE_TXT}</a></li>
         <li><span class="mono">${UI[p.lang].messengers}</span><div class="contacts__msg">${msgLinks(p.lang, 'mbtn')}</div></li>
         <li><span class="mono">Email</span><a href="mailto:${EMAIL}">${EMAIL}</a></li>
         <li><span class="mono">${F.hours}</span><b>${F.hoursVal}</b></li>
@@ -895,6 +902,7 @@ ${it.images.slice(1, 9).map((src) => `          <a href="${src}"><img src="${src
         <p class="prod__note">Ціна вказана за ${it.params['Кількість модулів'] === '2' ? 'два модулі' : 'модуль'}. Комплектація й доставка розраховуються індивідуально за вашим технічним завданням.</p>
         <div class="prod__cta">
           <a href="#order" class="btn btn--primary btn--lg">Отримати розрахунок</a>
+          <a href="tel:+${PHONE}" class="btn btn--ghost btn--lg">${PHONE_TXT}</a>
         </div>
         <div class="contacts__msg prod__msg">${msgLinks('uk', 'mbtn')}</div>
         <dl class="spec-table prod__specs">
