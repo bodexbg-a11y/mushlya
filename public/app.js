@@ -19,7 +19,11 @@
   const trackLead = (form) => {
     try {
       (window.dataLayer = window.dataLayer || []).push({ event: 'generate_lead', form });
-      if (window.gtag) window.gtag('event', 'generate_lead', { form });
+      if (window.gtag) {
+        window.gtag('event', 'generate_lead', { form });
+        // Google Ads: «Отправка формы для потенциальных клиентов»
+        window.gtag('event', 'conversion', { send_to: 'AW-18482298767/GyxaCMKoyawdEI__he1E' });
+      }
       if (window.fbq) window.fbq('track', 'Lead', { form });
     } catch (e) { /* аналітика не повинна ламати форму */ }
   };

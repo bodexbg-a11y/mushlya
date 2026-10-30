@@ -91,6 +91,11 @@ const logoSvg = `<svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
       </svg>`;
 
 // ---------------- head ----------------
+// Google Ads: тег на всіх сторінках; конверсію «заявка» надсилає public/app.js
+const GADS_ID = 'AW-18482298767';
+const GTAG = `<script async src="https://www.googletagmanager.com/gtag/js?id=${GADS_ID}"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GADS_ID}');</script>`;
+
 function head(p) {
   const alt = p.alt && byPath[p.alt];
   const hreflang = alt
@@ -106,7 +111,8 @@ function head(p) {
   const locale = p.lang === 'uk' ? 'uk_UA' : 'ru_UA';
   const img = abs(p.ogImage || '/img/og.jpg');
   const ld = p.ld || [organization(), website(p), ...(p.product || p.h1 ? [product(p)] : []), ...(p.path === '/' || p.path === '/ru/' ? [priceExample(p)] : []), ...(p.path !== '/' && p.path !== '/ru/' ? [breadcrumbs(p)] : []), ...(p.faq ? [faqLd(p)] : [])];
-  return `<title>${esc(p.title)}</title>
+  return `${GTAG}
+  <title>${esc(p.title)}</title>
   <meta name="description" content="${esc(p.description)}">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#111316">
