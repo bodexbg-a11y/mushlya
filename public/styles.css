@@ -778,3 +778,7 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .calc__room { fill: rgba(141,144,150,.25); stroke: var(--signal); stroke-width: 3; transition: all .25s var(--ease); }
 #calc .cfg__summary div:last-child { grid-column: auto; }
 @media (max-width: 560px) { #calc .cfg__summary { grid-template-columns: 1fr; } }
+
+/* Довгі слова в H1 (`МЕТАЛЛИЧЕСКИЕ`) не вилазять за екран на телефоні */
+.hero__content { min-width: 0; }
+@media (max-width: 560px) { .hero__title--page { font-size: clamp(1.35rem, 6.4vw, 2.2rem); overflow-wrap: break-word; } }

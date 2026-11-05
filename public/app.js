@@ -4,12 +4,12 @@
 
   const RU = document.documentElement.lang === 'ru';
   const T = RU ? {
-    calc: 'Калькулятор', people: 'чел.', blocks2: 'блока по', blocks5: 'блоков по', name: 'Укажите ваше имя',
+    calc: 'Калькулятор', people: 'чел.', mod1: 'модуль', blocks2: 'модуля по', blocks5: 'модулей по', name: 'Укажите ваше имя',
     phone: 'Укажите полный номер телефона', consent: 'Нужно согласие на обработку данных',
     server: 'Ошибка сервера', fail: 'Не удалось отправить. Попробуйте ещё раз или позвоните нам.',
     cbName: 'Обратный звонок', cbOk: 'Спасибо! Перезвоним в течение рабочего дня.',
   } : {
-    calc: 'Калькулятор', people: 'осіб', blocks2: 'блоки по', blocks5: 'блоків по', name: "Вкажіть ваше ім'я",
+    calc: 'Калькулятор', people: 'осіб', mod1: 'модуль', blocks2: 'модулі по', blocks5: 'модулів по', name: "Вкажіть ваше ім'я",
     phone: 'Вкажіть повний номер телефону', consent: 'Потрібна згода на обробку даних',
     server: 'Помилка сервера', fail: 'Не вдалося надіслати. Спробуйте ще раз або зателефонуйте.',
     cbName: 'Зворотний дзвінок', cbOk: 'Дякуємо! Передзвонимо протягом робочого дня.',
@@ -144,10 +144,10 @@
     const exact = $('#calcPeople');
     const fmt = (n) => String(Math.round(n * 10) / 10).replace('.', ',');
     const state = { people: 50 };
-    // ширина 3 / 6 / 9 м, довжина блоку не більше 24 м — далі кілька блоків
+    // умовний модуль: ширина 3 м, довжина до 12 м — далі кілька модулів
     const size = (area) => {
-      const w = area <= 45 ? 3 : area <= 144 ? 6 : 9;
-      const blocks = Math.ceil(area / (w * 24));
+      const w = 3;
+      const blocks = Math.ceil(area / (w * 12));
       return [w, Math.max(w, Math.ceil((area / blocks / w) * 2) / 2), blocks];
     };
     const result = () => {
@@ -156,7 +156,8 @@
       const [w, l, blocks] = size(comfort);
       return { min, comfort, w, l, blocks };
     };
-    const sizeText = (r) => `${r.blocks > 1 ? `${r.blocks} ${r.blocks < 5 ? T.blocks2 : T.blocks5} ` : ''}${fmt(r.w)} × ${fmt(r.l)} м`;
+    const plural = (n) => (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? T.blocks2 : T.blocks5);
+    const sizeText = (r) => `${r.blocks > 1 ? `${r.blocks} ${r.blocks % 10 === 1 && r.blocks % 100 !== 11 ? T.mod1 : plural(r.blocks)} ` : `1 ${T.mod1} `}${fmt(r.w)} × ${fmt(r.l)} м`;
     const draw = (syncInputs = true) => {
       const r = result();
       $('#calcPeopleOut').textContent = state.people;
