@@ -1,4 +1,4 @@
-# Сайт модульних укриттів
+# Сайт бетонних укриттів на замовлення
 
 ## Локально
 
@@ -27,12 +27,7 @@
 
 Сайт: https://www.shelterme.com.ua (адреса й бренд — у `site.config.json`).
 
-- `public/index.html` — головна (UA), верстається вручну; SEO-теги, шапка й підвал оновлюються збіркою між маркерами `<!-- ... :START/END -->`.
-- `scripts/pages.js` — тексти посадкових сторінок (UA/RU), заголовки, описи, FAQ.
+- `scripts/pages.js` — тексти всіх сторінок (UA/RU), включно з головною: заголовки, описи, FAQ.
 - `npm run build` — генерує сторінки, `sitemap.xml`, `robots.txt`, розмітку Schema.org і версії CSS/JS.
 
 Після будь-яких змін у текстах, стилях чи скриптах: `npm run build`, потім commit і push.
-
-## Ліцензії
-
-Карта України: [@svg-maps/ukraine](https://github.com/VictorCazanave/svg-maps/tree/master/packages/ukraine), автор Olesia Ladanai, CC BY 4.0 (контури спрощено, назви областей українською).

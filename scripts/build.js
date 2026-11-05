@@ -3,7 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 const pages = require('./pages');
-const MAP = require('./ukraine-map.json');
 
 const root = path.join(__dirname, '..');
 const PUB = path.join(root, 'public');
@@ -17,7 +16,7 @@ const byPath = Object.fromEntries(pages.all.map((p) => [p.path, p]));
 // ---------------- shared UI strings ----------------
 const UI = {
   uk: {
-    tagline: 'модульні укриття',
+    tagline: 'бетонні укриття',
     home: 'Головна',
     toHome: 'на головну',
     menu: 'Меню',
@@ -32,10 +31,10 @@ const UI = {
     footerInfo: 'Інформація',
     office: 'м. Південноукраїнськ, Миколаївська обл.',
     delivery: 'Доставка по всій Україні',
-    rights: 'Модульні укриття та бомбосховища.',
+    rights: 'Бетонні укриття та бомбосховища на замовлення.',
   },
   ru: {
-    tagline: 'модульные укрытия',
+    tagline: 'бетонные укрытия',
     home: 'Главная',
     toHome: 'на главную',
     menu: 'Меню',
@@ -50,15 +49,15 @@ const UI = {
     footerInfo: 'Информация',
     office: 'г. Южноукраинск, Николаевская обл.',
     delivery: 'Доставка по всей Украине',
-    rights: 'Модульные укрытия и бомбоубежища.',
+    rights: 'Бетонные укрытия и бомбоубежища на заказ.',
   },
 };
 const EMAIL = 'sheltermeua@gmail.com';
 const PHONE = '380771138924';
 const PHONE_TXT = '+38 (077) 113-89-24';
 const MSG = {
-  uk: 'Добрий день! Цікавить модульне укриття ShelterMe.',
-  ru: 'Здравствуйте! Интересует модульное укрытие ShelterMe.',
+  uk: 'Добрий день! Цікавить бетонне укриття ShelterMe.',
+  ru: 'Здравствуйте! Интересует бетонное укрытие ShelterMe.',
 };
 const ICONS = {
   telegram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1l-4.8-1.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>',
@@ -109,8 +108,7 @@ function head(p) {
         `<link rel="alternate" hreflang="x-default" href="${abs(p.path)}">`,
       ].join('\n  ');
   const locale = p.lang === 'uk' ? 'uk_UA' : 'ru_UA';
-  const img = abs(p.ogImage || '/img/og.jpg');
-  const ld = p.ld || [organization(), website(p), ...(p.product || p.h1 ? [product(p)] : []), ...(p.path === '/' || p.path === '/ru/' ? [priceExample(p)] : []), ...(p.path !== '/' && p.path !== '/ru/' ? [breadcrumbs(p)] : []), ...(p.faq ? [faqLd(p)] : [])];
+  const ld = [organization(), website(p), service(p), ...(p.crumb ? [breadcrumbs(p)] : []), ...(p.faq ? [faqLd(p)] : [])];
   return `${GTAG}
   <title>${esc(p.title)}</title>
   <meta name="description" content="${esc(p.description)}">
@@ -124,14 +122,9 @@ function head(p) {
   <meta property="og:title" content="${esc(p.ogTitle || p.title)}">
   <meta property="og:description" content="${esc(p.description)}">
   <meta property="og:url" content="${abs(p.path)}">
-  <meta property="og:image" content="${img}">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="${esc(p.imageAlt || p.h1)}">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="${esc(p.ogTitle || p.title)}">
   <meta name="twitter:description" content="${esc(p.description)}">
-  <meta name="twitter:image" content="${img}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -161,46 +154,17 @@ function website(p) {
 }
 
 // Послуга, а не Product: у Product Google вимагає ціну або відгуки, яких у нас немає
-function product(p) {
+function service(p) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: p.product || `${p.h1} ${BRAND}`,
-    serviceType: p.lang === 'uk' ? 'Модульні укриття та бомбосховища' : 'Модульные укрытия и бомбоубежища',
+    name: `${p.h1} ${BRAND}`,
+    serviceType: p.lang === 'uk' ? 'Бетонні укриття на замовлення' : 'Бетонные укрытия на заказ',
     description: p.description,
-    image: abs('/img/og.jpg'),
     provider: { '@id': abs('/#org') },
     brand: { '@type': 'Brand', name: BRAND },
     areaServed: { '@type': 'Country', name: 'Україна' },
     url: abs(p.path),
-  };
-}
-
-// Товар із реальною ціною прикладу (Ø 2,5 × 6,25 м) — Google може показати ціну у видачі
-function priceExample(p) {
-  const uk = p.lang === 'uk';
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: uk ? 'Модульне укриття ShelterMe Ø 2,5 × 6,25 м' : 'Модульное укрытие ShelterMe Ø 2,5 × 6,25 м',
-    description: uk ? 'Модульне підземне укриття на 20–24 місця для сидіння, цільний корпус з HDPE без стиків, ДСТУ 9195:2022.' : 'Модульное подземное укрытие на 20–24 сидячих места, цельный корпус из HDPE без стыков, ДСТУ 9195:2022.',
-    image: abs('/img/og.jpg'),
-    brand: { '@type': 'Brand', name: BRAND },
-    offers: {
-      '@type': 'Offer',
-      price: '1250000',
-      priceCurrency: 'UAH',
-      availability: 'https://schema.org/PreOrder',
-      // Виріб за індивідуальним ТЗ — повернення не передбачене (виробничий брак — за гарантією постачальника).
-      // shippingDetails не вказуємо: вартість доставки індивідуальна (перевізник, кілометраж), а Google вимагає конкретну суму.
-      hasMerchantReturnPolicy: {
-        '@type': 'MerchantReturnPolicy',
-        applicableCountry: 'UA',
-        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-      },
-      url: abs(p.path),
-      seller: { '@id': abs('/#org') },
-    },
   };
 }
 
@@ -245,7 +209,7 @@ ${nav}${lang}
     </nav>
     <div class="header__cta">
       <a href="tel:+380771138924" class="header__phone">+38 (077) 113-89-24</a>
-      <a href="${p.calcHref}" class="btn btn--primary btn--sm">${t.calc}</a>
+      <a href="#order" class="btn btn--primary btn--sm">${t.calc}</a>
     </div>
     <button class="burger" id="burger" aria-label="${t.menu}" aria-expanded="false"><span></span><span></span></button>
   </div>
@@ -273,7 +237,6 @@ function footer(p) {
       <div>
         <p class="footer__h">${t.footerInfo}</p>
         <a href="${home}">${t.home}</a>
-        <a href="/katalog/">${p.lang === 'uk' ? 'Каталог укриттів' : 'Каталог укрытий'}</a>
         ${alt ? `<a href="${alt.path}" hreflang="${alt.lang}">${t.langLabel}</a>` : `<a href="${p.lang === 'uk' ? '/ru/' : '/'}">${t.langLabel}</a>`}
       </div>
       <div>
@@ -287,6 +250,39 @@ function footer(p) {
 </footer>
 
 ${dock(p)}`;
+}
+
+// Схема-переріз бетонного укриття замість фото
+const HERO_ART = {
+  uk: { aria: 'Схема: заглиблене бетонне укриття під шаром ґрунту', head: 'Бетонне укриття', ground: 'ґрунт', concrete: 'залізобетон', size: 'розмір — під ваш обʼєкт' },
+  ru: { aria: 'Схема: заглублённое бетонное укрытие под слоем грунта', head: 'Бетонное укрытие', ground: 'грунт', concrete: 'железобетон', size: 'размер — под ваш объект' },
+};
+function heroArt(lang) {
+  const t = HERO_ART[lang];
+  return `<figure class="hero-art">
+        <svg viewBox="0 0 600 520" role="img" aria-label="${t.aria}">
+          <defs>
+            <pattern id="ha-soil" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="12" class="ha-soil-line"/></pattern>
+            <pattern id="ha-concrete" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="4" cy="5" r="1.6" class="ha-dot"/><circle cx="13" cy="12" r="1.2" class="ha-dot"/><circle cx="9" cy="16" r="0.9" class="ha-dot"/></pattern>
+          </defs>
+          <text x="40" y="52" class="ha-head">${t.head.toUpperCase()}</text>
+          <path d="M20 120 H580" class="ha-ground"/>
+          <rect x="20" y="120" width="560" height="380" fill="url(#ha-soil)" class="ha-soil"/>
+          <rect x="300" y="72" width="70" height="48" class="ha-entry"/>
+          <rect x="300" y="120" width="70" height="110" class="ha-wall"/>
+          <rect x="314" y="120" width="42" height="110" class="ha-in"/>
+          <rect x="90" y="230" width="420" height="220" rx="6" class="ha-wall"/>
+          <rect x="90" y="230" width="420" height="220" rx="6" fill="url(#ha-concrete)"/>
+          <rect x="118" y="258" width="364" height="164" rx="3" class="ha-in"/>
+          <g class="ha-seats"><rect x="140" y="380" width="120" height="16"/><rect x="340" y="380" width="120" height="16"/></g>
+          <g class="ha-dim">
+            <path d="M90 474 H510 M90 466 V482 M510 466 V482"/>
+            <text x="300" y="500" text-anchor="middle">${t.size}</text>
+          </g>
+          <text x="40" y="150" class="ha-label">${t.ground}</text>
+          <text x="128" y="248" class="ha-label">${t.concrete}</text>
+        </svg>
+      </figure>`;
 }
 
 // ---------------- landing page body ----------------
@@ -305,17 +301,14 @@ function landing(p) {
       <p class="hero__lead">${p.lead}</p>
       <div class="hero__actions">
         <a href="#order" class="btn btn--primary">${L.getCalc} <span aria-hidden="true">→</span></a>
-        <a href="${p.calcHref}" class="btn btn--ghost">${L.toConfig}</a>
+        <a href="tel:+${PHONE}" class="btn btn--ghost" data-contact="phone">${L.call}: ${PHONE_TXT}</a>
       </div>
 ${callback(p.lang)}    </div>
     <div class="hero__visual">
-      <figure class="photo photo--hero">
-        <img src="/img/${p.image}.webp" alt="${esc(p.imageAlt)}" width="1050" height="1400" fetchpriority="high">
-      </figure>
+      ${heroArt(p.lang)}
     </div>
   </div>
 </section>
-${p.trust ? trustBlock(p.lang) : ''}
 <section class="section">
   <div class="container">
     <div class="section__head">
@@ -327,12 +320,10 @@ ${p.benefits.map(([h, t], i) => `      <article class="benefit"><span class="ben
   </div>
 </section>
 ${p.forWhom ? forWhomBlock(p.forWhom) : ''}
-
 <section class="section section--dark">
   <div class="container seo__grid">
     <div class="section__head">
       <h2 class="section__title">${p.textTitle}</h2>
-      ${p.map ? ukraineMap(p.lang) : ''}
     </div>
     <div class="prose">
 ${p.text.map((x) => (x.startsWith('<') ? `      ${x}` : `      <p>${x}</p>`)).join('\n')}
@@ -340,39 +331,16 @@ ${p.text.map((x) => (x.startsWith('<') ? `      ${x}` : `      <p>${x}</p>`)).jo
   </div>
 </section>
 
-<section class="section specs">
-  <div class="container specs__grid">
-    <div>
-      <div class="section__head">
-        <h2 class="section__title">${L.specsTitle}</h2>
-      </div>
-      <dl class="spec-table">
-${pages.specs[p.lang].map(([k, v]) => `        <div><dt>${k}</dt><dd>${v}</dd></div>`).join('\n')}
-      </dl>
-    </div>
-    ${specsArt(p.lang)}
-  </div>
-</section>
-
-<section class="section section--dark">
+<section class="section" id="process">
   <div class="container">
     <div class="section__head">
-      <h2 class="section__title">${L.protectTitle}</h2>
-      <p class="section__lead">${L.protectLead}</p>
+      <h2 class="section__title">${L.stepsTitle}</h2>
     </div>
-    <div class="protect">
-      <div class="protect__col protect__col--yes">
-        <h3>${L.protectYes}</h3>
-        <ul>${L.yes.map((x) => `<li>${x}</li>`).join('')}</ul>
-      </div>
-      <div class="protect__col protect__col--no">
-        <h3>${L.protectNo}</h3>
-        <ul>${L.no.map((x) => `<li>${x}</li>`).join('')}</ul>
-      </div>
-    </div>
+    <ol class="steps">
+${L.steps.map(([h, d], i) => `      <li><span class="steps__n mono">0${i + 1}</span><h3>${h}</h3><p>${d}</p></li>`).join('\n')}
+    </ol>
   </div>
 </section>
-${p.configurator ? configurator(p) : ''}
 <section class="section" id="faq">
   <div class="container faq">
     <div class="section__head">
@@ -402,77 +370,6 @@ function callback(lang) {
         <p class="callback__msg" role="status" aria-live="polite"></p>
       </form>
 `;
-}
-
-// Карта України за областями (дані: @svg-maps/ukraine, CC BY 4.0)
-const MAP_TXT = {
-  uk: { office: 'Офіс — Південноукраїнськ', delivery: 'Доставка по всій Україні', aria: 'Карта України: доставка модульних укриттів у всі області' },
-  ru: { office: 'Офис — Южноукраинск', delivery: 'Доставка по всей Украине', aria: 'Карта Украины: доставка модульных укрытий во все области' },
-};
-function ukraineMap(lang) {
-  const t = MAP_TXT[lang];
-  // Південноукраїнськ: 47.82° пн. ш., 31.17° сх. д. — у межах Миколаївської області
-  const [x1, y1, x2, y2] = MAP.boxes.mykolaiv;
-  const px = Math.round(x1 + ((31.17 - 30.25) / 3.0) * (x2 - x1));
-  const py = Math.round(y1 + ((48.3 - 47.82) / 1.9) * (y2 - y1));
-  const regions = MAP.regions
-    .map((r) => `<path class="ua-map__r${r.id === 'mykolaiv' ? ' is-home' : ''}" d="${r.d}"><title>${r.name}${r.id === 'kyiv-city' || r.id === 'crimea' ? '' : ' область'}</title></path>`)
-    .join('');
-  return `<figure class="ua-map">
-        <svg viewBox="0 0 1000 670" role="img" aria-label="${t.aria}">${regions}
-          <g class="ua-map__pin" transform="translate(${px} ${py})"><circle r="22" class="ua-map__pulse"/><circle r="9"/><circle r="3.5" class="ua-map__dot"/></g>
-        </svg>
-        <figcaption>
-          <span class="ua-map__legend ua-map__legend--home">${t.office}</span>
-          <span class="ua-map__legend">${t.delivery}</span>
-        </figcaption>
-        <!-- Map data: @svg-maps/ukraine by Olesia Ladanai, CC BY 4.0 -->
-      </figure>`;
-}
-
-// Блок «Чому нам довіряють»
-const TRUST_ICONS = {
-  dstu: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
-  protocol: '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 14l2 2 4-4"/>',
-  warranty: '<circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7"/><path d="M10 9l1.5 1.5L14.5 7.5"/>',
-  delivery: '<path d="M2 6h12v10H2zM14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
-  passport: '<path d="M9 3h6v3H9z"/><path d="M7 4.5H5V21h14V4.5h-2M8.5 11h7M8.5 15h7"/>',
-  time: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-};
-const TRUST = {
-  uk: {
-    title: 'Чому нам довіряють',
-    items: [
-      ['dstu', 'ДСТУ 9195:2022', 'Відповідність державному стандарту на швидкоспоруджувані захисні споруди'],
-      ['protocol', 'Протокол випробувань', 'Випробування на полігоні — протокол надаємо на запит'],
-      ['warranty', 'Сертифікат відповідності', 'Офіційний сертифікат на конструкцію — копію надаємо на запит'],
-      ['delivery', 'Доставка по Україні', 'Спецтранспортом із краном прямо на ваш обʼєкт'],
-      ['passport', 'Технічний паспорт', 'Разом із модулем передаємо повний пакет документів'],
-      ['time', '~24 робочі дні', 'Орієнтовний строк виготовлення модуля'],
-    ],
-  },
-  ru: {
-    title: 'Почему нам доверяют',
-    items: [
-      ['dstu', 'ДСТУ 9195:2022', 'Соответствие государственному стандарту на быстровозводимые защитные сооружения'],
-      ['protocol', 'Протокол испытаний', 'Испытания на полигоне — протокол предоставляем по запросу'],
-      ['warranty', 'Сертификат соответствия', 'Официальный сертификат на конструкцию — копию предоставляем по запросу'],
-      ['delivery', 'Доставка по Украине', 'Спецтранспортом с краном прямо на ваш объект'],
-      ['passport', 'Технический паспорт', 'Вместе с модулем передаём полный пакет документов'],
-      ['time', '~24 рабочих дня', 'Ориентировочный срок изготовления модуля'],
-    ],
-  },
-};
-function trustBlock(lang) {
-  const t = TRUST[lang];
-  return `<section class="trust" id="trust" aria-label="${t.title}">
-  <div class="container">
-    <h2 class="trust__title">${t.title}</h2>
-    <ul class="trust__grid">
-${t.items.map(([ic, h, d]) => `      <li class="trust__item"><span class="trust__icon"><svg viewBox="0 0 24 24" aria-hidden="true">${TRUST_ICONS[ic]}</svg></span><div><b>${h}</b><span>${d}</span></div></li>`).join('\n')}
-    </ul>
-  </div>
-</section>`;
 }
 
 // Блок «Для кого» (картки об'єктів) — як на українській головній
@@ -511,68 +408,6 @@ ${fw.cards.map(card).join('\n')}
 `;
 }
 
-// Інфографіка-переріз біля «Технічних характеристик»
-const SPECS_ART = {
-  uk: {
-    head: 'Переріз модуля', aria: 'Інфографіка: переріз модуля укриття з позначенням матеріалу, стінки, вологостійкості та ґрунтового покриття',
-    soil: 'ґрунт 2–3 м', sand: 'піщана подушка 300–500 мм', diam: 'Ø 2,0–3,0 м',
-    tiles: [
-      ['HDPE', 'поліетилен високої щільності, цільний корпус без швів'],
-      ['100–150 мм', 'товщина стінки за розрахунком навантаження'],
-      ['IPX8', 'вологостійкість: захист при тривалому зануренні'],
-      ['2–3 м', 'ґрунтового покриття — засипка забезпечує захист'],
-    ],
-  },
-  ru: {
-    head: 'Разрез модуля', aria: 'Инфографика: разрез модуля укрытия с обозначением материала, стенки, влагостойкости и грунтового покрытия',
-    soil: 'грунт 2–3 м', sand: 'песчаная подушка 300–500 мм', diam: 'Ø 2,0–3,0 м',
-    tiles: [
-      ['HDPE', 'полиэтилен высокой плотности, цельный корпус без швов'],
-      ['100–150 мм', 'толщина стенки по расчёту нагрузки'],
-      ['IPX8', 'влагостойкость: защита при длительном погружении'],
-      ['2–3 м', 'грунтового покрытия — засыпка обеспечивает защиту'],
-    ],
-  },
-};
-function specsArt(lang) {
-  const t = SPECS_ART[lang];
-  const mk = [[219, 154], [414, 235], [219, 316], [300, 85]];
-  const drop = (x, y) => `<path d="M${x} ${y - 9}c4 6 6 9 6 12a6 6 0 0 1-12 0c0-3 2-6 6-12z"/>`;
-  return `<figure class="specs-art">
-      <svg viewBox="0 0 600 440" class="specs-art__svg" role="img" aria-label="${t.aria}">
-        <defs>
-          <pattern id="sa-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="currentColor" stroke-opacity=".08"/></pattern>
-          <pattern id="sa-soil" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#8a6d3b" stroke-opacity=".5" stroke-width="2"/></pattern>
-          <pattern id="sa-sand" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#c9a86a" fill-opacity=".7"/><circle cx="6" cy="6" r="1" fill="#c9a86a" fill-opacity=".5"/></pattern>
-        </defs>
-        <rect width="600" height="440" fill="url(#sa-grid)"/>
-        <text x="30" y="36" class="sa-head">${t.head.toUpperCase()}</text>
-        <path d="M30 60 H570" class="sa-ground"/>
-        <path d="M30 60 H570 V400 H30Z" fill="url(#sa-soil)" opacity=".7"/>
-        <rect x="150" y="358" width="300" height="38" fill="url(#sa-sand)"/>
-        <circle cx="300" cy="235" r="114" class="sa-wall"/>
-        <circle cx="300" cy="235" r="103" class="sa-in"/>
-        <circle cx="300" cy="235" r="125" class="sa-edge"/>
-        <circle cx="300" cy="235" r="103" class="sa-edge"/>
-        <path d="M220 300 H380" class="sa-line"/>
-        <g class="sa-dim">
-          <path d="M197 212 H403 M197 205 V219 M403 205 V219"/>
-          <text x="300" y="200" text-anchor="middle">${t.diam}</text>
-          <path d="M80 60 V110 M73 60 H87 M73 110 H87"/>
-          <text x="94" y="93">${t.soil}</text>
-          <text x="300" y="424" text-anchor="middle">${t.sand}</text>
-        </g>
-        <g class="sa-drops">${drop(160, 330)}${drop(182, 352)}${drop(140, 356)}</g>
-        <g class="sa-mk">
-${mk.map(([x, y], i) => `          <g><circle cx="${x}" cy="${y}" r="16"/><text x="${x}" y="${y + 6}">${i + 1}</text></g>`).join('\n')}
-        </g>
-      </svg>
-      <ol class="specs-art__tiles">
-${t.tiles.map(([v, d]) => `        <li><b>${v}</b><span>${d}</span></li>`).join('\n')}
-      </ol>
-    </figure>`;
-}
-
 // Ілюстрація біля «Часті запитання» + швидкий контакт
 const FAQ_ASIDE = {
   uk: { t: 'Не знайшли відповіді?', d: 'Напишіть або зателефонуйте — відповімо на будь-яке питання про укриття.', call: 'Подзвонити' },
@@ -598,81 +433,6 @@ function faqAside(lang) {
       </div>`;
 }
 
-function configurator(p) {
-  const C = pages.text[p.lang].cfg;
-  return `
-<section class="section section--steel config" id="config">
-  <div class="container">
-    <div class="section__head">
-      <h2 class="section__title">${C.title}</h2>
-      <p class="section__lead">${C.lead}</p>
-    </div>
-    <div class="cfg">
-      <div class="cfg__controls">
-        <div class="cfg__group">
-          <p class="cfg__label">${C.diam}</p>
-          <div class="cfg__seg" role="radiogroup" aria-label="${C.diam}">
-            <label><input type="radio" name="cfgDiam" value="2"><span>2,0 м</span></label>
-            <label><input type="radio" name="cfgDiam" value="2.5" checked><span>2,5 м</span></label>
-            <label><input type="radio" name="cfgDiam" value="3"><span>3 м</span></label>
-          </div>
-        </div>
-        <div class="cfg__group">
-          <p class="cfg__label">${C.len} <output id="cfgLenOut">8 м</output></p>
-          <input type="range" id="cfgLen" min="3" max="14" step="0.5" value="8" aria-label="${C.len}">
-          <div class="cfg__scale"><span>3 м</span><span>14 м</span></div>
-        </div>
-        <div class="cfg__row">
-          <div class="cfg__group">
-            <p class="cfg__label">${C.mods}</p>
-            <div class="stepper" data-min="1" data-max="10">
-              <button type="button" data-step="-1" aria-label="−">−</button>
-              <output id="cfgMods">1</output>
-              <button type="button" data-step="1" aria-label="+">+</button>
-            </div>
-          </div>
-          <div class="cfg__group">
-            <p class="cfg__label">${C.people}</p>
-            <div class="stepper" data-min="1" data-max="500">
-              <button type="button" data-step="-1" aria-label="−">−</button>
-              <input type="number" id="cfgPeople" min="1" max="500" value="12" inputmode="numeric" aria-label="${C.people}">
-              <button type="button" data-step="1" aria-label="+">+</button>
-            </div>
-          </div>
-        </div>
-        <div class="cfg__group">
-          <p class="cfg__label">${C.extra}</p>
-          <div class="cfg__opts">
-${C.opts.map((o) => `            <label><input type="checkbox" value="${o.toLowerCase()}"><span>${o}</span></label>`).join('\n')}
-          </div>
-        </div>
-      </div>
-      <div class="cfg__preview">
-        <div class="cfg__stage">
-          <svg id="cfgSvg" viewBox="0 0 600 200" role="img" aria-label="${C.scheme}">
-            <defs><pattern id="ribs" width="6" height="10" patternUnits="userSpaceOnUse"><rect width="6" height="10" fill="#23262b"/><rect width="2" height="10" fill="#3a3f47"/></pattern></defs>
-            <line x1="0" y1="176" x2="600" y2="176" class="cfg__ground"/>
-            <g id="cfgTube"></g>
-            <g id="cfgPerson" class="cfg__person"><circle r="4.2"/><path d=""/></g>
-          </svg>
-          <p class="cfg__hint">${C.scale}</p>
-        </div>
-        <dl class="cfg__summary">
-          <div><dt>${C.sumSize}</dt><dd id="cfgSumSize">Ø 2,5 × 8 м</dd></div>
-          <div><dt>${C.sumMods}</dt><dd id="cfgSumMods">1</dd></div>
-          <div><dt>${C.sumPeople}</dt><dd id="cfgSumPeople">12</dd></div>
-          <div><dt>${C.extra}</dt><dd id="cfgSumOpts">—</dd></div>
-        </dl>
-        <div class="cfg__price"><span>${C.priceExample}</span><b>${C.priceText}</b></div>
-        <a href="#leadForm" class="btn btn--primary btn--block btn--lg" id="cfgSubmit">${C.submit} <span aria-hidden="true">→</span></a>
-        <p class="cfg__note">${C.note}</p>
-      </div>
-    </div>
-  </div>
-</section>
-`;
-}
-
 function orderForm(p) {
   const F = pages.text[p.lang].form;
   return `<section class="section order" id="order">
@@ -690,12 +450,6 @@ function orderForm(p) {
       </ul>
     </div>
     <form class="form" id="leadForm" novalidate>
-      <div class="form__config" id="formConfig" hidden>
-        <span>${F.yourConfig}</span>
-        <b id="formConfigText"></b>
-        <a href="#config">${F.change}</a>
-      </div>
-      <input type="hidden" name="config" id="formConfigInput">
       <div class="form__row">
         <label class="field"><span>${F.name} *</span><input type="text" name="name" autocomplete="name" placeholder="${F.namePh}" required></label>
         <label class="field"><span>${F.phone} *</span><input type="tel" name="phone" autocomplete="tel" placeholder="+38 (0__) ___-__-__" required></label>
@@ -732,10 +486,7 @@ function page(p) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- SEO:START -->
   ${head(p)}
-  <!-- SEO:END -->
-  <link rel="preload" as="image" href="/img/${p.image}.webp" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -757,187 +508,17 @@ ${footer(p)}
 }
 
 // ---------------- write ----------------
-const between = (html, start, end, content) => {
-  const a = html.indexOf(start);
-  const b = html.indexOf(end);
-  if (a < 0 || b < 0) throw new Error(`Маркери ${start} / ${end} не знайдено`);
-  return html.slice(0, a + start.length) + '\n' + content + '\n' + html.slice(b);
-};
-
 for (const p of pages.all) {
-  if (p.path === '/') {
-    // головна — ручна верстка, оновлюємо лише SEO, шапку й підвал
-    const file = path.join(PUB, 'index.html');
-    let html = fs.readFileSync(file, 'utf8');
-    if (p.faqFromHtml) {
-      const strip = (x) => x.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-      p.faq = [...html.matchAll(/<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>/g)].map((m) => [strip(m[1]), strip(m[2])]);
-    }
-    html = between(html, '<!-- SEO:START -->', '<!-- SEO:END -->', '  ' + head(p) + '\n  ');
-    html = between(html, '<!-- HEADER:START -->', '<!-- HEADER:END -->', header(p));
-    html = between(html, '<!-- FOOTER:START -->', '<!-- FOOTER:END -->', footer(p));
-    html = between(html, '<!-- MAP:START -->', '<!-- MAP:END -->', '      ' + ukraineMap(p.lang));
-    html = between(html, '<!-- FAQASIDE:START -->', '<!-- FAQASIDE:END -->', faqAside(p.lang));
-    html = between(html, '<!-- TRUST:START -->', '<!-- TRUST:END -->', trustBlock(p.lang));
-    html = between(html, '<!-- SPECSART:START -->', '<!-- SPECSART:END -->', '    ' + specsArt(p.lang));
-    html = between(html, '<!-- MSG:START -->', '<!-- MSG:END -->', `        <li><span class="mono">${UI[p.lang].messengers}</span><div class="contacts__msg">${msgLinks(p.lang, 'mbtn')}</div></li>`);
-    fs.writeFileSync(file, html);
-  } else {
-    const dir = path.join(PUB, p.path);
-    fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(path.join(dir, 'index.html'), page(p));
-  }
-}
-
-// ---------------- каталог товарів (/katalog/…) — сторінки для Google Merchant Center ----------------
-// Дані: scripts/catalog.json (python3 scripts/prom/catalog_data.py) — ті самі id, назви й ціни, що у фіді Merchant.
-const CATALOG = fs.existsSync(path.join(__dirname, 'catalog.json')) ? require('./catalog.json') : [];
-const catalogPages = [];
-if (CATALOG.length) {
-  const base = byPath['/ukryttia-dlia-budynku/'];
-  const money = (n) => `${String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} грн`;
-  const SPEC_KEYS = [
-    ['Габарити модуля (Ø × довжина)', 'Габарити (Ø × довжина)'], ['Кількість модулів', 'Кількість модулів'],
-    ['Кількість місць для сидіння', 'Місць для сидіння'], ['Кількість спальних місць', 'Спальних місць'],
-    ['Матеріал корпусу', 'Матеріал корпусу'], ['Корпус', 'Корпус'], ['Товщина стінки', 'Товщина стінки'],
-    ['Вага модуля', 'Вага модуля'], ['Вологостойкість', 'Вологостійкість'], ['Захисні властивості', 'Захисні властивості'],
-    ['Ґрунтове покриття', 'Ґрунтове покриття'], ['Відповідність', 'Відповідність'], ['Документи', 'Документи'],
-    ['Комплектація', 'Комплектація'], ['Термін виготовлення', 'Термін виготовлення'],
-  ];
-  const DELIVERY = 'спецтранспортом із краном, вартість індивідуальна — залежить від перевізника та відстані';
-  const RETURNS = 'виріб за індивідуальним ТЗ, поверненню не підлягає; виробничий брак — за гарантією';
-  const crumbsLd = (items) => ({
-    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
-    itemListElement: items.map(([name, p], i) => ({ '@type': 'ListItem', position: i + 1, name, item: abs(p) })),
-  });
-  const shell = (p, body) => `<!doctype html>
-<html lang="uk">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  ${head(p)}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
-  <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-
-${header(p)}
-
-${body}
-
-${footer(p)}
-
-<script src="/app.js"></script>
-</body>
-</html>
-`;
-  const pageBase = (extra) => ({ lang: 'uk', nav: base.nav, calcHref: '/#config', ...extra });
-  const card = (it) => `      <a class="kcard" href="/katalog/${it.id}/">
-        <span class="kcard__img"><img src="${it.images[0]}" alt="${esc(it.name)}" width="600" height="600" loading="lazy"></span>
-        <span class="kcard__body">
-          <b class="kcard__title">${esc(it.name)}</b>
-          <span class="kcard__meta">${esc(it.params['Габарити модуля (Ø × довжина)'] || '')} · ${esc(it.params['Кількість місць для сидіння'] || '')} місць</span>
-          <span class="kcard__price">${money(it.price)}</span>
-        </span>
-      </a>`;
-
-  // список товарів
-  const listP = pageBase({
-    path: '/katalog/', title: 'Каталог модульних укриттів і бомбосховищ — ціни | ShelterMe',
-    description: `Каталог модульних укриттів SHELTER ME: ${CATALOG.length} моделей і комплектацій на 12–112 осіб, діаметр 2–3 м. Ціни, характеристики, фото. ДСТУ 9195:2022.`,
-    h1: 'Каталог модульних укриттів', crumb: null, object: 'Приватний будинок',
-  });
-  listP.ld = [organization(), website(listP), crumbsLd([['Головна', '/'], ['Каталог', '/katalog/']]), {
-    '@context': 'https://schema.org', '@type': 'ItemList', name: 'Каталог модульних укриттів SHELTER ME',
-    itemListElement: CATALOG.map((it, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/katalog/${it.id}/`), name: it.name })),
-  }];
-  catalogPages.push([listP, `<section class="section kat">
-  <div class="container">
-    <nav class="kcrumbs" aria-label="Навігація"><a href="/">Головна</a> / <span>Каталог</span></nav>
-    <div class="section__head">
-      <h1 class="section__title">Каталог модульних укриттів</h1>
-      <p class="section__lead">Моделі від 12 до 56 місць в одному модулі та готові комплектації під будинок, ОСББ, школу, садочок чи підприємство. Ціна — за модуль; комплектація й доставка розраховуються індивідуально за вашим ТЗ.</p>
-    </div>
-    <div class="kgrid">
-${CATALOG.map(card).join('\n')}
-    </div>
-  </div>
-</section>
-
-${orderForm(listP)}`]);
-
-  // сторінка товару
-  for (const it of CATALOG) {
-    const url = `/katalog/${it.id}/`;
-    const object = it.purpose === 'Для дома' ? 'Приватний будинок' : 'Підприємство';
-    const p = pageBase({
-      path: url, title: `${it.name} — ${money(it.price)} | ShelterMe`.slice(0, 160),
-      description: `${it.name}. Ціна ${money(it.price)}. Корпус HDPE без стиків, ДСТУ 9195:2022, виготовлення ~24 робочі дні, доставка по Україні.`.slice(0, 300),
-      h1: it.name, object, ogImage: it.images[0],
-    });
-    const text = it.description.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 4900);
-    p.ld = [organization(), crumbsLd([['Головна', '/'], ['Каталог', '/katalog/'], [it.name, url]]), {
-      '@context': 'https://schema.org', '@type': 'Product', name: it.name, sku: it.id, mpn: it.code,
-      image: it.images.slice(0, 6).map(abs), description: text,
-      brand: { '@type': 'Brand', name: BRAND },
-      offers: {
-        '@type': 'Offer', url: abs(url), price: String(it.price), priceCurrency: 'UAH',
-        availability: 'https://schema.org/InStock', itemCondition: 'https://schema.org/NewCondition',
-        seller: { '@id': abs('/#org') },
-        hasMerchantReturnPolicy: { '@type': 'MerchantReturnPolicy', applicableCountry: 'UA', returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted' },
-      },
-    }];
-    const specs = SPEC_KEYS.filter(([k]) => it.params[k]).map(([k, label]) => [label, it.params[k]]);
-    specs.push(['Доставка', DELIVERY], ['Повернення', RETURNS]);
-    const body = `<section class="section prod">
-  <div class="container">
-    <nav class="kcrumbs" aria-label="Навігація"><a href="/">Головна</a> / <a href="/katalog/">Каталог</a> / <span>${esc(it.name)}</span></nav>
-    <div class="prod__grid">
-      <div class="prod__gallery">
-        <a class="prod__main" href="${it.images[0]}"><img src="${it.images[0]}" alt="${esc(it.name)}" width="900" height="900" fetchpriority="high"></a>
-        <div class="prod__thumbs">
-${it.images.slice(1, 9).map((src) => `          <a href="${src}"><img src="${src}" alt="${esc(it.name)}" width="160" height="160" loading="lazy"></a>`).join('\n')}
-        </div>
-      </div>
-      <div class="prod__info">
-        <h1 class="prod__title">${esc(it.name)}</h1>
-        <p class="prod__code mono">Код: ${esc(it.code)}</p>
-        <p class="prod__price">${money(it.price)}</p>
-        <p class="prod__note">Ціна вказана за ${it.params['Кількість модулів'] === '2' ? 'два модулі' : 'модуль'}. Комплектація й доставка розраховуються індивідуально за вашим технічним завданням.</p>
-        <div class="prod__cta">
-          <a href="#order" class="btn btn--primary btn--lg">Отримати розрахунок</a>
-          <a href="tel:+${PHONE}" class="btn btn--ghost btn--lg">${PHONE_TXT}</a>
-        </div>
-        <div class="contacts__msg prod__msg">${msgLinks('uk', 'mbtn')}</div>
-        <dl class="spec-table prod__specs">
-${specs.map(([k, v]) => `          <div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('\n')}
-        </dl>
-      </div>
-    </div>
-    <div class="prod__desc">
-      <h2 class="section__title">Опис</h2>
-${it.description}
-    </div>
-  </div>
-</section>
-
-${orderForm(p).replace('id="formMessage" rows="3" placeholder', `id="formMessage" rows="3" data-product="${esc(it.name)}" placeholder`).replace('></textarea>', `>Цікавить: ${esc(it.name)}</textarea>`)}`;
-    catalogPages.push([p, body]);
-  }
-  for (const [p, body] of catalogPages) {
-    const dir = path.join(PUB, p.path);
-    fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(path.join(dir, 'index.html'), shell(p, body));
-  }
+  const dir = path.join(PUB, p.path);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), page(p));
 }
 
 // версії CSS/JS для скидання кешу браузера після оновлень
 const crypto = require('crypto');
 const ver = (f) => crypto.createHash('md5').update(fs.readFileSync(path.join(PUB, f))).digest('hex').slice(0, 8);
 const V = { css: ver('styles.css'), js: ver('app.js') };
-const htmlFiles = [...pages.all, ...catalogPages.map(([p]) => p)].map((p) => path.join(PUB, p.path, 'index.html'));
+const htmlFiles = pages.all.map((p) => path.join(PUB, p.path, 'index.html'));
 const imgVer = {};
 const withVer = (url) => {
   const clean = url.split('?')[0];
@@ -965,7 +546,6 @@ const urls = pages.all
       : '';
     return `  <url>\n    <loc>${abs(p.path)}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${p.priority || '0.8'}</priority>${links}\n  </url>`;
   })
-  .concat(catalogPages.map(([p]) => `  <url>\n    <loc>${abs(p.path)}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${p.path === '/katalog/' ? '0.8' : '0.6'}</priority>\n  </url>`))
   .join('\n');
 fs.writeFileSync(
   path.join(PUB, 'sitemap.xml'),
@@ -973,4 +553,4 @@ fs.writeFileSync(
 );
 fs.writeFileSync(path.join(PUB, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${abs('/sitemap.xml')}\n`);
 
-console.log(`Готово: ${pages.all.length} сторінок + каталог ${catalogPages.length}, sitemap.xml, robots.txt → ${SITE}`);
+console.log(`Готово: ${pages.all.length} сторінок, sitemap.xml, robots.txt → ${SITE}`);

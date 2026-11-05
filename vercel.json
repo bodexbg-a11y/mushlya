@@ -30,6 +30,12 @@
       "source": "/ru/index.html",
       "destination": "/ru/",
       "permanent": true
-    }
+    },
+    { "source": "/katalog/:path*", "destination": "/", "permanent": true },
+    { "source": "/feeds/:path*", "destination": "/", "permanent": true },
+    { "source": "/ukryttia-dlia-budynku/", "destination": "/", "permanent": true },
+    { "source": "/ukryttia-na-20-30-50-osib/", "destination": "/", "permanent": true },
+    { "source": "/ru/ukrytie-dlya-doma/", "destination": "/ru/", "permanent": true },
+    { "source": "/ru/ukrytie-na-20-30-50-chelovek/", "destination": "/ru/", "permanent": true }
   ]
 }
