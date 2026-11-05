@@ -773,3 +773,8 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .prod__desc p, .prod__desc ul { margin: 0 0 14px; }
 .prod__desc h3 { font-size: 1.1rem; margin: 26px 0 10px; }
 @media (max-width: 1080px) { .prod__grid { grid-template-columns: 1fr; gap: 28px; } }
+
+/* Калькулятор укриття: схема приміщення */
+.calc__room { fill: rgba(141,144,150,.25); stroke: var(--signal); stroke-width: 3; transition: all .25s var(--ease); }
+#calc .cfg__summary div:last-child { grid-column: auto; }
+@media (max-width: 560px) { #calc .cfg__summary { grid-template-columns: 1fr; } }

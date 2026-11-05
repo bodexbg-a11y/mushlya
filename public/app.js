@@ -4,12 +4,12 @@
 
   const RU = document.documentElement.lang === 'ru';
   const T = RU ? {
-    name: 'Укажите ваше имя',
+    calc: 'Калькулятор', people: 'чел.', blocks2: 'блока по', blocks5: 'блоков по', name: 'Укажите ваше имя',
     phone: 'Укажите полный номер телефона', consent: 'Нужно согласие на обработку данных',
     server: 'Ошибка сервера', fail: 'Не удалось отправить. Попробуйте ещё раз или позвоните нам.',
     cbName: 'Обратный звонок', cbOk: 'Спасибо! Перезвоним в течение рабочего дня.',
   } : {
-    name: "Вкажіть ваше ім'я",
+    calc: 'Калькулятор', people: 'осіб', blocks2: 'блоки по', blocks5: 'блоків по', name: "Вкажіть ваше ім'я",
     phone: 'Вкажіть повний номер телефону', consent: 'Потрібна згода на обробку даних',
     server: 'Помилка сервера', fail: 'Не вдалося надіслати. Спробуйте ще раз або зателефонуйте.',
     cbName: 'Зворотний дзвінок', cbOk: 'Дякуємо! Передзвонимо протягом робочого дня.',
@@ -136,6 +136,63 @@
     });
   }, { threshold: 0.15 });
   $$('.reveal').forEach((el) => io.observe(el));
+
+  // Калькулятор укриття: кількість людей → площа (0,6 м² мінімум, ~1 м² комфортно) і розміри
+  const calc = $('#calc');
+  if (calc) {
+    const range = $('#calcRange');
+    const exact = $('#calcPeople');
+    const fmt = (n) => String(Math.round(n * 10) / 10).replace('.', ',');
+    const state = { people: 50 };
+    // ширина 3 / 6 / 9 м, довжина блоку не більше 24 м — далі кілька блоків
+    const size = (area) => {
+      const w = area <= 45 ? 3 : area <= 144 ? 6 : 9;
+      const blocks = Math.ceil(area / (w * 24));
+      return [w, Math.max(w, Math.ceil((area / blocks / w) * 2) / 2), blocks];
+    };
+    const result = () => {
+      const min = state.people * 0.6;
+      const comfort = state.people * 1;
+      const [w, l, blocks] = size(comfort);
+      return { min, comfort, w, l, blocks };
+    };
+    const sizeText = (r) => `${r.blocks > 1 ? `${r.blocks} ${r.blocks < 5 ? T.blocks2 : T.blocks5} ` : ''}${fmt(r.w)} × ${fmt(r.l)} м`;
+    const draw = (syncInputs = true) => {
+      const r = result();
+      $('#calcPeopleOut').textContent = state.people;
+      if (syncInputs) exact.value = state.people;
+      range.value = Math.min(+range.max, Math.max(+range.min, state.people));
+      range.style.setProperty('--p', ((range.value - range.min) / (range.max - range.min)) * 100 + '%');
+      $('#calcMin').textContent = `${fmt(r.min)} м²`;
+      $('#calcComfort').textContent = `${fmt(r.comfort)} м²`;
+      $('#calcSize').textContent = sizeText(r);
+      // схема в масштабі: найдовша сторона — 520 px
+      const k = Math.min(520 / r.l, 120 / r.w);
+      const rw = r.l * k, rh = r.w * k, x = 300 - rw / 2, y = 100 - rh / 2;
+      const room = $('#calcRoom');
+      room.setAttribute('x', x); room.setAttribute('y', y); room.setAttribute('width', rw); room.setAttribute('height', rh);
+      const tw = $('#calcW'); tw.setAttribute('x', x - 10); tw.setAttribute('y', 104); tw.textContent = `${fmt(r.w)} м`;
+      const tl = $('#calcL'); tl.setAttribute('y', y + rh + 24); tl.textContent = `${fmt(r.l)} м`;
+    };
+    range.addEventListener('input', () => { state.people = +range.value; draw(); });
+    const clamp = (v) => Math.min(2000, Math.max(1, Math.round(v) || 1));
+    exact.addEventListener('input', () => { if (exact.value !== '') { state.people = clamp(+exact.value); draw(false); } });
+    exact.addEventListener('blur', () => { state.people = clamp(+exact.value); draw(); });
+    $$('.stepper button', calc).forEach((b) => b.addEventListener('click', () => { state.people = clamp(state.people + +b.dataset.step); draw(); }));
+    draw();
+
+    // «Отримати розрахунок» — переносимо дані калькулятора в заявку
+    $('#calcSubmit').addEventListener('click', () => {
+      const r = result();
+      const type = ($('input[name="calcType"]:checked', calc) || {}).value;
+      const cap = $('#formCapacity');
+      if (cap) cap.value = state.people;
+      const obj = type && $(`#leadForm input[name="object"][value="${type}"]`);
+      if (obj) obj.checked = true;
+      const msg = $('#formMessage');
+      if (msg) msg.value = `${T.calc}: ${state.people} ${T.people}, ${fmt(r.min)}–${fmt(r.comfort)} м², ≈ ${sizeText(r)}`;
+    });
+  }
 
   const form = $('#leadForm');
   if (!form) return;

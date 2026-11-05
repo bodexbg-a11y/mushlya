@@ -159,7 +159,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"></noscript>
-  <link rel="stylesheet" href="/styles.css?v=57735f0b">
+  <link rel="stylesheet" href="/styles.css?v=ad489801">
 </head>
 <body>
 
@@ -261,6 +261,57 @@
       <article class="benefit"><span class="benefit__n">04</span><h3>Довговічність</h3><p>Залізобетонне укриття служить десятиліттями й не потребує заміни корпусу.</p></article>
       <article class="benefit"><span class="benefit__n">05</span><h3>Будь-який розмір</h3><p>Укриття на десятки чи сотні людей — розмір і планування під ваш обʼєкт, а не під готовий типорозмір.</p></article>
       <article class="benefit"><span class="benefit__n">06</span><h3>Подвійне призначення</h3><p>У мирний час бетонне укриття можна використовувати як склад, підсобне чи технічне приміщення.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section section--steel config" id="calc">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">Калькулятор<br>укриття</h2>
+      <p class="section__lead">Вкажіть, скільки людей потрібно укрити, — покажемо орієнтовну площу й розміри бетонного укриття.</p>
+    </div>
+    <div class="cfg">
+      <div class="cfg__controls">
+        <div class="cfg__group">
+          <p class="cfg__label">Скільки людей укрити <output id="calcPeopleOut">50</output></p>
+          <input type="range" id="calcRange" min="10" max="500" step="5" value="50" aria-label="Скільки людей укрити">
+          <div class="cfg__scale"><span>10</span><span>500</span></div>
+        </div>
+        <div class="cfg__group">
+          <p class="cfg__label">Точна кількість</p>
+          <div class="stepper" data-min="1" data-max="2000">
+            <button type="button" data-step="-5" aria-label="−">−</button>
+            <input type="number" id="calcPeople" min="1" max="2000" value="50" inputmode="numeric" aria-label="Скільки людей укрити">
+            <button type="button" data-step="5" aria-label="+">+</button>
+          </div>
+        </div>
+        <div class="cfg__group">
+          <p class="cfg__label">Тип об'єкта</p>
+          <div class="cfg__opts" role="radiogroup" aria-label="Тип об'єкта">
+            <label><input type="radio" name="calcType" value="Підприємство"><span>Підприємство</span></label>
+            <label><input type="radio" name="calcType" value="Школа" checked><span>Школа</span></label>
+            <label><input type="radio" name="calcType" value="Дитячий садок"><span>Дитячий садок</span></label>
+            <label><input type="radio" name="calcType" value="ОСББ / ЖК"><span>ОСББ / ЖК</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="cfg__preview">
+        <div class="cfg__stage">
+          <svg id="calcSvg" viewBox="0 0 600 220" role="img" aria-label="Схема основного приміщення (вигляд зверху)">
+            <rect id="calcRoom" x="40" y="40" width="520" height="120" rx="4" class="calc__room"/>
+            <text id="calcW" x="24" y="100" text-anchor="end" class="cfg__dimtxt"></text>
+            <text id="calcL" x="300" y="190" text-anchor="middle" class="cfg__dimtxt"></text>
+          </svg>
+          <p class="cfg__hint">Схема основного приміщення (вигляд зверху)</p>
+        </div>
+        <dl class="cfg__summary">
+          <div><dt>Мінімум за нормою</dt><dd id="calcMin">—</dd></div>
+          <div><dt>Комфортно</dt><dd id="calcComfort">—</dd></div>
+          <div><dt>Орієнтовні розміри</dt><dd id="calcSize">—</dd></div>
+        </dl>
+        <a href="#order" class="btn btn--primary btn--block btn--lg" id="calcSubmit">Отримати розрахунок <span aria-hidden="true">→</span></a>
+        <p class="cfg__note">Розрахунок орієнтовний: мінімум — 0,6 м² на людину в основному приміщенні при одноярусних місцях для сидіння, комфортно — близько 1 м². Окремо додаються тамбур, санвузол і технічні приміщення. Точні розміри визначає проєкт за ДБН В.2.2-5:2023.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -418,6 +469,6 @@
   <a class="dock__lead" href="#order">Заявка</a>
 </div>
 
-<script src="/app.js?v=2055b513"></script>
+<script src="/app.js?v=4bf33fd8"></script>
 </body>
 </html>

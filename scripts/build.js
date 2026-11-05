@@ -301,6 +301,62 @@ ${P.items.map(([h, t], i) => `      <article class="benefit"><span class="benefi
 </section>`;
 }
 
+// Калькулятор: кількість людей → орієнтовна площа й розміри (логіка — public/app.js)
+function calculator(p) {
+  const C = pages.text[p.lang].calc;
+  const F = pages.text[p.lang].form;
+  const types = F.objects.slice(0, -1);
+  const start = Math.max(0, types.indexOf(p.object));
+  return `<section class="section section--steel config" id="calc">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">${C.title}</h2>
+      <p class="section__lead">${C.lead}</p>
+    </div>
+    <div class="cfg">
+      <div class="cfg__controls">
+        <div class="cfg__group">
+          <p class="cfg__label">${C.people} <output id="calcPeopleOut">50</output></p>
+          <input type="range" id="calcRange" min="10" max="500" step="5" value="50" aria-label="${C.people}">
+          <div class="cfg__scale"><span>10</span><span>500</span></div>
+        </div>
+        <div class="cfg__group">
+          <p class="cfg__label">${C.exact}</p>
+          <div class="stepper" data-min="1" data-max="2000">
+            <button type="button" data-step="-5" aria-label="−">−</button>
+            <input type="number" id="calcPeople" min="1" max="2000" value="50" inputmode="numeric" aria-label="${C.people}">
+            <button type="button" data-step="5" aria-label="+">+</button>
+          </div>
+        </div>
+        <div class="cfg__group">
+          <p class="cfg__label">${F.object}</p>
+          <div class="cfg__opts" role="radiogroup" aria-label="${F.object}">
+${types.map((o, i) => `            <label><input type="radio" name="calcType" value="${o}"${i === start ? ' checked' : ''}><span>${o}</span></label>`).join('\n')}
+          </div>
+        </div>
+      </div>
+      <div class="cfg__preview">
+        <div class="cfg__stage">
+          <svg id="calcSvg" viewBox="0 0 600 220" role="img" aria-label="${C.scheme}">
+            <rect id="calcRoom" x="40" y="40" width="520" height="120" rx="4" class="calc__room"/>
+            <text id="calcW" x="24" y="100" text-anchor="end" class="cfg__dimtxt"></text>
+            <text id="calcL" x="300" y="190" text-anchor="middle" class="cfg__dimtxt"></text>
+          </svg>
+          <p class="cfg__hint">${C.scheme}</p>
+        </div>
+        <dl class="cfg__summary">
+          <div><dt>${C.sumMin}</dt><dd id="calcMin">—</dd></div>
+          <div><dt>${C.sumComfort}</dt><dd id="calcComfort">—</dd></div>
+          <div><dt>${C.sumSize}</dt><dd id="calcSize">—</dd></div>
+        </dl>
+        <a href="#order" class="btn btn--primary btn--block btn--lg" id="calcSubmit">${C.submit} <span aria-hidden="true">→</span></a>
+        <p class="cfg__note">${C.note}</p>
+      </div>
+    </div>
+  </div>
+</section>`;
+}
+
 // ---------------- landing page body ----------------
 function landing(p) {
   const L = pages.text[p.lang];
@@ -337,6 +393,7 @@ ${p.benefits.map(([h, t], i) => `      <article class="benefit"><span class="ben
 </section>
 ${p.forWhom ? forWhomBlock(p.forWhom) : ''}
 ${pros(p)}
+${calculator(p)}
 <section class="section section--dark">
   <div class="container seo__grid">
     <div class="section__head">
