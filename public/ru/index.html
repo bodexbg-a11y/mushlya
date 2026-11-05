@@ -165,6 +165,7 @@
       <svg class="logo__house" viewBox="0 0 100 100" aria-hidden="true"><path d="M8 94V40L50 6l42 34v54z"/><path d="M24 94V48L50 27l26 21v46" fill="none" stroke="var(--logo-bg, #111316)" stroke-width="9" stroke-linejoin="round"/><rect x="42" y="62" width="16" height="32" fill="var(--logo-bg, #111316)"/></svg><span class="logo__word">SHELTER<b>ME</b></span>
     </a>
     <nav class="nav" id="nav">
+      <a href="#calc">Калькулятор</a>
       <a href="/ru/ukrytie-dlya-biznesa-do-4-dekabrya/">Бизнесу до 4.12</a>
       <a href="/ru/ukrytie-dlya-shkoly/">Для школы</a>
       <a href="/ru/ukrytie-dlya-detskogo-sada/">Для детсада</a>
@@ -190,7 +191,7 @@
       <h1 class="hero__title hero__title--page">Бетонные укрытия на заказ</h1>
       <p class="hero__lead">Бетонные укрытия и бомбоубежища под ваш объект: для предприятия, магазина, офиса, школы или детского сада. Подберём решение, рассчитаем стоимость и сроки — бесплатно.</p>
       <div class="hero__actions">
-        <a href="#order" class="btn btn--primary">Получить расчёт <span aria-hidden="true">→</span></a>
+        <a href="#calc" class="btn btn--primary">Получить расчёт <span aria-hidden="true">→</span></a>
         <a href="tel:+380771138924" class="btn btn--ghost" data-contact="phone">Позвонить: +38 (077) 113-89-24</a>
       </div>
       <form class="callback" novalidate>
@@ -227,6 +228,57 @@
           <text x="128" y="248" class="ha-label">железобетон</text>
         </svg>
       </figure>
+    </div>
+  </div>
+</section>
+<section class="section section--steel config" id="calc">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">Калькулятор<br>укрытия</h2>
+      <p class="section__lead">Укажите, сколько людей нужно укрыть, — покажем ориентировочную площадь и размеры бетонного укрытия.</p>
+    </div>
+    <div class="cfg">
+      <div class="cfg__controls">
+        <div class="cfg__group">
+          <p class="cfg__label">Сколько людей укрыть <output id="calcPeopleOut">50</output></p>
+          <input type="range" id="calcRange" min="10" max="500" step="5" value="50" aria-label="Сколько людей укрыть">
+          <div class="cfg__scale"><span>10</span><span>500</span></div>
+        </div>
+        <div class="cfg__group">
+          <p class="cfg__label">Точное количество</p>
+          <div class="stepper" data-min="1" data-max="2000">
+            <button type="button" data-step="-5" aria-label="−">−</button>
+            <input type="number" id="calcPeople" min="1" max="2000" value="50" inputmode="numeric" aria-label="Сколько людей укрыть">
+            <button type="button" data-step="5" aria-label="+">+</button>
+          </div>
+        </div>
+        <div class="cfg__group">
+          <p class="cfg__label">Тип объекта</p>
+          <div class="cfg__opts" role="radiogroup" aria-label="Тип объекта">
+            <label><input type="radio" name="calcType" value="Предприятие" checked><span>Предприятие</span></label>
+            <label><input type="radio" name="calcType" value="Школа"><span>Школа</span></label>
+            <label><input type="radio" name="calcType" value="Детский сад"><span>Детский сад</span></label>
+            <label><input type="radio" name="calcType" value="ОСМД / ЖК"><span>ОСМД / ЖК</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="cfg__preview">
+        <div class="cfg__stage">
+          <svg id="calcSvg" viewBox="0 0 600 220" role="img" aria-label="Схема основного помещения (вид сверху)">
+            <rect id="calcRoom" x="40" y="40" width="520" height="120" rx="4" class="calc__room"/>
+            <text id="calcW" x="24" y="100" text-anchor="end" class="cfg__dimtxt"></text>
+            <text id="calcL" x="300" y="190" text-anchor="middle" class="cfg__dimtxt"></text>
+          </svg>
+          <p class="cfg__hint">Схема основного помещения (вид сверху)</p>
+        </div>
+        <dl class="cfg__summary">
+          <div><dt>Минимум по норме</dt><dd id="calcMin">—</dd></div>
+          <div><dt>Комфортно</dt><dd id="calcComfort">—</dd></div>
+          <div><dt>Ориентировочные размеры</dt><dd id="calcSize">—</dd></div>
+        </dl>
+        <a href="#order" class="btn btn--primary btn--block btn--lg" id="calcSubmit">Получить расчёт <span aria-hidden="true">→</span></a>
+        <p class="cfg__note">Расчёт ориентировочный: минимум — 0,6 м² на человека в основном помещении при одноярусных местах для сидения, комфортно — около 1 м². Отдельно добавляются тамбур, санузел и технические помещения. Точные размеры определяет проект по ДБН В.2.2-5:2023.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -297,57 +349,6 @@
       <article class="benefit"><span class="benefit__n">04</span><h3>Долговечность</h3><p>Железобетонное укрытие служит десятилетиями и не требует замены корпуса.</p></article>
       <article class="benefit"><span class="benefit__n">05</span><h3>Любой размер</h3><p>Укрытие на десятки или сотни человек — размер и планировка под ваш объект, а не под готовый типоразмер.</p></article>
       <article class="benefit"><span class="benefit__n">06</span><h3>Двойное назначение</h3><p>В мирное время бетонное укрытие можно использовать как склад, подсобное или техническое помещение.</p></article>
-    </div>
-  </div>
-</section>
-<section class="section section--steel config" id="calc">
-  <div class="container">
-    <div class="section__head">
-      <h2 class="section__title">Калькулятор<br>укрытия</h2>
-      <p class="section__lead">Укажите, сколько людей нужно укрыть, — покажем ориентировочную площадь и размеры бетонного укрытия.</p>
-    </div>
-    <div class="cfg">
-      <div class="cfg__controls">
-        <div class="cfg__group">
-          <p class="cfg__label">Сколько людей укрыть <output id="calcPeopleOut">50</output></p>
-          <input type="range" id="calcRange" min="10" max="500" step="5" value="50" aria-label="Сколько людей укрыть">
-          <div class="cfg__scale"><span>10</span><span>500</span></div>
-        </div>
-        <div class="cfg__group">
-          <p class="cfg__label">Точное количество</p>
-          <div class="stepper" data-min="1" data-max="2000">
-            <button type="button" data-step="-5" aria-label="−">−</button>
-            <input type="number" id="calcPeople" min="1" max="2000" value="50" inputmode="numeric" aria-label="Сколько людей укрыть">
-            <button type="button" data-step="5" aria-label="+">+</button>
-          </div>
-        </div>
-        <div class="cfg__group">
-          <p class="cfg__label">Тип объекта</p>
-          <div class="cfg__opts" role="radiogroup" aria-label="Тип объекта">
-            <label><input type="radio" name="calcType" value="Предприятие" checked><span>Предприятие</span></label>
-            <label><input type="radio" name="calcType" value="Школа"><span>Школа</span></label>
-            <label><input type="radio" name="calcType" value="Детский сад"><span>Детский сад</span></label>
-            <label><input type="radio" name="calcType" value="ОСМД / ЖК"><span>ОСМД / ЖК</span></label>
-          </div>
-        </div>
-      </div>
-      <div class="cfg__preview">
-        <div class="cfg__stage">
-          <svg id="calcSvg" viewBox="0 0 600 220" role="img" aria-label="Схема основного помещения (вид сверху)">
-            <rect id="calcRoom" x="40" y="40" width="520" height="120" rx="4" class="calc__room"/>
-            <text id="calcW" x="24" y="100" text-anchor="end" class="cfg__dimtxt"></text>
-            <text id="calcL" x="300" y="190" text-anchor="middle" class="cfg__dimtxt"></text>
-          </svg>
-          <p class="cfg__hint">Схема основного помещения (вид сверху)</p>
-        </div>
-        <dl class="cfg__summary">
-          <div><dt>Минимум по норме</dt><dd id="calcMin">—</dd></div>
-          <div><dt>Комфортно</dt><dd id="calcComfort">—</dd></div>
-          <div><dt>Ориентировочные размеры</dt><dd id="calcSize">—</dd></div>
-        </dl>
-        <a href="#order" class="btn btn--primary btn--block btn--lg" id="calcSubmit">Получить расчёт <span aria-hidden="true">→</span></a>
-        <p class="cfg__note">Расчёт ориентировочный: минимум — 0,6 м² на человека в основном помещении при одноярусных местах для сидения, комфортно — около 1 м². Отдельно добавляются тамбур, санузел и технические помещения. Точные размеры определяет проект по ДБН В.2.2-5:2023.</p>
-      </div>
     </div>
   </div>
 </section>

@@ -372,7 +372,7 @@ function landing(p) {
       <h1 class="hero__title hero__title--page">${p.h1}</h1>
       <p class="hero__lead">${p.lead}</p>
       <div class="hero__actions">
-        <a href="#order" class="btn btn--primary">${L.getCalc} <span aria-hidden="true">→</span></a>
+        <a href="#calc" class="btn btn--primary">${L.getCalc} <span aria-hidden="true">→</span></a>
         <a href="tel:+${PHONE}" class="btn btn--ghost" data-contact="phone">${L.call}: ${PHONE_TXT}</a>
       </div>
 ${callback(p.lang)}    </div>
@@ -381,6 +381,7 @@ ${callback(p.lang)}    </div>
     </div>
   </div>
 </section>
+${calculator(p)}
 <section class="section">
   <div class="container">
     <div class="section__head">
@@ -393,7 +394,6 @@ ${p.benefits.map(([h, t], i) => `      <article class="benefit"><span class="ben
 </section>
 ${p.forWhom ? forWhomBlock(p.forWhom) : ''}
 ${pros(p)}
-${calculator(p)}
 <section class="section section--dark">
   <div class="container seo__grid">
     <div class="section__head">

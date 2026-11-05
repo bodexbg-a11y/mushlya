@@ -2,6 +2,7 @@
 // Після змін запустіть: npm run build
 
 const UA_NAV = [
+  ['#calc', 'Калькулятор'],
   ['/ukryttia-dlia-biznesu-do-4-grudnia/', 'Бізнесу до 4.12'],
   ['/ukryttia-dlia-shkoly/', 'Для школи'],
   ['/ukryttia-dlia-dytsadka/', 'Для садочка'],
@@ -9,6 +10,7 @@ const UA_NAV = [
   ['#faq', 'Питання'],
 ];
 const RU_NAV = [
+  ['#calc', 'Калькулятор'],
   ['/ru/ukrytie-dlya-biznesa-do-4-dekabrya/', 'Бизнесу до 4.12'],
   ['/ru/ukrytie-dlya-shkoly/', 'Для школы'],
   ['/ru/ukrytie-dlya-detskogo-sada/', 'Для детсада'],
