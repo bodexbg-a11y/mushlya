@@ -343,7 +343,7 @@ ${pros(p)}
       <h2 class="section__title">${p.textTitle}</h2>
     </div>
     <div class="prose">
-${p.text.map((x) => (x.startsWith('<') ? `      ${x}` : `      <p>${x}</p>`)).join('\n')}
+${p.text.map((x) => (/^<\/?(h\d|ul|ol|div|table)/.test(x) ? `      ${x}` : `      <p>${x}</p>`)).join('\n')}
     </div>
   </div>
 </section>
