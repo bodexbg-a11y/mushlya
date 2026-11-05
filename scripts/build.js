@@ -285,6 +285,22 @@ function heroArt(lang) {
       </figure>`;
 }
 
+// «Переваги бетонного укриття» — спільний блок для всіх сторінок
+function pros(p) {
+  const P = pages.text[p.lang].pros;
+  return `<section class="section" id="pros">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">${P.title}</h2>
+      <p class="section__lead">${P.lead}</p>
+    </div>
+    <div class="benefits">
+${P.items.map(([h, t], i) => `      <article class="benefit"><span class="benefit__n">${String(i + 1).padStart(2, '0')}</span><h3>${h}</h3><p>${t}</p></article>`).join('\n')}
+    </div>
+  </div>
+</section>`;
+}
+
 // ---------------- landing page body ----------------
 function landing(p) {
   const L = pages.text[p.lang];
@@ -320,6 +336,7 @@ ${p.benefits.map(([h, t], i) => `      <article class="benefit"><span class="ben
   </div>
 </section>
 ${p.forWhom ? forWhomBlock(p.forWhom) : ''}
+${pros(p)}
 <section class="section section--dark">
   <div class="container seo__grid">
     <div class="section__head">
