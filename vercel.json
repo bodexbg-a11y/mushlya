@@ -31,6 +31,8 @@
       "destination": "/ru/",
       "permanent": true
     },
+    { "source": "/katalog/", "destination": "/", "permanent": true },
+    { "source": "/katalog/:slug/", "destination": "/", "permanent": true },
     { "source": "/katalog/:path*", "destination": "/", "permanent": true },
     { "source": "/feeds/:path*", "destination": "/", "permanent": true },
     { "source": "/ukryttia-dlia-budynku/", "destination": "/", "permanent": true },
