@@ -262,6 +262,15 @@ const HERO_ART = {
   uk: { aria: 'Схема: модульне укриття під шаром ґрунту', head: 'Модульне укриття', ground: 'ґрунт', concrete: 'залізобетон 300 мм', size: 'модулі — під кількість людей' },
   ru: { aria: 'Схема: модульное укрытие под слоем грунта', head: 'Модульное укрытие', ground: 'грунт', concrete: 'железобетон 300 мм', size: 'модули — под количество людей' },
 };
+// Фото встановленого укриття в першому екрані
+function heroPhoto(lang) {
+  const alt = lang === 'uk' ? 'Модульне залізобетонне укриття ShelterMe на території підприємства' : 'Модульное железобетонное укрытие ShelterMe на территории предприятия';
+  const tag = lang === 'uk' ? 'залізобетон 300 мм' : 'железобетон 300 мм';
+  return `<figure class="hero-art hero-photo">
+        <img src="/img/projects/installed-2.jpg" width="1400" height="1050" alt="${alt}" fetchpriority="high" decoding="async">
+        <figcaption>${tag}</figcaption>
+      </figure>`;
+}
 function heroArt(lang) {
   const t = HERO_ART[lang];
   return `<figure class="hero-art">
@@ -435,7 +444,7 @@ function landing(p) {
       </div>
 ${callback(p.lang)}    </div>
     <div class="hero__visual">
-      ${heroArt(p.lang)}
+      ${heroPhoto(p.lang)}
     </div>
   </div>
 </section>

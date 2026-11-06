@@ -824,3 +824,16 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .installed__item--big img { aspect-ratio: auto; min-height: 100%; }
 .installed__item figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 14px 12px; font-size: .85rem; font-weight: 600; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.65)); }
 @media (max-width: 720px) { .installed { grid-template-columns: 1fr; } .installed__item--big { grid-row: auto; } .installed__item--big img { aspect-ratio: 3 / 2; } }
+/* Фото укриття в першому екрані */
+.hero-photo { padding: 0; overflow: hidden; position: relative; }
+.hero-photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 40% 60%; }
+.hero-photo figcaption { position: absolute; left: 16px; bottom: 16px; padding: 6px 12px; border-radius: 6px; background: rgba(17,19,22,.82); color: var(--paper); font: 600 .78rem/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 560px) { .hero-photo { padding: 0; } }
+
+/* Шапка: усе в один ряд і по центру */
+.header__inner { gap: 28px; }
+.nav { align-items: center; gap: 26px; }
+.nav > a, .nav__parent { line-height: 1.2; }
+.header__cta { flex: none; }
+.header__cta .btn { white-space: nowrap; }
+.logo { flex: none; }

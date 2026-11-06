@@ -4,19 +4,29 @@
 const UA_NAV = [
   ['#calc', 'Калькулятор'],
   ['#models', 'Моделі'],
-  ['/ukryttia-dlia-biznesu-do-4-grudnia/', 'Бізнесу до 4.12'],
-  ['/ukryttia-dlia-shkoly/', 'Для школи'],
-  ['/ukryttia-dlia-dytsadka/', 'Для садочка'],
-  ['/ukryttia-dlia-osbb-ta-biznesu/', 'Підприємство і ОСББ'],
+  ['/ukryttia-dlia-biznesu-do-4-grudnia/', 'Рішення', [
+    ['/ukryttia-dlia-biznesu-do-4-grudnia/', 'Для бізнесу до 4.12'],
+    ['/ukryttia-dlia-shkoly/', 'Для школи'],
+    ['/ukryttia-dlia-dytsadka/', 'Для садочка'],
+    ['/ukryttia-dlia-osbb-ta-biznesu/', 'Підприємство і ОСББ'],
+    ['/ukryttia-dlia-pryvatnoho-budynku/', 'Для приватного будинку'],
+    ['/bomboskhovyshche/', 'Бомбосховище'],
+    ['/pidzemne-ukryttia/', 'Підземне укриття'],
+  ]],
   ['#faq', 'Питання'],
 ];
 const RU_NAV = [
   ['#calc', 'Калькулятор'],
   ['#models', 'Модели'],
-  ['/ru/ukrytie-dlya-biznesa-do-4-dekabrya/', 'Бизнесу до 4.12'],
-  ['/ru/ukrytie-dlya-shkoly/', 'Для школы'],
-  ['/ru/ukrytie-dlya-detskogo-sada/', 'Для детсада'],
-  ['/ru/ukrytie-dlya-osmd-i-predpriyatiya/', 'Предприятие и ОСМД'],
+  ['/ru/ukrytie-dlya-biznesa-do-4-dekabrya/', 'Решения', [
+    ['/ru/ukrytie-dlya-biznesa-do-4-dekabrya/', 'Для бизнеса до 4.12'],
+    ['/ru/ukrytie-dlya-shkoly/', 'Для школы'],
+    ['/ru/ukrytie-dlya-detskogo-sada/', 'Для детсада'],
+    ['/ru/ukrytie-dlya-osmd-i-predpriyatiya/', 'Предприятие и ОСМД'],
+    ['/ru/ukrytie-dlya-chastnogo-doma/', 'Для частного дома'],
+    ['/ru/bomboubezhishche/', 'Бомбоубежище'],
+    ['/ru/podzemnoe-ukrytie/', 'Подземное укрытие'],
+  ]],
   ['#faq', 'Вопросы'],
 ];
 
