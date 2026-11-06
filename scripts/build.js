@@ -535,6 +535,26 @@ ${F.objects.map((o, i) => `          <label><input type="radio" name="object" va
         </div>
       </fieldset>
       <div class="form__row">
+        <fieldset class="field" data-required="material">
+          <legend>${F.material} *</legend>
+          <div class="chips">
+${F.materials.map((o) => `            <label><input type="radio" name="material" value="${o}" required><span>${o}</span></label>`).join('\n')}
+          </div>
+        </fieldset>
+        <fieldset class="field" data-required="placement">
+          <legend>${F.placement} *</legend>
+          <div class="chips">
+${F.placements.map((o) => `            <label><input type="radio" name="placement" value="${o}" required><span>${o}</span></label>`).join('\n')}
+          </div>
+        </fieldset>
+      </div>
+      <div class="field budget">
+        <p class="budget__label"><span>${F.budget}</span><output id="budgetOut">${F.budgets[0]} ${F.budgetUnit}</output></p>
+        <input type="range" id="budgetRange" min="0" max="${F.budgets.length - 1}" step="1" value="0" aria-label="${F.budget}" data-labels="${F.budgets.join('|')}" data-unit="${F.budgetUnit}">
+        <input type="hidden" name="budget" id="budgetValue" value="${F.budgets[0]} ${F.budgetUnit}">
+        <div class="budget__scale"><span>1,5</span><span>2</span><span>3</span><span>5</span><span>7</span><span>10+</span></div>
+      </div>
+      <div class="form__row">
         <label class="field"><span>${F.people}</span><input type="number" name="capacity" id="formCapacity" min="1" placeholder="${F.peoplePh}"></label>
         <label class="field"><span>${F.region}</span><input type="text" name="region" placeholder="${F.regionPh}"></label>
       </div>

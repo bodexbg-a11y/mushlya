@@ -782,3 +782,11 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 /* Довгі слова в H1 (`МЕТАЛЛИЧЕСКИЕ`) не вилазять за екран на телефоні */
 .hero__content { min-width: 0; }
 @media (max-width: 560px) { .hero__title--page { font-size: clamp(1.35rem, 6.4vw, 2.2rem); overflow-wrap: break-word; } }
+
+/* Форма заявки: бюджет-повзунок */
+.budget__label { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0 0 16px; }
+.budget__label span { font: 600 .7rem var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.budget__label output { font: 800 1.1rem var(--f-display); color: var(--ink); white-space: nowrap; }
+.field.budget input[type="range"] { padding: 0; border: 0; height: 6px; box-shadow: none; background: linear-gradient(90deg, var(--signal) var(--p, 0%), rgba(0,0,0,.14) var(--p, 0%)); }
+.budget__scale { display: flex; justify-content: space-between; margin-top: 10px; font-size: .78rem; opacity: .6; }
+.form fieldset.field .err { display: block; margin-top: 6px; }

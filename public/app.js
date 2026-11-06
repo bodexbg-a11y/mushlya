@@ -5,11 +5,13 @@
   const RU = document.documentElement.lang === 'ru';
   const T = RU ? {
     calc: 'Калькулятор', people: 'чел.', mod1: 'модуль', blocks2: 'модуля по', blocks5: 'модулей по', name: 'Укажите ваше имя',
+    material: 'Выберите: бетонное или металлическое', placement: 'Выберите: подземное или наземное',
     phone: 'Укажите полный номер телефона', consent: 'Нужно согласие на обработку данных',
     server: 'Ошибка сервера', fail: 'Не удалось отправить. Попробуйте ещё раз или позвоните нам.',
     cbName: 'Обратный звонок', cbOk: 'Спасибо! Перезвоним в течение рабочего дня.',
   } : {
     calc: 'Калькулятор', people: 'осіб', mod1: 'модуль', blocks2: 'модулі по', blocks5: 'модулів по', name: "Вкажіть ваше ім'я",
+    material: 'Оберіть: бетонне чи металеве', placement: 'Оберіть: підземне чи наземне',
     phone: 'Вкажіть повний номер телефону', consent: 'Потрібна згода на обробку даних',
     server: 'Помилка сервера', fail: 'Не вдалося надіслати. Спробуйте ще раз або зателефонуйте.',
     cbName: 'Зворотний дзвінок', cbOk: 'Дякуємо! Передзвонимо протягом робочого дня.',
@@ -214,11 +216,28 @@
     } else if (err) err.remove();
   };
 
+  // Повзунок бюджету: 1,5–2 … понад 10 млн грн
+  const budget = $('#budgetRange');
+  const drawBudget = () => {
+    if (!budget) return;
+    const labels = budget.dataset.labels.split('|');
+    const v = `${labels[+budget.value]} ${budget.dataset.unit}`;
+    $('#budgetOut').textContent = v;
+    $('#budgetValue').value = v;
+    budget.style.setProperty('--p', (budget.value / budget.max) * 100 + '%');
+  };
+  if (budget) { budget.addEventListener('input', drawBudget); drawBudget(); }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const fd = new FormData(form);
     const nameInput = form.elements.name;
     let ok = true;
+    ['material', 'placement'].forEach((k) => {
+      const first = form.querySelector(`input[name="${k}"]`);
+      if (!first) return;
+      if (!fd.get(k)) { setError(first, T[k]); ok = false; } else setError(first);
+    });
     if (!String(fd.get('name')).trim()) { setError(nameInput, T.name); ok = false; } else setError(nameInput);
     if (String(fd.get('phone')).replace(/\D/g, '').length < 12) { setError(phone, T.phone); ok = false; } else setError(phone);
     if (!fd.get('consent')) { status.textContent = T.consent; status.className = 'form__status is-error'; ok = false; }
@@ -232,6 +251,7 @@
       trackLead('main');
       success.hidden = false;
       form.reset();
+      drawBudget();
     } catch (err) {
       status.textContent = err.message || T.fail;
       status.className = 'form__status is-error';
@@ -240,7 +260,7 @@
     }
   });
   $('#formAgain').addEventListener('click', () => { success.hidden = true; });
-  $$('input', form).forEach((i) => i.addEventListener('input', () => setError(i)));
+  $$('input', form).forEach((i) => i.addEventListener(i.type === 'radio' ? 'change' : 'input', () => setError(i)));
 
   // Згорнутий SEO-текст: увесь текст у HTML (Google його бачить), на екрані — перший абзац і кнопка
   $$('[data-collapse]').forEach((box) => {

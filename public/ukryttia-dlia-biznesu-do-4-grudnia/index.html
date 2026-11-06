@@ -191,7 +191,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"></noscript>
-  <link rel="stylesheet" href="/styles.css?v=b21efc47">
+  <link rel="stylesheet" href="/styles.css?v=90d463e0">
 </head>
 <body>
 
@@ -470,6 +470,28 @@
         </div>
       </fieldset>
       <div class="form__row">
+        <fieldset class="field" data-required="material">
+          <legend>Матеріал укриття *</legend>
+          <div class="chips">
+            <label><input type="radio" name="material" value="Бетонне" required><span>Бетонне</span></label>
+            <label><input type="radio" name="material" value="Металеве" required><span>Металеве</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field" data-required="placement">
+          <legend>Розміщення *</legend>
+          <div class="chips">
+            <label><input type="radio" name="placement" value="Підземне" required><span>Підземне</span></label>
+            <label><input type="radio" name="placement" value="Наземне" required><span>Наземне</span></label>
+          </div>
+        </fieldset>
+      </div>
+      <div class="field budget">
+        <p class="budget__label"><span>Бюджет</span><output id="budgetOut">1,5–2 млн грн</output></p>
+        <input type="range" id="budgetRange" min="0" max="5" step="1" value="0" aria-label="Бюджет" data-labels="1,5–2|2–3|3–5|5–7|7–10|понад 10" data-unit="млн грн">
+        <input type="hidden" name="budget" id="budgetValue" value="1,5–2 млн грн">
+        <div class="budget__scale"><span>1,5</span><span>2</span><span>3</span><span>5</span><span>7</span><span>10+</span></div>
+      </div>
+      <div class="form__row">
         <label class="field"><span>Кількість осіб</span><input type="number" name="capacity" id="formCapacity" min="1" placeholder="напр. 50"></label>
         <label class="field"><span>Область / місто</span><input type="text" name="region" placeholder="Миколаївська обл."></label>
       </div>
@@ -526,6 +548,6 @@
   <a class="dock__lead" href="#order">Заявка</a>
 </div>
 
-<script src="/app.js?v=ff825685"></script>
+<script src="/app.js?v=73d734a1"></script>
 </body>
 </html>
