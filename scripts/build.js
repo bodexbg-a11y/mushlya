@@ -32,7 +32,7 @@ const UI = {
     footerInfo: 'Інформація',
     office: 'м. Південноукраїнськ, Миколаївська обл.',
     delivery: 'Доставка по всій Україні',
-    rights: 'Модульні укриття та бомбосховища: бетонні й металеві.',
+    rights: 'Модульні бетонні укриття та бомбосховища.',
   },
   ru: {
     tagline: 'модульные укрытия',
@@ -50,7 +50,7 @@ const UI = {
     footerInfo: 'Информация',
     office: 'г. Южноукраинск, Николаевская обл.',
     delivery: 'Доставка по всей Украине',
-    rights: 'Модульные укрытия и бомбоубежища: бетонные и металлические.',
+    rights: 'Модульные бетонные укрытия и бомбоубежища.',
   },
 };
 const EMAIL = 'sheltermeua@gmail.com';
@@ -160,7 +160,7 @@ function service(p) {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: `${p.h1} ${BRAND}`,
-    serviceType: p.lang === 'uk' ? 'Модульні укриття: бетонні та металеві' : 'Модульные укрытия: бетонные и металлические',
+    serviceType: p.lang === 'uk' ? 'Модульні бетонні укриття' : 'Модульные бетонные укрытия',
     description: p.description,
     provider: { '@id': abs('/#org') },
     brand: { '@type': 'Brand', name: BRAND },
@@ -255,8 +255,8 @@ ${dock(p)}`;
 
 // Схема-переріз модульного укриття замість фото
 const HERO_ART = {
-  uk: { aria: 'Схема: модульне укриття під шаром ґрунту', head: 'Модульне укриття', ground: 'ґрунт', concrete: 'бетон або метал', size: 'модулі — під кількість людей' },
-  ru: { aria: 'Схема: модульное укрытие под слоем грунта', head: 'Модульное укрытие', ground: 'грунт', concrete: 'бетон или металл', size: 'модули — под количество людей' },
+  uk: { aria: 'Схема: модульне укриття під шаром ґрунту', head: 'Модульне укриття', ground: 'ґрунт', concrete: 'залізобетон 300 мм', size: 'модулі — під кількість людей' },
+  ru: { aria: 'Схема: модульное укрытие под слоем грунта', head: 'Модульное укрытие', ground: 'грунт', concrete: 'железобетон 300 мм', size: 'модули — под количество людей' },
 };
 function heroArt(lang) {
   const t = HERO_ART[lang];
@@ -584,12 +584,6 @@ ${F.objects.map((o, i) => `          <label><input type="radio" name="object" va
         </div>
       </fieldset>
       <div class="form__row">
-        <fieldset class="field" data-required="material">
-          <legend>${F.material} *</legend>
-          <div class="chips">
-${F.materials.map((o) => `            <label><input type="radio" name="material" value="${o}" required><span>${o}</span></label>`).join('\n')}
-          </div>
-        </fieldset>
         <fieldset class="field" data-required="placement">
           <legend>${F.placement} *</legend>
           <div class="chips">

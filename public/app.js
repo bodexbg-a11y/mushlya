@@ -5,13 +5,13 @@
   const RU = document.documentElement.lang === 'ru';
   const T = RU ? {
     calc: 'Калькулятор', people: 'чел.', askModel: 'Интересует модель', name: 'Укажите ваше имя',
-    material: 'Выберите: бетонное или металлическое', placement: 'Выберите: подземное или наземное',
+    placement: 'Выберите: подземное или наземное',
     phone: 'Укажите полный номер телефона', consent: 'Нужно согласие на обработку данных',
     server: 'Ошибка сервера', fail: 'Не удалось отправить. Попробуйте ещё раз или позвоните нам.',
     cbName: 'Обратный звонок', cbOk: 'Спасибо! Перезвоним в течение рабочего дня.',
   } : {
     calc: 'Калькулятор', people: 'осіб', askModel: 'Цікавить модель', name: "Вкажіть ваше ім'я",
-    material: 'Оберіть: бетонне чи металеве', placement: 'Оберіть: підземне чи наземне',
+    placement: 'Оберіть: підземне чи наземне',
     phone: 'Вкажіть повний номер телефону', consent: 'Потрібна згода на обробку даних',
     server: 'Помилка сервера', fail: 'Не вдалося надіслати. Спробуйте ще раз або зателефонуйте.',
     cbName: 'Зворотний дзвінок', cbOk: 'Дякуємо! Передзвонимо протягом робочого дня.',
@@ -201,9 +201,7 @@
   $$('.model__ask').forEach((a) => a.addEventListener('click', () => {
     const msg = $('#formMessage');
     if (msg) msg.value = `${T.askModel}: ${a.dataset.model}`;
-    // усі моделі залізобетонні; розміщення — за типом моделі (0 — підземне, 1 — наземне)
-    const mat = $('#leadForm input[name="material"]');
-    if (mat) mat.checked = true;
+    // розміщення — за типом моделі (0 — підземне, 1 — наземне)
     const place = $$('#leadForm input[name="placement"]')[a.dataset.under === '1' ? 0 : 1];
     if (place) place.checked = true;
   }));
@@ -244,7 +242,7 @@
     const fd = new FormData(form);
     const nameInput = form.elements.name;
     let ok = true;
-    ['material', 'placement'].forEach((k) => {
+    ['placement'].forEach((k) => {
       const first = form.querySelector(`input[name="${k}"]`);
       if (!first) return;
       if (!fd.get(k)) { setError(first, T[k]); ok = false; } else setError(first);
