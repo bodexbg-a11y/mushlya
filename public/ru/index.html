@@ -155,7 +155,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"></noscript>
-  <link rel="stylesheet" href="/styles.css?v=90d463e0">
+  <link rel="stylesheet" href="/styles.css?v=49dafc7f">
 </head>
 <body>
 
@@ -166,6 +166,7 @@
     </a>
     <nav class="nav" id="nav">
       <a href="#calc">Калькулятор</a>
+      <a href="#models">Модели</a>
       <a href="/ru/ukrytie-dlya-biznesa-do-4-dekabrya/">Бизнесу до 4.12</a>
       <a href="/ru/ukrytie-dlya-shkoly/">Для школы</a>
       <a href="/ru/ukrytie-dlya-detskogo-sada/">Для детсада</a>
@@ -231,11 +232,11 @@
     </div>
   </div>
 </section>
-<section class="section section--steel config" id="calc">
+<section class="section section--steel config" id="calc" data-models='[{"n":"ShelterMe 2.25 XL","id":"225-xl","a":4.05,"l":5.93,"w":3.98,"m":1},{"n":"ShelterMe 2.25 2XL","id":"225-2xl","a":14.86,"l":11.03,"w":3.98,"m":2},{"n":"ShelterMe 2.25 3XL","id":"225-3xl","a":24.99,"l":15.83,"w":3.98,"m":3},{"n":"ShelterMe 3.5 2XL","id":"35-2xl","a":20.45,"l":10.63,"w":5.23,"m":2},{"n":"ShelterMe 3.5 3XL","id":"35-3xl","a":36.71,"l":15.33,"w":5.23,"m":3},{"n":"ShelterMe 3.5 4XL","id":"35-4xl","a":52.96,"l":20.03,"w":5.23,"m":4},{"n":"ShelterMe 3.5 5XL","id":"35-5xl","a":69.22,"l":24.73,"w":5.23,"m":5},{"n":"ShelterMe 4.0 3XL","id":"40-3xl","a":40,"l":15.33,"w":5.73,"m":3},{"n":"ShelterMe 6.0 3XL","id":"60-3xl","a":58.2,"l":15.33,"w":7.73,"m":3},{"n":"ShelterMe 3+2","id":"3-2","a":45.25,"l":15.9,"w":6.34,"m":5},{"n":"ShelterMe 3+3","id":"3-3","a":83.17,"l":15.33,"w":9.34,"m":6}]'>
   <div class="container">
     <div class="section__head">
       <h2 class="section__title">Калькулятор<br>укрытия</h2>
-      <p class="section__lead">Укажите, сколько людей нужно укрыть, — покажем ориентировочную площадь и сколько модулей понадобится.</p>
+      <p class="section__lead">Укажите, сколько людей нужно укрыть, — покажем нужную площадь и подберём модель ShelterMe.</p>
     </div>
     <div class="cfg">
       <div class="cfg__controls">
@@ -264,21 +265,185 @@
       </div>
       <div class="cfg__preview">
         <div class="cfg__stage">
-          <svg id="calcSvg" viewBox="0 0 600 220" role="img" aria-label="Схема модуля (вид сверху)">
+          <svg id="calcSvg" viewBox="0 0 600 220" role="img" aria-label="Схема укрытия (вид сверху)">
             <rect id="calcRoom" x="40" y="40" width="520" height="120" rx="4" class="calc__room"/>
             <text id="calcW" x="24" y="100" text-anchor="end" class="cfg__dimtxt"></text>
             <text id="calcL" x="300" y="190" text-anchor="middle" class="cfg__dimtxt"></text>
           </svg>
-          <p class="cfg__hint">Схема модуля (вид сверху)</p>
+          <p class="cfg__hint">Схема укрытия (вид сверху)</p>
         </div>
         <dl class="cfg__summary">
-          <div><dt>Минимум по норме</dt><dd id="calcMin">—</dd></div>
+          <div><dt>Нужная площадь</dt><dd id="calcMin">—</dd></div>
           <div><dt>Комфортно</dt><dd id="calcComfort">—</dd></div>
-          <div><dt>Ориентировочно модулей</dt><dd id="calcSize">—</dd></div>
+          <div><dt>Подойдёт модель</dt><dd id="calcSize">—</dd></div>
         </dl>
         <a href="#order" class="btn btn--primary btn--block btn--lg" id="calcSubmit">Получить расчёт <span aria-hidden="true">→</span></a>
-        <p class="cfg__note">Расчёт ориентировочный: минимум — 0,6 м² на человека в основном помещении при одноярусных местах для сидения, комфортно — около 1 м². Размеры модуля приняты условно (ширина 3 м, длина до 12 м); точную модель и количество модулей подберём из линейки производителя под ваш объект и требования ДБН В.2.2-5:2023.</p>
+        <p class="cfg__note">Расчёт ориентировочный: минимум — 0,6 м² на человека в основном помещении при одноярусных местах для сидения, комфортно — около 1 м². Модель подбираем по защищённой площади; окончательное решение — после уточнения объекта и требований ДБН В.2.2-5:2023.</p>
       </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="models">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">Модельный ряд<br>ShelterMe</h2>
+      <p class="section__lead">Железобетонные модульные укрытия заводского изготовления — от одного модуля на несколько человек до шестимодульного сооружения на сотню с лишним.</p>
+    </div>
+    <div class="models">
+      <article class="model" id="model-225-xl">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 1</span></div>
+        <h3 class="model__name">ShelterMe 2.25 XL</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="83.0" y="15.0" width="134.1" height="90.0" rx="3" class="model__body"/><g class="model__mods"></g><rect x="74.0" y="23.0" width="9" height="18" class="model__door"/><rect x="217.0" y="79.0" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 6 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>4,05 м²</dd></div>
+          <div><dt>Габариты</dt><dd>5,93 × 3,98 м</dd></div>
+        </dl>
+        <p class="model__text">Самое компактное наземное укрытие с двумя входами. Для небольшого офиса, магазина, АЗС или остановки.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 2.25 XL" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-225-2xl">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 2</span></div>
+        <h3 class="model__name">ShelterMe 2.25 2XL</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="25.3" y="15.0" width="249.4" height="90.0" rx="3" class="model__body"/><g class="model__mods"><line x1="150.0" y1="15.0" x2="150.0" y2="105.0"/></g><rect x="16.3" y="23.0" width="9" height="18" class="model__door"/><rect x="274.7" y="79.0" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 24 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>14,86 м²</dd></div>
+          <div><dt>Габариты</dt><dd>11,03 × 3,98 м</dd></div>
+        </dl>
+        <p class="model__text">Двухмодульное укрытие для небольшой команды: магазин, кафе, небольшой производственный участок.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 2.25 2XL" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-225-3xl">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 3</span></div>
+        <h3 class="model__name">ShelterMe 2.25 3XL</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="20.0" y="27.3" width="260.0" height="65.4" rx="3" class="model__body"/><g class="model__mods"><line x1="106.7" y1="27.3" x2="106.7" y2="92.7"/><line x1="193.3" y1="27.3" x2="193.3" y2="92.7"/></g><rect x="11.0" y="35.3" width="9" height="18" class="model__door"/><rect x="280.0" y="66.7" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 41 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>24,99 м²</dd></div>
+          <div><dt>Габариты</dt><dd>15,83 × 3,98 м</dd></div>
+        </dl>
+        <p class="model__text">Трёхмодульное узкое укрытие — когда участок длинный, но ограничен по ширине.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 2.25 3XL" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-35-2xl">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 2</span></div>
+        <h3 class="model__name">ShelterMe 3.5 2XL</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="58.5" y="15.0" width="182.9" height="90.0" rx="3" class="model__body"/><g class="model__mods"><line x1="150.0" y1="15.0" x2="150.0" y2="105.0"/></g><rect x="49.5" y="23.0" width="9" height="18" class="model__door"/><rect x="241.5" y="79.0" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 34 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>20,45 м²</dd></div>
+          <div><dt>Габариты</dt><dd>10,63 × 5,23 м</dd></div>
+        </dl>
+        <p class="model__text">Внутренняя ширина 3,5 м: удобно для маломобильных людей. Для малого предприятия или офиса.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 3.5 2XL" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-35-3xl">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 3</span></div>
+        <h3 class="model__name">ShelterMe 3.5 3XL</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="20.0" y="15.6" width="260.0" height="88.7" rx="3" class="model__body"/><g class="model__mods"><line x1="106.7" y1="15.6" x2="106.7" y2="104.4"/><line x1="193.3" y1="15.6" x2="193.3" y2="104.4"/></g><rect x="11.0" y="23.6" width="9" height="18" class="model__door"/><rect x="280.0" y="78.4" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 61 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>36,71 м²</dd></div>
+          <div><dt>Габариты</dt><dd>15,33 × 5,23 м</dd></div>
+        </dl>
+        <p class="model__text">Популярная модель для предприятий: можно обустроить защищённый пост управления производством.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 3.5 3XL" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-35-4xl">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 4</span></div>
+        <h3 class="model__name">ShelterMe 3.5 4XL</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="20.0" y="26.1" width="260.0" height="67.9" rx="3" class="model__body"/><g class="model__mods"><line x1="85.0" y1="26.1" x2="85.0" y2="93.9"/><line x1="150.0" y1="26.1" x2="150.0" y2="93.9"/><line x1="215.0" y1="26.1" x2="215.0" y2="93.9"/></g><rect x="11.0" y="34.1" width="9" height="18" class="model__door"/><rect x="280.0" y="67.9" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 88 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>52,96 м²</dd></div>
+          <div><dt>Габариты</dt><dd>20,03 × 5,23 м</dd></div>
+        </dl>
+        <p class="model__text">Четыре модуля для среднего предприятия, магазина или админздания.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 3.5 4XL" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-35-5xl">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 5</span></div>
+        <h3 class="model__name">ShelterMe 3.5 5XL</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="20.0" y="32.5" width="260.0" height="55.0" rx="3" class="model__body"/><g class="model__mods"><line x1="72.0" y1="32.5" x2="72.0" y2="87.5"/><line x1="124.0" y1="32.5" x2="124.0" y2="87.5"/><line x1="176.0" y1="32.5" x2="176.0" y2="87.5"/><line x1="228.0" y1="32.5" x2="228.0" y2="87.5"/></g><rect x="11.0" y="40.5" width="9" height="18" class="model__door"/><rect x="280.0" y="61.5" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 115 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>69,22 м²</dd></div>
+          <div><dt>Габариты</dt><dd>24,73 × 5,23 м</dd></div>
+        </dl>
+        <p class="model__text">Пятимодульное укрытие на смену персонала или класс-два учеников.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 3.5 5XL" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-40-3xl">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 3</span></div>
+        <h3 class="model__name">ShelterMe 4.0 3XL</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="29.6" y="15.0" width="240.8" height="90.0" rx="3" class="model__body"/><g class="model__mods"><line x1="109.9" y1="15.0" x2="109.9" y2="105.0"/><line x1="190.1" y1="15.0" x2="190.1" y2="105.0"/></g><rect x="20.6" y="23.0" width="9" height="18" class="model__door"/><rect x="270.4" y="79.0" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 66 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>40 м²</dd></div>
+          <div><dt>Габариты</dt><dd>15,33 × 5,73 м</dd></div>
+        </dl>
+        <p class="model__text">Внутренняя ширина 4 м и возможность удлинить модулями. Для предприятий, школ и громад.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 4.0 3XL" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-60-3xl">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 3</span></div>
+        <h3 class="model__name">ShelterMe 6.0 3XL</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="60.8" y="15.0" width="178.5" height="90.0" rx="3" class="model__body"/><g class="model__mods"><line x1="120.3" y1="15.0" x2="120.3" y2="105.0"/><line x1="179.7" y1="15.0" x2="179.7" y2="105.0"/></g><rect x="51.8" y="23.0" width="9" height="18" class="model__door"/><rect x="239.2" y="79.0" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 97 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>58,2 м²</dd></div>
+          <div><dt>Габариты</dt><dd>15,33 × 7,73 м</dd></div>
+        </dl>
+        <p class="model__text">Внутренняя ширина 6 м: вмещает защищённую производственную линию, склад или целую смену предприятия.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 6.0 3XL" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-3-2">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 5</span></div>
+        <h3 class="model__name">ShelterMe 3+2</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="37.1" y="15.0" width="225.7" height="90.0" rx="3" class="model__body"/><g class="model__mods"><line x1="82.3" y1="15.0" x2="82.3" y2="105.0"/><line x1="127.4" y1="15.0" x2="127.4" y2="105.0"/><line x1="172.6" y1="15.0" x2="172.6" y2="105.0"/><line x1="217.7" y1="15.0" x2="217.7" y2="105.0"/></g><rect x="28.1" y="23.0" width="9" height="18" class="model__door"/><rect x="262.9" y="79.0" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 75 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>45,25 м²</dd></div>
+          <div><dt>Габариты</dt><dd>15,9 × 6,34 м</dd></div>
+        </dl>
+        <p class="model__text">Несколько отдельных помещений — подходит для обустройства ПРУ по ДБН В.2.2-5:2023.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 3+2" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-3-3">
+        <div class="model__top"><span class="model__tag">Наземное</span><span class="model__mono">Модулей: 6</span></div>
+        <h3 class="model__name">ShelterMe 3+3</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="76.1" y="15.0" width="147.7" height="90.0" rx="3" class="model__body"/><g class="model__mods"><line x1="100.8" y1="15.0" x2="100.8" y2="105.0"/><line x1="125.4" y1="15.0" x2="125.4" y2="105.0"/><line x1="150.0" y1="15.0" x2="150.0" y2="105.0"/><line x1="174.6" y1="15.0" x2="174.6" y2="105.0"/><line x1="199.2" y1="15.0" x2="199.2" y2="105.0"/></g><rect x="67.1" y="23.0" width="9" height="18" class="model__door"/><rect x="223.9" y="79.0" width="9" height="18" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 138 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>83,17 м²</dd></div>
+          <div><dt>Габариты</dt><dd>15,33 × 9,34 м</dd></div>
+        </dl>
+        <p class="model__text">Самое большое укрытие линейки: для школ с большим количеством детей и крупных предприятий.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe 3+3" data-under="0">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="model" id="model-u2">
+        <div class="model__top"><span class="model__tag model__tag--under">Подземное</span><span class="model__mono">Модулей: 1</span></div>
+        <h3 class="model__name">ShelterMe U2</h3>
+        <svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="67.2" y="15.0" width="165.7" height="90.0" rx="3" class="model__body"/><g class="model__mods"></g><rect x="232.8" y="48.0" width="16" height="24" class="model__door"/></svg>
+        <dl class="model__specs">
+          <div><dt>Ориентировочно</dt><dd>до 15 чел.</dd></div>
+          <div><dt>Защищённая площадь</dt><dd>9,45 м²</dd></div>
+          <div><dt>Габариты</dt><dd>4,86 × 2,64 м</dd></div>
+        </dl>
+        <p class="model__text">Подземное модульное укрытие из бетона Б35/Б40 с отдельным тамбуром. Грунт — дополнительная защита.</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe U2" data-under="1">Узнать цену <span aria-hidden="true">→</span></a>
+      </article>
+    </div>
+    <p class="models__note">Вместимость ориентировочная — из расчёта 0,6 м² на человека. Точное количество мест определяет проект под ваш объект.</p>
+    <h3 class="models__h">Что в основе каждой модели</h3>
+    <div class="benefits">
+      <article class="benefit"><span class="benefit__n">01</span><h3>Стены 300 мм</h3><p>Железобетон с пространственным армированием, арочная крыша и контрфорсы.</p></article>
+      <article class="benefit"><span class="benefit__n">02</span><h3>От 100 до 500 кПа</h3><p>Стандарт требует 100 кПа ударной волны; конструкция рассчитана с многократным запасом.</p></article>
+      <article class="benefit"><span class="benefit__n">03</span><h3>Защита от осколков</h3><p>Два входа-выхода с Z-образным заходом — осколки и ударная волна не залетают внутрь.</p></article>
+      <article class="benefit"><span class="benefit__n">04</span><h3>ДСТУ 9329:2025</h3><p>Первичные (мобильные) укрытия, соответствие ДБН В.2.2-5:2023. Документы — для тендеров и проверок.</p></article>
+      <article class="benefit"><span class="benefit__n">05</span><h3>Монтаж от 24 часов</h3><p>Модули изготавливают на заводе; на объекте — только подготовка площадки и сборка.</p></article>
+      <article class="benefit"><span class="benefit__n">06</span><h3>Под ключ</h3><p>Подбор модели, доставка по Украине, монтаж и гарантия по договору.</p></article>
     </div>
   </div>
 </section>
@@ -555,6 +720,6 @@
   <a class="dock__lead" href="#order">Заявка</a>
 </div>
 
-<script src="/app.js?v=73d734a1"></script>
+<script src="/app.js?v=4075d103"></script>
 </body>
 </html>

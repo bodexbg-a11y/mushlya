@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const pages = require('./pages');
+const models = require('./models');
 
 const root = path.join(__dirname, '..');
 const PUB = path.join(root, 'public');
@@ -301,13 +302,60 @@ ${P.items.map(([h, t], i) => `      <article class="benefit"><span class="benefi
 </section>`;
 }
 
-// Калькулятор: кількість людей → орієнтовна площа й розміри (логіка — public/app.js)
+// Модельний ряд: картки з габаритами, площею й місткістю + схема зверху
+const fmtNum = (n) => String(n).replace('.', ',');
+function modelPlan(m) {
+  // схема зверху в масштабі: довжина ↔ ширина, лінії між модулями, входи з торців
+  const k = Math.min(260 / m.l, 90 / m.w);
+  const w = m.l * k, h = m.w * k, x = (300 - w) / 2, y = (120 - h) / 2;
+  const lines = Array.from({ length: m.modules - 1 }, (_, i) => {
+    const lx = x + (w / m.modules) * (i + 1);
+    return `<line x1="${lx.toFixed(1)}" y1="${y.toFixed(1)}" x2="${lx.toFixed(1)}" y2="${(y + h).toFixed(1)}"/>`;
+  }).join('');
+  const door = m.type === 'under'
+    ? `<rect x="${(x + w).toFixed(1)}" y="${(y + h / 2 - 12).toFixed(1)}" width="16" height="24" class="model__door"/>`
+    : `<rect x="${(x - 9).toFixed(1)}" y="${(y + 8).toFixed(1)}" width="9" height="18" class="model__door"/><rect x="${(x + w).toFixed(1)}" y="${(y + h - 26).toFixed(1)}" width="9" height="18" class="model__door"/>`;
+  return `<svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="3" class="model__body"/><g class="model__mods">${lines}</g>${door}</svg>`;
+}
+function modelsBlock(p) {
+  const M = pages.text[p.lang].models;
+  return `<section class="section" id="models">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">${M.title}</h2>
+      <p class="section__lead">${M.lead}</p>
+    </div>
+    <div class="models">
+${models.list.map((m) => `      <article class="model" id="model-${m.id}">
+        <div class="model__top"><span class="model__tag${m.type === 'under' ? ' model__tag--under' : ''}">${m.type === 'under' ? M.under : M.ground}</span><span class="model__mono">${M.modules}: ${m.modules}</span></div>
+        <h3 class="model__name">ShelterMe ${m.name}</h3>
+        ${modelPlan(m)}
+        <dl class="model__specs">
+          <div><dt>${M.people}</dt><dd>до ${m.people} ${M.peopleUnit}</dd></div>
+          <div><dt>${M.area}</dt><dd>${fmtNum(m.area)} м²</dd></div>
+          <div><dt>${M.size}</dt><dd>${fmtNum(m.l)} × ${fmtNum(m.w)} м</dd></div>
+        </dl>
+        <p class="model__text">${m[p.lang]}</p>
+        <a href="#order" class="btn btn--ghost btn--block model__ask" data-model="ShelterMe ${m.name}" data-under="${m.type === 'under' ? 1 : 0}">${M.ask} <span aria-hidden="true">→</span></a>
+      </article>`).join('\n')}
+    </div>
+    <p class="models__note">${M.note}</p>
+    <h3 class="models__h">${M.specsTitle}</h3>
+    <div class="benefits">
+${M.specs.map(([h, t], i) => `      <article class="benefit"><span class="benefit__n">${String(i + 1).padStart(2, '0')}</span><h3>${h}</h3><p>${t}</p></article>`).join('\n')}
+    </div>
+  </div>
+</section>`;
+}
+
+// Калькулятор: кількість людей → площа й підбір моделі (логіка — public/app.js)
 function calculator(p) {
   const C = pages.text[p.lang].calc;
   const F = pages.text[p.lang].form;
   const types = F.objects.slice(0, -1);
   const start = Math.max(0, types.indexOf(p.object));
-  return `<section class="section section--steel config" id="calc">
+  const data = models.list.filter((m) => m.type === 'ground').map((m) => ({ n: `ShelterMe ${m.name}`, id: m.id, a: m.area, l: m.l, w: m.w, m: m.modules }));
+  return `<section class="section section--steel config" id="calc" data-models='${JSON.stringify(data)}'>
   <div class="container">
     <div class="section__head">
       <h2 class="section__title">${C.title}</h2>
@@ -382,6 +430,7 @@ ${callback(p.lang)}    </div>
   </div>
 </section>
 ${calculator(p)}
+${modelsBlock(p)}
 <section class="section">
   <div class="container">
     <div class="section__head">

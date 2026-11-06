@@ -4,13 +4,13 @@
 
   const RU = document.documentElement.lang === 'ru';
   const T = RU ? {
-    calc: 'Калькулятор', people: 'чел.', mod1: 'модуль', blocks2: 'модуля по', blocks5: 'модулей по', name: 'Укажите ваше имя',
+    calc: 'Калькулятор', people: 'чел.', askModel: 'Интересует модель', name: 'Укажите ваше имя',
     material: 'Выберите: бетонное или металлическое', placement: 'Выберите: подземное или наземное',
     phone: 'Укажите полный номер телефона', consent: 'Нужно согласие на обработку данных',
     server: 'Ошибка сервера', fail: 'Не удалось отправить. Попробуйте ещё раз или позвоните нам.',
     cbName: 'Обратный звонок', cbOk: 'Спасибо! Перезвоним в течение рабочего дня.',
   } : {
-    calc: 'Калькулятор', people: 'осіб', mod1: 'модуль', blocks2: 'модулі по', blocks5: 'модулів по', name: "Вкажіть ваше ім'я",
+    calc: 'Калькулятор', people: 'осіб', askModel: 'Цікавить модель', name: "Вкажіть ваше ім'я",
     material: 'Оберіть: бетонне чи металеве', placement: 'Оберіть: підземне чи наземне',
     phone: 'Вкажіть повний номер телефону', consent: 'Потрібна згода на обробку даних',
     server: 'Помилка сервера', fail: 'Не вдалося надіслати. Спробуйте ще раз або зателефонуйте.',
@@ -146,20 +146,17 @@
     const exact = $('#calcPeople');
     const fmt = (n) => String(Math.round(n * 10) / 10).replace('.', ',');
     const state = { people: 50 };
-    // умовний модуль: ширина 3 м, довжина до 12 м — далі кілька модулів
-    const size = (area) => {
-      const w = 3;
-      const blocks = Math.ceil(area / (w * 12));
-      return [w, Math.max(w, Math.ceil((area / blocks / w) * 2) / 2), blocks];
-    };
+    // Модельний ряд (наземні) — з data-models; підбираємо найменшу модель, що вміщує потрібну площу
+    const models = JSON.parse(calc.dataset.models || '[]').sort((a, b) => a.a - b.a);
     const result = () => {
       const min = state.people * 0.6;
       const comfort = state.people * 1;
-      const [w, l, blocks] = size(comfort);
-      return { min, comfort, w, l, blocks };
+      let model = models.find((m) => m.a >= min);
+      let count = 1;
+      if (!model) { model = models.reduce((a, b) => (b.a > a.a ? b : a)); count = Math.ceil(min / model.a); }
+      return { min, comfort, model, count, w: model.w, l: model.l };
     };
-    const plural = (n) => (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? T.blocks2 : T.blocks5);
-    const sizeText = (r) => `${r.blocks > 1 ? `${r.blocks} ${r.blocks % 10 === 1 && r.blocks % 100 !== 11 ? T.mod1 : plural(r.blocks)} ` : `1 ${T.mod1} `}${fmt(r.w)} × ${fmt(r.l)} м`;
+    const sizeText = (r) => `${r.count > 1 ? `${r.count} × ` : ''}${r.model.n}`;
     const draw = (syncInputs = true) => {
       const r = result();
       $('#calcPeopleOut').textContent = state.people;
@@ -168,7 +165,10 @@
       range.style.setProperty('--p', ((range.value - range.min) / (range.max - range.min)) * 100 + '%');
       $('#calcMin').textContent = `${fmt(r.min)} м²`;
       $('#calcComfort').textContent = `${fmt(r.comfort)} м²`;
-      $('#calcSize').textContent = sizeText(r);
+      $('#calcSize').innerHTML = '';
+      const link = document.createElement('a');
+      link.href = `#model-${r.model.id}`; link.textContent = sizeText(r);
+      $('#calcSize').appendChild(link);
       // схема в масштабі: найдовша сторона — 520 px
       const k = Math.min(520 / r.l, 120 / r.w);
       const rw = r.l * k, rh = r.w * k, x = 300 - rw / 2, y = 100 - rh / 2;
@@ -193,9 +193,20 @@
       const obj = type && $(`#leadForm input[name="object"][value="${type}"]`);
       if (obj) obj.checked = true;
       const msg = $('#formMessage');
-      if (msg) msg.value = `${T.calc}: ${state.people} ${T.people}, ${fmt(r.min)}–${fmt(r.comfort)} м², ≈ ${sizeText(r)}`;
+      if (msg) msg.value = `${T.calc}: ${state.people} ${T.people}, ${fmt(r.min)}–${fmt(r.comfort)} м², ${sizeText(r)}`;
     });
   }
+
+  // «Дізнатися ціну» на картці моделі — назва моделі в коментар заявки
+  $$('.model__ask').forEach((a) => a.addEventListener('click', () => {
+    const msg = $('#formMessage');
+    if (msg) msg.value = `${T.askModel}: ${a.dataset.model}`;
+    // усі моделі залізобетонні; розміщення — за типом моделі (0 — підземне, 1 — наземне)
+    const mat = $('#leadForm input[name="material"]');
+    if (mat) mat.checked = true;
+    const place = $$('#leadForm input[name="placement"]')[a.dataset.under === '1' ? 0 : 1];
+    if (place) place.checked = true;
+  }));
 
   const form = $('#leadForm');
   if (!form) return;

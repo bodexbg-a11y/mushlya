@@ -790,3 +790,24 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .field.budget input[type="range"] { padding: 0; border: 0; height: 6px; box-shadow: none; background: linear-gradient(90deg, var(--signal) var(--p, 0%), rgba(0,0,0,.14) var(--p, 0%)); }
 .budget__scale { display: flex; justify-content: space-between; margin-top: 10px; font-size: .78rem; opacity: .6; }
 .form fieldset.field .err { display: block; margin-top: 6px; }
+/* ---------- Модельний ряд ---------- */
+.models { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.model { display: flex; flex-direction: column; gap: 12px; padding: 22px; border: 1.5px solid rgba(0,0,0,.1); border-radius: var(--r); background: #fff; scroll-margin-top: 90px; }
+.model:target { border-color: var(--signal); box-shadow: 0 0 0 4px rgba(255,176,0,.3); }
+.model__top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.model__tag { font: 600 .7rem var(--f-mono); letter-spacing: .08em; text-transform: uppercase; padding: 5px 10px; border-radius: 100px; background: var(--ink); color: var(--signal); }
+.model__tag--under { background: var(--signal); color: var(--ink); }
+.model__mono { font: 600 .72rem var(--f-mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.model__name { font: 800 1.25rem var(--f-display); margin: 0; }
+.model__plan { width: 100%; height: auto; background: #f3f2ee; border-radius: 6px; }
+.model__body { fill: rgba(141,144,150,.28); stroke: var(--ink); stroke-width: 2.5; }
+.model__mods line { stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 4 3; opacity: .55; }
+.model__door { fill: var(--signal); }
+.model__specs { margin: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.model__specs dt { font: 600 .62rem var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.model__specs dd { margin: 2px 0 0; font-weight: 800; font-size: .92rem; }
+.model__text { margin: 0; font-size: .92rem; color: var(--muted); flex: 1; }
+.model__ask { margin-top: 4px; }
+.models__note { margin: 18px 0 0; font-size: .85rem; color: var(--muted); }
+.models__h { font: 800 1.3rem var(--f-display); margin: 48px 0 20px; text-transform: uppercase; }
+#calcSize a { color: inherit; text-decoration: underline; text-decoration-color: var(--signal); text-underline-offset: 4px; }
