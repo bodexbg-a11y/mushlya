@@ -4,7 +4,7 @@
 const PER_PERSON = 0.6;
 
 const list = [
-  { id: '225-xl', photo: 'render-1.jpg', name: '2.25 XL', type: 'ground', modules: 1, l: 5.93, w: 3.98, area: 4.05,
+  { id: '225-xl', photo: 'render-1.webp', name: '2.25 XL', type: 'ground', modules: 1, l: 5.93, w: 3.98, area: 4.05,
     uk: 'Найкомпактніше наземне укриття з двома входами. Для невеликого офісу, магазину, АЗС чи зупинки.',
     ru: 'Самое компактное наземное укрытие с двумя входами. Для небольшого офиса, магазина, АЗС или остановки.' },
   { id: '225-2xl', photo: 'side-2.webp', name: '2.25 2XL', type: 'ground', modules: 2, l: 11.03, w: 3.98, area: 14.86,

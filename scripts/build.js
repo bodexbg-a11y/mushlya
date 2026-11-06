@@ -93,8 +93,10 @@ const logoSvg = `<svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
 // ---------------- head ----------------
 // Google Ads: тег на всіх сторінках; конверсію «заявка» надсилає public/app.js
 const GADS_ID = 'AW-18482298767';
-const GTAG = `<script async src="https://www.googletagmanager.com/gtag/js?id=${GADS_ID}"></script>
-  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GADS_ID}');</script>`;
+// Сам gtag.js вантажимо після load — не гальмує перший екран; до того події чекають у dataLayer
+const GTAG = `<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GADS_ID}');
+  addEventListener('load', function () { setTimeout(function () { var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=${GADS_ID}'; document.head.appendChild(s); }, 1200); });</script>
+  <link rel="preload" as="image" href="/img/models/hero-shelter.webp" fetchpriority="high">`;
 
 function head(p) {
   const alt = p.alt && byPath[p.alt];
@@ -267,7 +269,7 @@ function heroPhoto(lang) {
   const alt = lang === 'uk' ? 'Модульне залізобетонне укриття ShelterMe на території підприємства' : 'Модульное железобетонное укрытие ShelterMe на территории предприятия';
   const tag = lang === 'uk' ? 'залізобетон 300 мм' : 'железобетон 300 мм';
   return `<figure class="hero-render">
-        <img src="/img/models/hero-shelter.png" width="820" height="561" alt="${alt}" fetchpriority="high" decoding="async">
+        <img src="/img/models/hero-shelter.webp" width="820" height="561" alt="${alt}" fetchpriority="high">
         <figcaption>${tag}</figcaption>
       </figure>`;
 }
@@ -657,7 +659,7 @@ ${landing(p)}
 
 ${footer(p)}
 
-<script src="/app.js"></script>
+<script src="/app.js" defer></script>
 </body>
 </html>
 `;
