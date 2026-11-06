@@ -28,7 +28,7 @@ const UI = {
     messengers: 'Месенджери',
     langLabel: 'Русский',
     langShort: 'RU',
-    footerFor: 'Укриття для',
+    footerFor: 'Рішення',
     footerInfo: 'Інформація',
     office: 'м. Південноукраїнськ, Миколаївська обл.',
     delivery: 'Доставка по всій Україні',
@@ -46,7 +46,7 @@ const UI = {
     messengers: 'Мессенджеры',
     langLabel: 'Українська',
     langShort: 'UA',
-    footerFor: 'Укрытие для',
+    footerFor: 'Решения',
     footerInfo: 'Информация',
     office: 'г. Южноукраинск, Николаевская обл.',
     delivery: 'Доставка по всей Украине',
@@ -123,7 +123,11 @@ function head(p) {
   <meta property="og:title" content="${esc(p.ogTitle || p.title)}">
   <meta property="og:description" content="${esc(p.description)}">
   <meta property="og:url" content="${abs(p.path)}">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="${abs('/img/projects/installed-3.jpg')}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:alt" content="${p.lang === 'uk' ? 'Модульне залізобетонне укриття ShelterMe' : 'Модульное железобетонное укрытие ShelterMe'}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="${abs('/img/projects/installed-3.jpg')}">
   <meta name="twitter:title" content="${esc(p.ogTitle || p.title)}">
   <meta name="twitter:description" content="${esc(p.description)}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
