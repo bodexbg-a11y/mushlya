@@ -837,3 +837,8 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .header__cta { flex: none; }
 .header__cta .btn { white-space: nowrap; }
 .logo { flex: none; }
+/* PNG-рендер укриття в першому екрані (без рамки) */
+.hero-render { margin: 0; position: relative; padding: 40px 0 30px; }
+.hero-render::before { content: ""; position: absolute; left: 8%; right: 8%; bottom: 12%; height: 22%; background: radial-gradient(ellipse at center, rgba(255,176,0,.28), transparent 70%); filter: blur(10px); z-index: 0; }
+.hero-render img { position: relative; z-index: 1; display: block; width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgba(0,0,0,.55)); }
+.hero-render figcaption { position: absolute; z-index: 2; right: 4%; top: 6%; padding: 7px 12px; border: 1.5px solid var(--signal); border-radius: 6px; color: var(--signal); font: 600 .78rem/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; background: rgba(17,19,22,.7); }

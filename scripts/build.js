@@ -266,8 +266,8 @@ const HERO_ART = {
 function heroPhoto(lang) {
   const alt = lang === 'uk' ? 'Модульне залізобетонне укриття ShelterMe на території підприємства' : 'Модульное железобетонное укрытие ShelterMe на территории предприятия';
   const tag = lang === 'uk' ? 'залізобетон 300 мм' : 'железобетон 300 мм';
-  return `<figure class="hero-art hero-photo">
-        <img src="/img/projects/installed-2.jpg" width="1400" height="1050" alt="${alt}" fetchpriority="high" decoding="async">
+  return `<figure class="hero-render">
+        <img src="/img/models/hero-shelter.png" width="820" height="561" alt="${alt}" fetchpriority="high" decoding="async">
         <figcaption>${tag}</figcaption>
       </figure>`;
 }
