@@ -329,6 +329,7 @@ function modelsBlock(p) {
 ${models.list.map((m) => `      <article class="model" id="model-${m.id}">
         <div class="model__top"><span class="model__tag${m.type === 'under' ? ' model__tag--under' : ''}">${m.type === 'under' ? M.under : M.ground}</span><span class="model__mono">${M.modules}: ${m.modules}</span></div>
         <h3 class="model__name">ShelterMe ${m.name}</h3>
+        ${m.photo ? `<img class="model__photo${m.photo.startsWith('side') ? ' model__photo--side' : ''}" src="/img/models/${m.photo}" alt="ShelterMe ${m.name} — ${M.alt}" width="520" height="520" loading="lazy" decoding="async">` : ''}
         ${modelPlan(m)}
         <dl class="model__specs">
           <div><dt>${M.people}</dt><dd>до ${m.people} ${M.peopleUnit}</dd></div>
@@ -340,6 +341,11 @@ ${models.list.map((m) => `      <article class="model" id="model-${m.id}">
       </article>`).join('\n')}
     </div>
     <p class="models__note">${M.note}</p>
+    <h3 class="models__h">${M.galleryTitle}</h3>
+    <p class="models__lead">${M.galleryLead}</p>
+    <div class="installed">
+${M.gallery.map(([file, alt], i) => `      <figure class="installed__item${i === 0 ? ' installed__item--big' : ''}"><img src="/img/projects/${file}" alt="${alt}" loading="lazy" decoding="async"><figcaption>${alt}</figcaption></figure>`).join('\n')}
+    </div>
     <h3 class="models__h">${M.specsTitle}</h3>
     <div class="benefits">
 ${M.specs.map(([h, t], i) => `      <article class="benefit"><span class="benefit__n">${String(i + 1).padStart(2, '0')}</span><h3>${h}</h3><p>${t}</p></article>`).join('\n')}

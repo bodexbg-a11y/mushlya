@@ -811,3 +811,15 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .models__note { margin: 18px 0 0; font-size: .85rem; color: var(--muted); }
 .models__h { font: 800 1.3rem var(--f-display); margin: 48px 0 20px; text-transform: uppercase; }
 #calcSize a { color: inherit; text-decoration: underline; text-decoration-color: var(--signal); text-underline-offset: 4px; }
+/* Фото моделей і встановлені укриття */
+.model__photo { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: contain; background: #fff; border-radius: 6px; }
+.model__photo--side { aspect-ratio: 2.3 / 1; object-fit: cover; object-position: 50% 52%; }
+.model__photo + .model__plan { height: 56px; }
+.models__lead { margin: -8px 0 20px; color: var(--muted); max-width: 640px; }
+.installed { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: auto auto; gap: 14px; }
+.installed__item { margin: 0; position: relative; overflow: hidden; border-radius: var(--r); background: #ddd; }
+.installed__item img { display: block; width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.installed__item--big { grid-row: span 2; }
+.installed__item--big img { aspect-ratio: auto; min-height: 100%; }
+.installed__item figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 14px 12px; font-size: .85rem; font-weight: 600; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.65)); }
+@media (max-width: 720px) { .installed { grid-template-columns: 1fr; } .installed__item--big { grid-row: auto; } .installed__item--big img { aspect-ratio: 3 / 2; } }
