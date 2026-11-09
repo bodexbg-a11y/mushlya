@@ -257,18 +257,9 @@ ${dock(p)}`;
 
 // Схема-переріз модульного укриття замість фото
 const HERO_ART = {
-  uk: { aria: 'Схема: модульне укриття під шаром ґрунту', head: 'Модульне укриття', ground: 'ґрунт', concrete: 'залізобетон 300 мм', size: 'модулі — під кількість людей' },
-  ru: { aria: 'Схема: модульное укрытие под слоем грунта', head: 'Модульное укрытие', ground: 'грунт', concrete: 'железобетон 300 мм', size: 'модули — под количество людей' },
+  uk: { aria: 'Схема: наземне модульне залізобетонне укриття в розрізі', head: 'Наземне укриття', ground: 'ґрунт', concrete: 'залізобетон 300 мм', size: 'модулі — під кількість людей' },
+  ru: { aria: 'Схема: наземное модульное железобетонное укрытие в разрезе', head: 'Наземное укрытие', ground: 'грунт', concrete: 'железобетон 300 мм', size: 'модули — под количество людей' },
 };
-// Фото встановленого укриття в першому екрані
-function heroPhoto(lang) {
-  const alt = lang === 'uk' ? 'Модульне залізобетонне укриття ShelterMe на території підприємства' : 'Модульное железобетонное укрытие ShelterMe на территории предприятия';
-  const tag = lang === 'uk' ? 'залізобетон 300 мм' : 'железобетон 300 мм';
-  return `<figure class="hero-render">
-        <img src="/img/models/hero-shelter.webp" width="820" height="561" alt="${alt}" fetchpriority="high">
-        <figcaption>${tag}</figcaption>
-      </figure>`;
-}
 function heroArt(lang) {
   const t = HERO_ART[lang];
   return `<figure class="hero-art">
@@ -278,21 +269,22 @@ function heroArt(lang) {
             <pattern id="ha-concrete" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="4" cy="5" r="1.6" class="ha-dot"/><circle cx="13" cy="12" r="1.2" class="ha-dot"/><circle cx="9" cy="16" r="0.9" class="ha-dot"/></pattern>
           </defs>
           <text x="40" y="52" class="ha-head">${t.head.toUpperCase()}</text>
-          <path d="M20 120 H580" class="ha-ground"/>
-          <rect x="20" y="120" width="560" height="380" fill="url(#ha-soil)" class="ha-soil"/>
-          <rect x="300" y="72" width="70" height="48" class="ha-entry"/>
-          <rect x="300" y="120" width="70" height="110" class="ha-wall"/>
-          <rect x="314" y="120" width="42" height="110" class="ha-in"/>
-          <rect x="90" y="230" width="420" height="220" rx="6" class="ha-wall"/>
-          <rect x="90" y="230" width="420" height="220" rx="6" fill="url(#ha-concrete)"/>
-          <rect x="118" y="258" width="364" height="164" rx="3" class="ha-in"/>
-          <g class="ha-seats"><rect x="140" y="380" width="120" height="16"/><rect x="340" y="380" width="120" height="16"/></g>
+          <rect x="20" y="420" width="560" height="34" fill="url(#ha-soil)" class="ha-soil"/>
+          <path d="M20 420 H580" class="ha-ground"/>
+          <rect x="70" y="400" width="460" height="20" class="ha-wall"/>
+          <path d="M110 400 V250 A190 130 0 0 1 490 250 V400 Z" class="ha-wall"/>
+          <path d="M110 400 V250 A190 130 0 0 1 490 250 V400 Z" fill="url(#ha-concrete)"/>
+          <path d="M70 400 L110 400 L110 236 L94 236 Z M530 400 L490 400 L490 236 L506 236 Z" class="ha-wall"/>
+          <path d="M70 400 L110 400 L110 236 L94 236 Z M530 400 L490 400 L490 236 L506 236 Z" fill="url(#ha-concrete)"/>
+          <path d="M140 400 V258 A160 100 0 0 1 460 258 V400 Z" class="ha-in"/>
+          <g class="ha-seats"><rect x="165" y="368" width="110" height="14"/><rect x="325" y="368" width="110" height="14"/></g>
           <g class="ha-dim">
-            <path d="M90 474 H510 M90 466 V482 M510 466 V482"/>
-            <text x="300" y="500" text-anchor="middle">${t.size}</text>
+            <path d="M300 104 V120"/>
+            <path d="M70 478 H530 M70 470 V486 M530 470 V486"/>
+            <text x="300" y="505" text-anchor="middle">${t.size}</text>
           </g>
-          <text x="40" y="150" class="ha-label">${t.ground}</text>
-          <text x="128" y="248" class="ha-label">${t.concrete}</text>
+          <text x="300" y="96" text-anchor="middle" class="ha-label">${t.concrete}</text>
+          <text x="40" y="446" class="ha-label">${t.ground}</text>
         </svg>
       </figure>`;
 }
