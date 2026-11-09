@@ -57,6 +57,14 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.shelterme.com.ua/ru/ukrytie-dlya-chastnogo-doma/"/>
   </url>
   <url>
+    <loc>https://www.shelterme.com.ua/ukryttia-dlia-simi/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.shelterme.com.ua/ukryttia-dlia-simi/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shelterme.com.ua/ru/ukrytie-dlya-semi/"/>
+  </url>
+  <url>
     <loc>https://www.shelterme.com.ua/pidzemne-ukryttia/</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -119,6 +127,14 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.shelterme.com.ua/ru/ukrytie-dlya-chastnogo-doma/"/>
     <xhtml:link rel="alternate" hreflang="uk" href="https://www.shelterme.com.ua/ukryttia-dlia-pryvatnoho-budynku/"/>
+  </url>
+  <url>
+    <loc>https://www.shelterme.com.ua/ru/ukrytie-dlya-semi/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shelterme.com.ua/ru/ukrytie-dlya-semi/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.shelterme.com.ua/ukryttia-dlia-simi/"/>
   </url>
   <url>
     <loc>https://www.shelterme.com.ua/ru/podzemnoe-ukrytie/</loc>
