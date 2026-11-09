@@ -167,7 +167,9 @@
       $('#calcComfort').textContent = `${fmt(r.comfort)} м²`;
       $('#calcSize').innerHTML = '';
       const link = document.createElement('a');
-      link.href = `#model-${r.model.id}`; link.textContent = sizeText(r);
+      // блок моделей може бути прихований — тоді посилання веде на заявку
+      link.href = document.getElementById(`model-${r.model.id}`) ? `#model-${r.model.id}` : '#order';
+      link.textContent = sizeText(r);
       $('#calcSize').appendChild(link);
       // схема в масштабі: найдовша сторона — 520 px
       const k = Math.min(520 / r.l, 120 / r.w);

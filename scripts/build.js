@@ -320,6 +320,8 @@ function modelPlan(m) {
     : `<rect x="${(x - 9).toFixed(1)}" y="${(y + 8).toFixed(1)}" width="9" height="18" class="model__door"/><rect x="${(x + w).toFixed(1)}" y="${(y + h - 26).toFixed(1)}" width="9" height="18" class="model__door"/>`;
   return `<svg viewBox="0 0 300 120" class="model__plan" aria-hidden="true"><rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="3" class="model__body"/><g class="model__mods">${lines}</g>${door}</svg>`;
 }
+// Блок «Модельний ряд» тимчасово прихований. Щоб повернути — true (і пункт меню в pages.js)
+const SHOW_MODELS = false;
 function modelsBlock(p) {
   const M = pages.text[p.lang].models;
   return `<section class="section" id="models">
@@ -433,7 +435,7 @@ ${callback(p.lang)}    </div>
   </div>
 </section>
 ${calculator(p)}
-${modelsBlock(p)}
+${SHOW_MODELS ? modelsBlock(p) : ''}
 <section class="section">
   <div class="container">
     <div class="section__head">
