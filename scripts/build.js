@@ -30,7 +30,7 @@ const UI = {
     langShort: 'RU',
     footerFor: 'Рішення',
     footerInfo: 'Інформація',
-    office: 'м. Південноукраїнськ, Миколаївська обл.',
+    office: 'Миколаївська обл.',
     delivery: 'Доставка по всій Україні',
     rights: 'Модульні бетонні укриття та бомбосховища.',
   },
@@ -48,7 +48,7 @@ const UI = {
     langShort: 'UA',
     footerFor: 'Решения',
     footerInfo: 'Информация',
-    office: 'г. Южноукраинск, Николаевская обл.',
+    office: 'Николаевская обл.',
     delivery: 'Доставка по всей Украине',
     rights: 'Модульные бетонные укрытия и бомбоубежища.',
   },
@@ -147,7 +147,7 @@ function organization() {
     sameAs: ['https://t.me/sheltermeua'],
     telephone: '+380771138924',
     contactPoint: { '@type': 'ContactPoint', telephone: '+380771138924', contactType: 'sales', areaServed: 'UA', availableLanguage: ['uk', 'ru'] },
-    address: { '@type': 'PostalAddress', addressLocality: 'Південноукраїнськ', addressRegion: 'Миколаївська область', addressCountry: 'UA' },
+    address: { '@type': 'PostalAddress', addressRegion: 'Миколаївська область', addressCountry: 'UA' },
     areaServed: { '@type': 'Country', name: 'Україна' },
   };
 }
