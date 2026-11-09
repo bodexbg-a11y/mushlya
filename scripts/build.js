@@ -95,8 +95,7 @@ const logoSvg = `<svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
 const GADS_ID = 'AW-18482298767';
 // Сам gtag.js вантажимо після load — не гальмує перший екран; до того події чекають у dataLayer
 const GTAG = `<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GADS_ID}');
-  addEventListener('load', function () { setTimeout(function () { var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=${GADS_ID}'; document.head.appendChild(s); }, 1200); });</script>
-  <link rel="preload" as="image" href="/img/models/hero-shelter.webp" fetchpriority="high">`;
+  addEventListener('load', function () { setTimeout(function () { var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=${GADS_ID}'; document.head.appendChild(s); }, 1200); });</script>`;
 
 function head(p) {
   const alt = p.alt && byPath[p.alt];
@@ -125,11 +124,8 @@ function head(p) {
   <meta property="og:title" content="${esc(p.ogTitle || p.title)}">
   <meta property="og:description" content="${esc(p.description)}">
   <meta property="og:url" content="${abs(p.path)}">
-  <meta property="og:image" content="${abs('/img/projects/installed-3.jpg')}">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:alt" content="${p.lang === 'uk' ? 'Модульне залізобетонне укриття ShelterMe' : 'Модульное железобетонное укрытие ShelterMe'}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="${abs('/img/projects/installed-3.jpg')}">
+  <meta property="og:image" content="${abs('/img/logo.png')}">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="${esc(p.ogTitle || p.title)}">
   <meta name="twitter:description" content="${esc(p.description)}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -344,7 +340,6 @@ function modelsBlock(p) {
 ${models.list.map((m) => `      <article class="model" id="model-${m.id}">
         <div class="model__top"><span class="model__tag${m.type === 'under' ? ' model__tag--under' : ''}">${m.type === 'under' ? M.under : M.ground}</span><span class="model__mono">${M.modules}: ${m.modules}</span></div>
         <h3 class="model__name">ShelterMe ${m.name}</h3>
-        ${m.photo ? `<img class="model__photo${m.photo.startsWith('side') ? ' model__photo--side' : ''}" src="/img/models/${m.photo}" alt="ShelterMe ${m.name} — ${M.alt}" width="520" height="520" loading="lazy" decoding="async">` : ''}
         ${modelPlan(m)}
         <dl class="model__specs">
           <div><dt>${M.people}</dt><dd>до ${m.people} ${M.peopleUnit}</dd></div>
@@ -356,11 +351,6 @@ ${models.list.map((m) => `      <article class="model" id="model-${m.id}">
       </article>`).join('\n')}
     </div>
     <p class="models__note">${M.note}</p>
-    <h3 class="models__h">${M.galleryTitle}</h3>
-    <p class="models__lead">${M.galleryLead}</p>
-    <div class="installed">
-${M.gallery.map(([file, alt], i) => `      <figure class="installed__item${i === 0 ? ' installed__item--big' : ''}"><img src="/img/projects/${file}" alt="${alt}" loading="lazy" decoding="async"><figcaption>${alt}</figcaption></figure>`).join('\n')}
-    </div>
     <h3 class="models__h">${M.specsTitle}</h3>
     <div class="benefits">
 ${M.specs.map(([h, t], i) => `      <article class="benefit"><span class="benefit__n">${String(i + 1).padStart(2, '0')}</span><h3>${h}</h3><p>${t}</p></article>`).join('\n')}
@@ -446,7 +436,7 @@ function landing(p) {
       </div>
 ${callback(p.lang)}    </div>
     <div class="hero__visual">
-      ${heroPhoto(p.lang)}
+      ${heroArt(p.lang)}
     </div>
   </div>
 </section>
