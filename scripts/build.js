@@ -199,7 +199,7 @@ function header(p) {
   // Пункт меню може мати підпункти (сторінки) — Google бере їх для sitelinks
   const nav = p.nav.map(([href, label, sub]) => sub
     ? `      <div class="nav__drop"><a href="${href}" class="nav__parent">${label}</a><div class="nav__sub">${sub.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')}</div></div>`
-    : `      <a href="${href}">${label}</a>`).join('\n');
+    : `      <a href="${p.noCalc && href === '#calc' ? home + '#calc' : href}">${label}</a>`).join('\n');
   const other = alt ? alt : { path: p.lang === 'uk' ? '/ru/' : '/', lang: p.lang === 'uk' ? 'ru' : 'uk' };
   const lang = `\n      <a href="${other.path}" class="nav__lang" hreflang="${other.lang}" lang="${other.lang}" aria-label="${t.langLabel}">${t.langShort}</a>`;
   return `<header class="header" id="top">
@@ -425,7 +425,7 @@ function landing(p) {
       <h1 class="hero__title hero__title--page">${p.h1}</h1>
       <p class="hero__lead">${p.lead}</p>
       <div class="hero__actions">
-        <a href="#calc" class="btn btn--primary">${L.getCalc} <span aria-hidden="true">→</span></a>
+        <a href="${p.noCalc ? '#order' : '#calc'}" class="btn btn--primary">${L.getCalc} <span aria-hidden="true">→</span></a>
         <a href="tel:+${PHONE}" class="btn btn--ghost" data-contact="phone">${L.call}: ${PHONE_TXT}</a>
       </div>
 ${callback(p.lang)}    </div>
@@ -434,7 +434,7 @@ ${callback(p.lang)}    </div>
     </div>
   </div>
 </section>
-${calculator(p)}
+${p.noCalc ? '' : calculator(p)}
 ${SHOW_MODELS ? modelsBlock(p) : ''}
 <section class="section">
   <div class="container">
