@@ -3,29 +3,19 @@
 
 const UA_NAV = [
   ['#calc', 'Калькулятор'],
-  ['/ukryttia-dlia-biznesu-do-4-grudnia/', 'Рішення', [
-    ['/ukryttia-dlia-biznesu-do-4-grudnia/', 'Для бізнесу до 4.12'],
-    ['/ukryttia-dlia-shkoly/', 'Для школи'],
-    ['/ukryttia-dlia-dytsadka/', 'Для садочка'],
-    ['/ukryttia-dlia-osbb-ta-biznesu/', 'Підприємство і ОСББ'],
+  ['/ukryttia-dlia-simi/', 'Рішення', [
     ['/ukryttia-dlia-pryvatnoho-budynku/', 'Для приватного будинку'],
     ['/ukryttia-dlia-simi/', 'Для сімʼї'],
     ['/bomboskhovyshche/', 'Бомбосховище'],
-    ['/pidzemne-ukryttia/', 'Підземне укриття'],
   ]],
   ['#faq', 'Питання'],
 ];
 const RU_NAV = [
   ['#calc', 'Калькулятор'],
-  ['/ru/ukrytie-dlya-biznesa-do-4-dekabrya/', 'Решения', [
-    ['/ru/ukrytie-dlya-biznesa-do-4-dekabrya/', 'Для бизнеса до 4.12'],
-    ['/ru/ukrytie-dlya-shkoly/', 'Для школы'],
-    ['/ru/ukrytie-dlya-detskogo-sada/', 'Для детсада'],
-    ['/ru/ukrytie-dlya-osmd-i-predpriyatiya/', 'Предприятие и ОСМД'],
+  ['/ru/ukrytie-dlya-semi/', 'Решения', [
     ['/ru/ukrytie-dlya-chastnogo-doma/', 'Для частного дома'],
     ['/ru/ukrytie-dlya-semi/', 'Для семьи'],
     ['/ru/bomboubezhishche/', 'Бомбоубежище'],
-    ['/ru/podzemnoe-ukrytie/', 'Подземное укрытие'],
   ]],
   ['#faq', 'Вопросы'],
 ];
@@ -251,7 +241,7 @@ const all = [
     nav: UA_NAV,
   },
   {
-    path: '/ukryttia-dlia-biznesu-do-4-grudnia/', lang: 'uk', alt: '/ru/ukrytie-dlya-biznesa-do-4-dekabrya/', priority: '0.9',
+    path: '/ukryttia-dlia-biznesu-do-4-grudnia/', hidden: true, lang: 'uk', alt: '/ru/ukrytie-dlya-biznesa-do-4-dekabrya/', priority: '0.9',
     crumb: 'Укриття для бізнесу до 4 грудня 2026', footerLabel: 'Для бізнесу до 4 грудня', object: 'Підприємство',
     title: 'Укриття для бізнесу до 4 грудня 2026 — модульне бетонне укриття | ShelterMe',
     description: 'Постанова КМУ №1092: після 4 грудня 2026 бізнес без укриття не працює під час тривоги. Модульне бетонне укриття для підприємства, магазину, офісу.',
@@ -287,7 +277,7 @@ const all = [
     nav: UA_NAV,
   },
   {
-    path: '/ukryttia-dlia-shkoly/', lang: 'uk', alt: '/ru/ukrytie-dlya-shkoly/', priority: '0.9',
+    path: '/ukryttia-dlia-shkoly/', hidden: true, lang: 'uk', alt: '/ru/ukrytie-dlya-shkoly/', priority: '0.9',
     crumb: 'Укриття для школи', footerLabel: 'Для школи', object: 'Школа',
     title: 'Укриття для школи — модульне бетонне укриття | ShelterMe',
     description: 'Модульне укриття для школи: готові залізобетонні модулі під кількість учнів і персоналу, з доставкою й монтажем. Розрахунок вартості безкоштовно.',
@@ -310,7 +300,7 @@ const all = [
     nav: UA_NAV,
   },
   {
-    path: '/ukryttia-dlia-dytsadka/', lang: 'uk', alt: '/ru/ukrytie-dlya-detskogo-sada/', priority: '0.8',
+    path: '/ukryttia-dlia-dytsadka/', hidden: true, lang: 'uk', alt: '/ru/ukrytie-dlya-detskogo-sada/', priority: '0.8',
     crumb: 'Укриття для дитячого садка', footerLabel: 'Для дитячого садка', object: 'Дитячий садок',
     title: 'Укриття для дитячого садка — модульне бетонне укриття | ShelterMe',
     description: 'Модульне укриття для дитячого садка: готовий залізобетонний модуль поруч із будівлею, з доставкою й монтажем. Розрахунок вартості безкоштовно.',
@@ -333,7 +323,7 @@ const all = [
     nav: UA_NAV,
   },
   {
-    path: '/ukryttia-dlia-osbb-ta-biznesu/', lang: 'uk', alt: '/ru/ukrytie-dlya-osmd-i-predpriyatiya/', priority: '0.8',
+    path: '/ukryttia-dlia-osbb-ta-biznesu/', hidden: true, lang: 'uk', alt: '/ru/ukrytie-dlya-osmd-i-predpriyatiya/', priority: '0.8',
     crumb: 'Укриття для підприємства і ОСББ', footerLabel: 'Для підприємства і ОСББ', object: 'Підприємство',
     title: 'Укриття для підприємства і ОСББ — модульне бетонне укриття | ShelterMe',
     description: 'Модульне укриття для підприємства, складу, офісу чи ОСББ: готові залізобетонні модулі під кількість людей. Розрахунок безкоштовно.',
@@ -441,7 +431,7 @@ const all = [
       '<ul><li><b>Від осколків</b> — товсті залізобетонні стіни й перекриття затримують уламки.</li><li><b>Від вибухової хвилі</b> — потужна залізобетонна конструкція витримує ударну хвилю.</li><li><b>Модульна конструкція</b> — укриття виготовляють на заводі й привозять готовим модулем, монтаж на ділянці займає мінімум часу.</li></ul>',
       '<h3>Ціна</h3>',
       'Укриття для сімʼї коштує <b>1 млн грн</b>. Доставку й монтаж розрахуємо під вашу ділянку — залиште заявку.',
-      'Потрібне укриття на більше людей чи підземне? Дивіться <a href="/ukryttia-dlia-pryvatnoho-budynku/">укриття для приватного будинку</a> і <a href="/pidzemne-ukryttia/">підземне укриття</a>.',
+      'Дивіться також <a href="/ukryttia-dlia-pryvatnoho-budynku/">укриття для приватного будинку</a>.',
     ],
     faq: [
       ['Скільки коштує укриття для сімʼї?', 'Ціна наземного бетонного укриття для сімʼї — 1 млн грн. Вартість доставки й монтажу розраховуємо окремо під ділянку.'],
@@ -451,7 +441,7 @@ const all = [
     nav: UA_NAV,
   },
   {
-    path: '/pidzemne-ukryttia/', lang: 'uk', alt: '/ru/podzemnoe-ukrytie/', priority: '0.8',
+    path: '/pidzemne-ukryttia/', hidden: true, lang: 'uk', alt: '/ru/podzemnoe-ukrytie/', priority: '0.8',
     crumb: 'Підземне укриття', footerLabel: 'Підземне укриття', object: 'Інше',
     title: 'Підземне укриття — модульне підземне бомбосховище, ціна | ShelterMe',
     description: 'Підземне укриття із залізобетону: готовий модуль у котлован з доставкою й монтажем. Підземне бомбосховище для підприємства, школи, будинку. Розрахунок безкоштовно.',
@@ -536,7 +526,7 @@ const all = [
     nav: RU_NAV,
   },
   {
-    path: '/ru/ukrytie-dlya-biznesa-do-4-dekabrya/', lang: 'ru', alt: '/ukryttia-dlia-biznesu-do-4-grudnia/', priority: '0.8',
+    path: '/ru/ukrytie-dlya-biznesa-do-4-dekabrya/', hidden: true, lang: 'ru', alt: '/ukryttia-dlia-biznesu-do-4-grudnia/', priority: '0.8',
     crumb: 'Укрытие для бизнеса до 4 декабря 2026', footerLabel: 'Для бизнеса: до 4 декабря', object: 'Предприятие',
     title: 'Укрытие для бизнеса до 4 декабря 2026 — модульное бетонное укрытие | ShelterMe',
     description: 'Постановление КМУ №1092: после 4 декабря 2026 бизнес без укрытия не работает во время тревоги. Модульное бетонное укрытие для предприятия, магазина, офиса.',
@@ -572,7 +562,7 @@ const all = [
     nav: RU_NAV,
   },
   {
-    path: '/ru/ukrytie-dlya-shkoly/', lang: 'ru', alt: '/ukryttia-dlia-shkoly/', priority: '0.8',
+    path: '/ru/ukrytie-dlya-shkoly/', hidden: true, lang: 'ru', alt: '/ukryttia-dlia-shkoly/', priority: '0.8',
     crumb: 'Укрытие для школы', footerLabel: 'Для школы', object: 'Школа',
     title: 'Укрытие для школы — модульное бетонное укрытие | ShelterMe',
     description: 'Модульное укрытие для школы: готовые железобетонные модули под количество учеников и персонала, с доставкой и монтажом. Расчёт стоимости бесплатно.',
@@ -595,7 +585,7 @@ const all = [
     nav: RU_NAV,
   },
   {
-    path: '/ru/ukrytie-dlya-detskogo-sada/', lang: 'ru', alt: '/ukryttia-dlia-dytsadka/', priority: '0.8',
+    path: '/ru/ukrytie-dlya-detskogo-sada/', hidden: true, lang: 'ru', alt: '/ukryttia-dlia-dytsadka/', priority: '0.8',
     crumb: 'Укрытие для детского сада', footerLabel: 'Для детского сада', object: 'Детский сад',
     title: 'Укрытие для детского сада — модульное бетонное укрытие | ShelterMe',
     description: 'Модульное укрытие для детского сада: готовый железобетонный модуль рядом со зданием, с доставкой и монтажом. Расчёт стоимости бесплатно.',
@@ -618,7 +608,7 @@ const all = [
     nav: RU_NAV,
   },
   {
-    path: '/ru/ukrytie-dlya-osmd-i-predpriyatiya/', lang: 'ru', alt: '/ukryttia-dlia-osbb-ta-biznesu/', priority: '0.8',
+    path: '/ru/ukrytie-dlya-osmd-i-predpriyatiya/', hidden: true, lang: 'ru', alt: '/ukryttia-dlia-osbb-ta-biznesu/', priority: '0.8',
     crumb: 'Укрытие для предприятия и ОСМД', footerLabel: 'Для предприятия и ОСМД', object: 'Предприятие',
     title: 'Укрытие для предприятия и ОСМД — модульное бетонное укрытие | ShelterMe',
     description: 'Модульное укрытие для предприятия, склада, офиса или ОСМД: готовые железобетонные модули под количество людей. Расчёт бесплатно.',
@@ -726,7 +716,7 @@ const all = [
       '<ul><li><b>От осколков</b> — толстые железобетонные стены и перекрытие задерживают осколки.</li><li><b>От взрывной волны</b> — мощная железобетонная конструкция выдерживает ударную волну.</li><li><b>Модульная конструкция</b> — укрытие изготавливают на заводе и привозят готовым модулем, монтаж на участке занимает минимум времени.</li></ul>',
       '<h3>Цена</h3>',
       'Укрытие для семьи стоит <b>1 млн грн</b>. Доставку и монтаж рассчитаем под ваш участок — оставьте заявку.',
-      'Нужно укрытие на больше людей или подземное? Смотрите <a href="/ru/ukrytie-dlya-chastnogo-doma/">укрытие для частного дома</a> и <a href="/ru/podzemnoe-ukrytie/">подземное укрытие</a>.',
+      'Смотрите также <a href="/ru/ukrytie-dlya-chastnogo-doma/">укрытие для частного дома</a>.',
     ],
     faq: [
       ['Сколько стоит укрытие для семьи?', 'Цена наземного бетонного укрытия для семьи — 1 млн грн. Стоимость доставки и монтажа рассчитываем отдельно под участок.'],
@@ -736,7 +726,7 @@ const all = [
     nav: RU_NAV,
   },
   {
-    path: '/ru/podzemnoe-ukrytie/', lang: 'ru', alt: '/pidzemne-ukryttia/', priority: '0.7',
+    path: '/ru/podzemnoe-ukrytie/', hidden: true, lang: 'ru', alt: '/pidzemne-ukryttia/', priority: '0.7',
     crumb: 'Подземное укрытие', footerLabel: 'Подземное укрытие', object: 'Другое',
     title: 'Подземное укрытие — модульное подземное бомбоубежище, цена | ShelterMe',
     description: 'Подземное укрытие из железобетона: готовый модуль в котлован с доставкой и монтажом. Подземное бомбоубежище для предприятия, школы, дома. Расчёт бесплатно.',

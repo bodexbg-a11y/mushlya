@@ -33,6 +33,7 @@ const UI = {
     office: 'Миколаївська обл.',
     delivery: 'Доставка по всій Україні',
     rights: 'Модульні бетонні укриття та бомбосховища.',
+    notice: 'Зараз виготовляємо лише наземні укриття до 15 осіб.',
   },
   ru: {
     tagline: 'модульные укрытия',
@@ -51,6 +52,7 @@ const UI = {
     office: 'Николаевская обл.',
     delivery: 'Доставка по всей Украине',
     rights: 'Модульные бетонные укрытия и бомбоубежища.',
+    notice: 'Сейчас изготавливаем только наземные укрытия до 15 человек.',
   },
 };
 const EMAIL = 'sheltermeua@gmail.com';
@@ -222,7 +224,7 @@ ${nav}${lang}
 function footer(p) {
   const t = UI[p.lang];
   const home = p.lang === 'uk' ? '/' : '/ru/';
-  const landings = pages.all.filter((x) => x.lang === p.lang && x.crumb);
+  const landings = pages.all.filter((x) => x.lang === p.lang && x.crumb && !x.hidden);
   const alt = p.alt && byPath[p.alt];
   return `<footer class="footer">
   <div class="container">
@@ -422,6 +424,7 @@ function landing(p) {
       ${p.crumb ? crumbs : ''}
       <h1 class="hero__title hero__title--page">${p.h1}</h1>
       <p class="hero__lead">${p.lead}</p>
+      ${p.hidden ? `<p class="hero__notice">${UI[p.lang].notice}</p>` : ''}
       <div class="hero__actions">
         <a href="${p.noCalc ? '#order' : '#calc'}" class="btn btn--primary">${L.getCalc} <span aria-hidden="true">→</span></a>
         <a href="tel:+${PHONE}" class="btn btn--ghost" data-contact="phone">${L.call}: ${PHONE_TXT}</a>

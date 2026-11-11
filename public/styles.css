@@ -123,6 +123,7 @@ p { margin: 0; }
 .hero__title em::after { content: ""; position: absolute; left: 0; right: 0; bottom: .06em; height: .08em; background: var(--signal); transform: scaleX(0); transform-origin: left; animation: underline 1s .9s var(--ease) forwards; }
 @keyframes underline { to { transform: scaleX(1); } }
 .hero__lead { font-size: 1.1rem; max-width: 36em; color: rgba(238,236,230,.78); }
+.hero__notice { display: inline-block; margin-top: .9rem; padding: .55rem .85rem; border-left: 3px solid #ffb000; background: rgba(255,176,0,.12); color: #eeece6; font-weight: 600; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
 .hero__stats { display: flex; gap: 40px; margin: 56px 0 0; padding-top: 28px; border-top: 1px solid var(--line); }
 .hero__stats dt { font: 800 2.4rem/1 var(--f-display); color: var(--paper); }
