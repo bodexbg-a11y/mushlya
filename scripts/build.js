@@ -272,14 +272,12 @@ function heroArt(lang) {
           <rect x="20" y="420" width="560" height="34" fill="url(#ha-soil)" class="ha-soil"/>
           <path d="M20 420 H580" class="ha-ground"/>
           <rect x="70" y="400" width="460" height="20" class="ha-wall"/>
-          <path d="M110 400 V250 A190 130 0 0 1 490 250 V400 Z" class="ha-wall"/>
-          <path d="M110 400 V250 A190 130 0 0 1 490 250 V400 Z" fill="url(#ha-concrete)"/>
-          <path d="M70 400 L110 400 L110 236 L94 236 Z M530 400 L490 400 L490 236 L506 236 Z" class="ha-wall"/>
-          <path d="M70 400 L110 400 L110 236 L94 236 Z M530 400 L490 400 L490 236 L506 236 Z" fill="url(#ha-concrete)"/>
-          <path d="M140 400 V258 A160 100 0 0 1 460 258 V400 Z" class="ha-in"/>
+          <rect x="110" y="170" width="380" height="230" class="ha-wall"/>
+          <rect x="110" y="170" width="380" height="230" fill="url(#ha-concrete)"/>
+          <rect x="140" y="200" width="320" height="200" class="ha-in"/>
           <g class="ha-seats"><rect x="165" y="368" width="110" height="14"/><rect x="325" y="368" width="110" height="14"/></g>
           <g class="ha-dim">
-            <path d="M300 104 V120"/>
+            <path d="M300 104 V170"/>
             <path d="M70 478 H530 M70 470 V486 M530 470 V486"/>
             <text x="300" y="505" text-anchor="middle">${t.size}</text>
           </g>
