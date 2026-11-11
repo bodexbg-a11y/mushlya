@@ -125,7 +125,7 @@
       "name": "Сколько людей вмещает бомбоубежище?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "До 15 человек. Укрытия на большее количество людей сейчас не изготавливаем."
+        "text": "Зависит от модели: от небольшого подземного модуля примерно на 15 человек до многомодульных укрытий на 100+ человек. Точную модель подберёт калькулятор на главной или наш менеджер."
       }
     },
     {
@@ -149,7 +149,7 @@
       "name": "Сколько стоит модульное укрытие?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Стоимость зависит от комплектации, доставки и монтажа. Укрытие для семьи — от 1 млн грн. Оставьте заявку — расчёт бесплатный."
+        "text": "Стоимость зависит от количества людей, модели и количества модулей, комплектации, доставки и монтажа. Оставьте заявку — расчёт бесплатный."
       }
     },
     {
@@ -165,7 +165,7 @@
       "name": "Сколько времени занимает установка?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Модуль изготавливают на заводе, поэтому на объекте работы занимают намного меньше времени, чем стройка. Точный срок назовём вместе с расчётом — он зависит от загрузки производства."
+        "text": "Модуль изготавливают на заводе, поэтому на объекте работы занимают намного меньше времени, чем стройка. Точный срок назовём вместе с расчётом — он зависит от модели, количества модулей и загрузки производства."
       }
     },
     {
@@ -178,10 +178,10 @@
     },
     {
       "@type": "Question",
-      "name": "На сколько человек укрытие?",
+      "name": "Работаете ли вы с бизнесом и бюджетными учреждениями?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Максимум — 15 человек. Укрытия на большее количество людей сейчас не изготавливаем."
+        "text": "Да. Основные наши заказчики — предприятия, магазины, офисы, школы и детские сады."
       }
     }
   ]
@@ -191,7 +191,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"></noscript>
-  <link rel="stylesheet" href="/styles.css?v=88a697e3">
+  <link rel="stylesheet" href="/styles.css?v=5ede89c4">
 </head>
 <body>
 
@@ -201,7 +201,8 @@
       <svg class="logo__house" viewBox="0 0 100 100" aria-hidden="true"><path d="M8 94V40L50 6l42 34v54z"/><path d="M24 94V48L50 27l26 21v46" fill="none" stroke="var(--logo-bg, #111316)" stroke-width="9" stroke-linejoin="round"/><rect x="42" y="62" width="16" height="32" fill="var(--logo-bg, #111316)"/></svg><span class="logo__word">SHELTER<b>ME</b></span>
     </a>
     <nav class="nav" id="nav">
-      <div class="nav__drop"><a href="/ru/ukrytie-dlya-biznesa-do-4-dekabrya/" class="nav__parent">Решения</a><div class="nav__sub"><a href="/ru/ukrytie-dlya-biznesa-do-4-dekabrya/">Для малого бизнеса</a><a href="/ru/ukrytie-dlya-chastnogo-doma/">Для частного дома</a><a href="/ru/ukrytie-dlya-semi/">Для семьи</a><a href="/ru/bomboubezhishche/">Бомбоубежище</a><a href="/ru/podzemnoe-ukrytie/">Подземное укрытие</a></div></div>
+      <a href="#calc">Калькулятор</a>
+      <div class="nav__drop"><a href="/ru/ukrytie-dlya-biznesa-do-4-dekabrya/" class="nav__parent">Решения</a><div class="nav__sub"><a href="/ru/ukrytie-dlya-biznesa-do-4-dekabrya/">Для бизнеса до 4.12</a><a href="/ru/ukrytie-dlya-shkoly/">Для школы</a><a href="/ru/ukrytie-dlya-detskogo-sada/">Для детсада</a><a href="/ru/ukrytie-dlya-osmd-i-predpriyatiya/">Предприятие и ОСМД</a><a href="/ru/ukrytie-dlya-chastnogo-doma/">Для частного дома</a><a href="/ru/ukrytie-dlya-semi/">Для семьи</a><a href="/ru/bomboubezhishche/">Бомбоубежище</a><a href="/ru/podzemnoe-ukrytie/">Подземное укрытие</a></div></div>
       <a href="#faq">Вопросы</a>
       <a href="/bomboskhovyshche/" class="nav__lang" hreflang="uk" lang="uk" aria-label="Українська">UA</a>
     </nav>
@@ -221,9 +222,9 @@
     <div class="hero__content">
       <nav class="crumbs" aria-label="breadcrumbs"><a href="/ru/">Главная</a><span>/</span><span aria-current="page">Бомбоубежище</span></nav>
       <h1 class="hero__title hero__title--page">Бомбоубежище под ключ</h1>
-      <p class="hero__lead">Готовое железобетонное бомбоубежище заводского изготовления: привезём, установим и подключим. Вместимость — до 15 человек: для частного участка или малого бизнеса. Расчёт цены бесплатно.</p>
+      <p class="hero__lead">Готовое железобетонное бомбоубежище заводского изготовления: привезём, установим и подключим. Для предприятия, учреждения, громады или частного участка — расчёт цены бесплатно.</p>
       <div class="hero__actions">
-        <a href="#order" class="btn btn--primary">Получить расчёт <span aria-hidden="true">→</span></a>
+        <a href="#calc" class="btn btn--primary">Получить расчёт <span aria-hidden="true">→</span></a>
         <a href="tel:+380771138924" class="btn btn--ghost" data-contact="phone">Позвонить: +38 (077) 113-89-24</a>
       </div>
       <form class="callback" novalidate>
@@ -255,7 +256,7 @@
           <g class="ha-dim">
             <path d="M300 104 V120"/>
             <path d="M70 478 H530 M70 470 V486 M530 470 V486"/>
-            <text x="300" y="505" text-anchor="middle">вместимость — до 15 человек</text>
+            <text x="300" y="505" text-anchor="middle">модули — под количество людей</text>
           </g>
           <text x="300" y="96" text-anchor="middle" class="ha-label">железобетон 300 мм</text>
           <text x="40" y="446" class="ha-label">грунт</text>
@@ -264,7 +265,57 @@
     </div>
   </div>
 </section>
-
+<section class="section section--steel config" id="calc" data-models='[{"n":"ShelterMe 2.25 XL","id":"225-xl","a":4.05,"l":5.93,"w":3.98,"m":1},{"n":"ShelterMe 2.25 2XL","id":"225-2xl","a":14.86,"l":11.03,"w":3.98,"m":2},{"n":"ShelterMe 2.25 3XL","id":"225-3xl","a":24.99,"l":15.83,"w":3.98,"m":3},{"n":"ShelterMe 3.5 2XL","id":"35-2xl","a":20.45,"l":10.63,"w":5.23,"m":2},{"n":"ShelterMe 3.5 3XL","id":"35-3xl","a":36.71,"l":15.33,"w":5.23,"m":3},{"n":"ShelterMe 3.5 4XL","id":"35-4xl","a":52.96,"l":20.03,"w":5.23,"m":4},{"n":"ShelterMe 3.5 5XL","id":"35-5xl","a":69.22,"l":24.73,"w":5.23,"m":5},{"n":"ShelterMe 4.0 3XL","id":"40-3xl","a":40,"l":15.33,"w":5.73,"m":3},{"n":"ShelterMe 6.0 3XL","id":"60-3xl","a":58.2,"l":15.33,"w":7.73,"m":3},{"n":"ShelterMe 3+2","id":"3-2","a":45.25,"l":15.9,"w":6.34,"m":5},{"n":"ShelterMe 3+3","id":"3-3","a":83.17,"l":15.33,"w":9.34,"m":6}]'>
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">Калькулятор<br>укрытия</h2>
+      <p class="section__lead">Укажите, сколько людей нужно укрыть, — покажем нужную площадь и подберём модель ShelterMe.</p>
+    </div>
+    <div class="cfg">
+      <div class="cfg__controls">
+        <div class="cfg__group">
+          <p class="cfg__label">Сколько людей укрыть <output id="calcPeopleOut">50</output></p>
+          <input type="range" id="calcRange" min="10" max="500" step="5" value="50" aria-label="Сколько людей укрыть">
+          <div class="cfg__scale"><span>10</span><span>500</span></div>
+        </div>
+        <div class="cfg__group">
+          <p class="cfg__label">Точное количество</p>
+          <div class="stepper" data-min="1" data-max="2000">
+            <button type="button" data-step="-5" aria-label="−">−</button>
+            <input type="number" id="calcPeople" min="1" max="2000" value="50" inputmode="numeric" aria-label="Сколько людей укрыть">
+            <button type="button" data-step="5" aria-label="+">+</button>
+          </div>
+        </div>
+        <div class="cfg__group">
+          <p class="cfg__label">Тип объекта</p>
+          <div class="cfg__opts" role="radiogroup" aria-label="Тип объекта">
+            <label><input type="radio" name="calcType" value="Предприятие" checked><span>Предприятие</span></label>
+            <label><input type="radio" name="calcType" value="Школа"><span>Школа</span></label>
+            <label><input type="radio" name="calcType" value="Детский сад"><span>Детский сад</span></label>
+            <label><input type="radio" name="calcType" value="ОСМД / ЖК"><span>ОСМД / ЖК</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="cfg__preview">
+        <div class="cfg__stage">
+          <svg id="calcSvg" viewBox="0 0 600 220" role="img" aria-label="Схема укрытия (вид сверху)">
+            <rect id="calcRoom" x="40" y="40" width="520" height="120" rx="4" class="calc__room"/>
+            <text id="calcW" x="24" y="100" text-anchor="end" class="cfg__dimtxt"></text>
+            <text id="calcL" x="300" y="190" text-anchor="middle" class="cfg__dimtxt"></text>
+          </svg>
+          <p class="cfg__hint">Схема укрытия (вид сверху)</p>
+        </div>
+        <dl class="cfg__summary">
+          <div><dt>Нужная площадь</dt><dd id="calcMin">—</dd></div>
+          <div><dt>Комфортно</dt><dd id="calcComfort">—</dd></div>
+          <div><dt>Подойдёт модель</dt><dd id="calcSize">—</dd></div>
+        </dl>
+        <a href="#order" class="btn btn--primary btn--block btn--lg" id="calcSubmit">Получить расчёт <span aria-hidden="true">→</span></a>
+        <p class="cfg__note">Расчёт ориентировочный: минимум — 0,6 м² на человека в основном помещении при одноярусных местах для сидения, комфортно — около 1 м². Модель подбираем по защищённой площади; окончательное решение — после уточнения объекта и требований ДБН В.2.2-5:2023.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section">
   <div class="container">
@@ -290,7 +341,7 @@
       <article class="benefit"><span class="benefit__n">01</span><h3>Готовое решение</h3><p>Корпус изготавливают на производстве, а не строят на площадке. Меньше грязи, шума и простоя для вашего объекта.</p></article>
       <article class="benefit"><span class="benefit__n">02</span><h3>Быстрый монтаж</h3><p>Подготовка котлована или площадки, доставка, установка — сроки заметно короче, чем у капитального строительства.</p></article>
       <article class="benefit"><span class="benefit__n">03</span><h3>Железобетон</h3><p>Стены 300 мм, арочная крыша и контрфорсы. Бетон не горит, не всплывает при высоких грунтовых водах и служит десятилетиями.</p></article>
-      <article class="benefit"><span class="benefit__n">04</span><h3>До 15 человек</h3><p>Компактное укрытие для семьи или небольшой команды — до 15 человек.</p></article>
+      <article class="benefit"><span class="benefit__n">04</span><h3>Под количество людей</h3><p>Модули соединяют между собой: укрытие на 20, 50 или 200 человек собирают из нужного количества секций.</p></article>
       <article class="benefit"><span class="benefit__n">05</span><h3>Комплектация</h3><p>Вентиляция, освещение, лавки, санузел, второй выход — комплектацию подбираем под тип объекта и требования норм.</p></article>
       <article class="benefit"><span class="benefit__n">06</span><h3>Двойное назначение</h3><p>В мирное время модуль можно использовать как склад, подсобное или техническое помещение.</p></article>
     </div>
@@ -304,7 +355,7 @@
     <div class="prose">
       <p><b>Бомбоубежище</b> — защитное сооружение, в котором люди пережидают обстрел или авиаудар. Классическое убежище строят месяцами: проект, котлован, опалубка, бетонирование. <b>Модульное бомбоубежище</b> ShelterMe изготавливают на заводе и привозят готовым — на объекте остаётся подготовить площадку, установить модули и подключить.</p>
       <h3>Купить бомбоубежище: что входит</h3>
-      <ul><li><b>Расчёт цены</b> — укрытие, комплектация, доставка, земляные работы и монтаж.</li><li><b>Доставка и монтаж</b> — кран и тяжёлая техника, установка на площадку или в котлован.</li><li><b>Комплектация</b> — вентиляция, освещение, скамьи, санузел, второй выход — в зависимости от модели и задачи.</li></ul>
+      <ul><li><b>Подбор модели</b> — по количеству людей и размеру участка (см. <a href="/ru/#calc">калькулятор</a>).</li><li><b>Расчёт цены</b> — модули, комплектация, доставка, земляные работы и монтаж.</li><li><b>Доставка и монтаж</b> — кран и тяжёлая техника, установка на площадку или в котлован.</li><li><b>Комплектация</b> — вентиляция, освещение, скамьи, санузел, второй выход — в зависимости от модели и задачи.</li></ul>
       <h3>Бункер, убежище или укрытие — в чём разница</h3>
       <p>В быту «бункером» и «бомбоубежищем» называют любое прочное сооружение для защиты людей. В нормативных документах используют термины <b>убежище</b>, <b>противорадиационное укрытие (ПРУ)</b> и <b>простейшее укрытие</b>. Требования к защитным сооружениям устанавливает <b>ДБН В.2.2-5:2023</b>. Под ваш объект мы уточняем, какое сооружение нужно, и подбираем модуль под эти требования.</p>
       <h3>Сколько стоит бомбоубежище</h3>
@@ -321,8 +372,8 @@
       <h2 class="section__title">Как мы работаем</h2>
     </div>
     <ol class="steps">
-      <li><span class="steps__n mono">01</span><h3>Заявка</h3><p>Оставьте заявку или позвоните. Уточним количество людей (до 15) и условия участка.</p></li>
-      <li><span class="steps__n mono">02</span><h3>Подбор</h3><p>Подберём укрытие под ваш участок.</p></li>
+      <li><span class="steps__n mono">01</span><h3>Заявка</h3><p>Оставьте заявку или позвоните. Уточним тип объекта, количество людей и условия участка.</p></li>
+      <li><span class="steps__n mono">02</span><h3>Подбор</h3><p>Подберём модель и количество модулей под вашу задачу.</p></li>
       <li><span class="steps__n mono">03</span><h3>Расчёт</h3><p>Посчитаем стоимость и сроки с доставкой и монтажом. Расчёт бесплатный.</p></li>
       <li><span class="steps__n mono">04</span><h3>Доставка и монтаж</h3><p>Согласовываем договор, привозим и устанавливаем укрытие на вашем объекте.</p></li>
     </ol>
@@ -352,7 +403,7 @@
     <div class="faq__list">
       <details open>
         <summary>Сколько людей вмещает бомбоубежище?</summary>
-        <p>До 15 человек. Укрытия на большее количество людей сейчас не изготавливаем.</p>
+        <p>Зависит от модели: от небольшого подземного модуля примерно на 15 человек до многомодульных укрытий на 100+ человек. Точную модель подберёт калькулятор на главной или наш менеджер.</p>
       </details>
       <details>
         <summary>Можно ли поставить бомбоубежище на частном участке?</summary>
@@ -364,7 +415,7 @@
       </details>
       <details>
         <summary>Сколько стоит модульное укрытие?</summary>
-        <p>Стоимость зависит от комплектации, доставки и монтажа. Укрытие для семьи — от 1 млн грн. Оставьте заявку — расчёт бесплатный.</p>
+        <p>Стоимость зависит от количества людей, модели и количества модулей, комплектации, доставки и монтажа. Оставьте заявку — расчёт бесплатный.</p>
       </details>
       <details>
         <summary>Почему именно железобетон?</summary>
@@ -372,15 +423,15 @@
       </details>
       <details>
         <summary>Сколько времени занимает установка?</summary>
-        <p>Модуль изготавливают на заводе, поэтому на объекте работы занимают намного меньше времени, чем стройка. Точный срок назовём вместе с расчётом — он зависит от загрузки производства.</p>
+        <p>Модуль изготавливают на заводе, поэтому на объекте работы занимают намного меньше времени, чем стройка. Точный срок назовём вместе с расчётом — он зависит от модели, количества модулей и загрузки производства.</p>
       </details>
       <details>
         <summary>По каким нормам делают укрытия?</summary>
         <p>Защитные сооружения гражданской защиты должны соответствовать ДБН В.2.2-5:2023 «Защитные сооружения гражданской защиты». Требования к конкретному объекту уточняем на этапе расчёта.</p>
       </details>
       <details>
-        <summary>На сколько человек укрытие?</summary>
-        <p>Максимум — 15 человек. Укрытия на большее количество людей сейчас не изготавливаем.</p>
+        <summary>Работаете ли вы с бизнесом и бюджетными учреждениями?</summary>
+        <p>Да. Основные наши заказчики — предприятия, магазины, офисы, школы и детские сады.</p>
       </details>
     </div>
   </div>
@@ -408,8 +459,10 @@
       <fieldset class="field">
         <legend>Тип объекта</legend>
         <div class="chips">
-          <label><input type="radio" name="object" value="Частный дом"><span>Частный дом</span></label>
-          <label><input type="radio" name="object" value="Малый бизнес"><span>Малый бизнес</span></label>
+          <label><input type="radio" name="object" value="Предприятие"><span>Предприятие</span></label>
+          <label><input type="radio" name="object" value="Школа"><span>Школа</span></label>
+          <label><input type="radio" name="object" value="Детский сад"><span>Детский сад</span></label>
+          <label><input type="radio" name="object" value="ОСМД / ЖК"><span>ОСМД / ЖК</span></label>
           <label><input type="radio" name="object" value="Другое" checked><span>Другое</span></label>
         </div>
       </fieldset>
@@ -423,13 +476,13 @@
         </fieldset>
       </div>
       <div class="field budget">
-        <p class="budget__label"><span>Бюджет</span><output id="budgetOut">до 1 млн грн</output></p>
-        <input type="range" id="budgetRange" min="0" max="2" step="1" value="0" aria-label="Бюджет" data-labels="до 1|1–1,5|более 1,5" data-unit="млн грн">
-        <input type="hidden" name="budget" id="budgetValue" value="до 1 млн грн">
+        <p class="budget__label"><span>Бюджет</span><output id="budgetOut">1,5–2 млн грн</output></p>
+        <input type="range" id="budgetRange" min="0" max="5" step="1" value="0" aria-label="Бюджет" data-labels="1,5–2|2–3|3–5|5–7|7–10|более 10" data-unit="млн грн">
+        <input type="hidden" name="budget" id="budgetValue" value="1,5–2 млн грн">
         <div class="budget__scale"><span>1,5</span><span>2</span><span>3</span><span>5</span><span>7</span><span>10+</span></div>
       </div>
       <div class="form__row">
-        <label class="field"><span>Количество человек</span><input type="number" name="capacity" id="formCapacity" min="1" max="15" placeholder="до 15"></label>
+        <label class="field"><span>Количество человек</span><input type="number" name="capacity" id="formCapacity" min="1" placeholder="напр. 50"></label>
         <label class="field"><span>Область / город</span><input type="text" name="region" placeholder="Николаевская обл."></label>
       </div>
       <label class="field"><span>Комментарий</span><textarea name="message" id="formMessage" rows="3" placeholder="Модель, сроки, вопросы…"></textarea></label>
@@ -460,6 +513,9 @@
       <nav aria-label="Решения">
         <p class="footer__h">Решения</p>
         <a href="/ru/ukrytie-dlya-biznesa-do-4-dekabrya/">Для бизнеса: до 4 декабря</a>
+        <a href="/ru/ukrytie-dlya-shkoly/">Для школы</a>
+        <a href="/ru/ukrytie-dlya-detskogo-sada/">Для детского сада</a>
+        <a href="/ru/ukrytie-dlya-osmd-i-predpriyatiya/">Для предприятия и ОСМД</a>
         <a href="/ru/bomboubezhishche/">Бомбоубежище</a>
         <a href="/ru/ukrytie-dlya-chastnogo-doma/">Для частного дома</a>
         <a href="/ru/ukrytie-dlya-semi/">Для семьи</a>
@@ -486,6 +542,6 @@
   <a class="dock__lead" href="#order">Заявка</a>
 </div>
 
-<script src="/app.js?v=3bdfdf20" defer></script>
+<script src="/app.js?v=698ecb0c" defer></script>
 </body>
 </html>

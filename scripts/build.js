@@ -257,8 +257,8 @@ ${dock(p)}`;
 
 // Схема-переріз модульного укриття замість фото
 const HERO_ART = {
-  uk: { aria: 'Схема: наземне модульне залізобетонне укриття в розрізі', head: 'Наземне укриття', ground: 'ґрунт', concrete: 'залізобетон 300 мм', size: 'місткість — до 15 осіб' },
-  ru: { aria: 'Схема: наземное модульное железобетонное укрытие в разрезе', head: 'Наземное укрытие', ground: 'грунт', concrete: 'железобетон 300 мм', size: 'вместимость — до 15 человек' },
+  uk: { aria: 'Схема: наземне модульне залізобетонне укриття в розрізі', head: 'Наземне укриття', ground: 'ґрунт', concrete: 'залізобетон 300 мм', size: 'модулі — під кількість людей' },
+  ru: { aria: 'Схема: наземное модульное железобетонное укрытие в разрезе', head: 'Наземное укрытие', ground: 'грунт', concrete: 'железобетон 300 мм', size: 'модули — под количество людей' },
 };
 function heroArt(lang) {
   const t = HERO_ART[lang];
@@ -603,7 +603,7 @@ ${F.placements.map((o) => `            <label><input type="radio" name="placemen
         <div class="budget__scale"><span>1,5</span><span>2</span><span>3</span><span>5</span><span>7</span><span>10+</span></div>
       </div>
       <div class="form__row">
-        <label class="field"><span>${F.people}</span><input type="number" name="capacity" id="formCapacity" min="1" max="15" placeholder="${F.peoplePh}"></label>
+        <label class="field"><span>${F.people}</span><input type="number" name="capacity" id="formCapacity" min="1" placeholder="${F.peoplePh}"></label>
         <label class="field"><span>${F.region}</span><input type="text" name="region" placeholder="${F.regionPh}"></label>
       </div>
       <label class="field"><span>${F.comment}</span><textarea name="message" id="formMessage" rows="3" placeholder="${F.commentPh}"></textarea></label>
