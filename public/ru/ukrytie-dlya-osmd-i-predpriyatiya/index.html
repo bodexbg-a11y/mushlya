@@ -167,7 +167,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"></noscript>
-  <link rel="stylesheet" href="/styles.css?v=5ede89c4">
+  <link rel="stylesheet" href="/styles.css?v=88a697e3">
 </head>
 <body>
 
@@ -232,7 +232,7 @@
           <g class="ha-dim">
             <path d="M300 104 V120"/>
             <path d="M70 478 H530 M70 470 V486 M530 470 V486"/>
-            <text x="300" y="505" text-anchor="middle">модули — под количество людей</text>
+            <text x="300" y="505" text-anchor="middle">от 5 до 15 человек</text>
           </g>
           <text x="300" y="96" text-anchor="middle" class="ha-label">железобетон 300 мм</text>
           <text x="40" y="446" class="ha-label">грунт</text>
@@ -245,30 +245,28 @@
   <div class="container">
     <div class="section__head">
       <h2 class="section__title">Калькулятор<br>укрытия</h2>
-      <p class="section__lead">Укажите, сколько людей нужно укрыть, — покажем нужную площадь и подберём модель ShelterMe.</p>
+      <p class="section__lead">Укажите, сколько людей нужно укрыть (от 5 до 15), — покажем нужную площадь и подберём модель ShelterMe.</p>
     </div>
     <div class="cfg">
       <div class="cfg__controls">
         <div class="cfg__group">
-          <p class="cfg__label">Сколько людей укрыть <output id="calcPeopleOut">50</output></p>
-          <input type="range" id="calcRange" min="10" max="500" step="5" value="50" aria-label="Сколько людей укрыть">
-          <div class="cfg__scale"><span>10</span><span>500</span></div>
+          <p class="cfg__label">Сколько людей укрыть <output id="calcPeopleOut">10</output></p>
+          <input type="range" id="calcRange" min="5" max="15" step="1" value="10" aria-label="Сколько людей укрыть">
+          <div class="cfg__scale"><span>5</span><span>15</span></div>
         </div>
         <div class="cfg__group">
           <p class="cfg__label">Точное количество</p>
-          <div class="stepper" data-min="1" data-max="2000">
-            <button type="button" data-step="-5" aria-label="−">−</button>
-            <input type="number" id="calcPeople" min="1" max="2000" value="50" inputmode="numeric" aria-label="Сколько людей укрыть">
-            <button type="button" data-step="5" aria-label="+">+</button>
+          <div class="stepper" data-min="5" data-max="15">
+            <button type="button" data-step="-1" aria-label="−">−</button>
+            <input type="number" id="calcPeople" min="5" max="15" value="10" inputmode="numeric" aria-label="Сколько людей укрыть">
+            <button type="button" data-step="1" aria-label="+">+</button>
           </div>
         </div>
         <div class="cfg__group">
           <p class="cfg__label">Тип объекта</p>
           <div class="cfg__opts" role="radiogroup" aria-label="Тип объекта">
-            <label><input type="radio" name="calcType" value="Предприятие" checked><span>Предприятие</span></label>
-            <label><input type="radio" name="calcType" value="Школа"><span>Школа</span></label>
-            <label><input type="radio" name="calcType" value="Детский сад"><span>Детский сад</span></label>
-            <label><input type="radio" name="calcType" value="ОСМД / ЖК"><span>ОСМД / ЖК</span></label>
+            <label><input type="radio" name="calcType" value="Семья" checked><span>Семья</span></label>
+            <label><input type="radio" name="calcType" value="Частный дом"><span>Частный дом</span></label>
           </div>
         </div>
       </div>
@@ -417,10 +415,8 @@
       <fieldset class="field">
         <legend>Тип объекта</legend>
         <div class="chips">
-          <label><input type="radio" name="object" value="Предприятие" checked><span>Предприятие</span></label>
-          <label><input type="radio" name="object" value="Школа"><span>Школа</span></label>
-          <label><input type="radio" name="object" value="Детский сад"><span>Детский сад</span></label>
-          <label><input type="radio" name="object" value="ОСМД / ЖК"><span>ОСМД / ЖК</span></label>
+          <label><input type="radio" name="object" value="Семья" checked><span>Семья</span></label>
+          <label><input type="radio" name="object" value="Частный дом"><span>Частный дом</span></label>
           <label><input type="radio" name="object" value="Другое"><span>Другое</span></label>
         </div>
       </fieldset>
@@ -434,13 +430,13 @@
         </fieldset>
       </div>
       <div class="field budget">
-        <p class="budget__label"><span>Бюджет</span><output id="budgetOut">1,5–2 млн грн</output></p>
-        <input type="range" id="budgetRange" min="0" max="5" step="1" value="0" aria-label="Бюджет" data-labels="1,5–2|2–3|3–5|5–7|7–10|более 10" data-unit="млн грн">
-        <input type="hidden" name="budget" id="budgetValue" value="1,5–2 млн грн">
-        <div class="budget__scale"><span>1,5</span><span>2</span><span>3</span><span>5</span><span>7</span><span>10+</span></div>
+        <p class="budget__label"><span>Бюджет</span><output id="budgetOut">до 1 млн грн</output></p>
+        <input type="range" id="budgetRange" min="0" max="2" step="1" value="0" aria-label="Бюджет" data-labels="до 1|1–1,5|более 1,5" data-unit="млн грн">
+        <input type="hidden" name="budget" id="budgetValue" value="до 1 млн грн">
+        <div class="budget__scale"><span>до 1</span><span>1–1,5</span><span>более 1,5</span></div>
       </div>
       <div class="form__row">
-        <label class="field"><span>Количество человек</span><input type="number" name="capacity" id="formCapacity" min="1" placeholder="напр. 50"></label>
+        <label class="field"><span>Количество человек</span><input type="number" name="capacity" id="formCapacity" min="5" max="15" placeholder="от 5 до 15"></label>
         <label class="field"><span>Область / город</span><input type="text" name="region" placeholder="Николаевская обл."></label>
       </div>
       <label class="field"><span>Комментарий</span><textarea name="message" id="formMessage" rows="3" placeholder="Модель, сроки, вопросы…"></textarea></label>
@@ -500,6 +496,6 @@
   <a class="dock__lead" href="#order">Заявка</a>
 </div>
 
-<script src="/app.js?v=698ecb0c" defer></script>
+<script src="/app.js?v=e8898d5a" defer></script>
 </body>
 </html>

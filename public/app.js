@@ -145,7 +145,7 @@
     const range = $('#calcRange');
     const exact = $('#calcPeople');
     const fmt = (n) => String(Math.round(n * 10) / 10).replace('.', ',');
-    const state = { people: 50 };
+    const state = { people: 10 };
     // Модельний ряд (наземні) — з data-models; підбираємо найменшу модель, що вміщує потрібну площу
     const models = JSON.parse(calc.dataset.models || '[]').sort((a, b) => a.a - b.a);
     const result = () => {
@@ -180,7 +180,7 @@
       const tl = $('#calcL'); tl.setAttribute('y', y + rh + 24); tl.textContent = `${fmt(r.l)} м`;
     };
     range.addEventListener('input', () => { state.people = +range.value; draw(); });
-    const clamp = (v) => Math.min(2000, Math.max(1, Math.round(v) || 1));
+    const clamp = (v) => Math.min(15, Math.max(5, Math.round(v) || 5));
     exact.addEventListener('input', () => { if (exact.value !== '') { state.people = clamp(+exact.value); draw(false); } });
     exact.addEventListener('blur', () => { state.people = clamp(+exact.value); draw(); });
     $$('.stepper button', calc).forEach((b) => b.addEventListener('click', () => { state.people = clamp(state.people + +b.dataset.step); draw(); }));

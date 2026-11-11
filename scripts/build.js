@@ -257,8 +257,8 @@ ${dock(p)}`;
 
 // Схема-переріз модульного укриття замість фото
 const HERO_ART = {
-  uk: { aria: 'Схема: наземне модульне залізобетонне укриття в розрізі', head: 'Наземне укриття', ground: 'ґрунт', concrete: 'залізобетон 300 мм', size: 'модулі — під кількість людей' },
-  ru: { aria: 'Схема: наземное модульное железобетонное укрытие в разрезе', head: 'Наземное укрытие', ground: 'грунт', concrete: 'железобетон 300 мм', size: 'модули — под количество людей' },
+  uk: { aria: 'Схема: наземне модульне залізобетонне укриття в розрізі', head: 'Наземне укриття', ground: 'ґрунт', concrete: 'залізобетон 300 мм', size: 'від 5 до 15 осіб' },
+  ru: { aria: 'Схема: наземное модульное железобетонное укрытие в разрезе', head: 'Наземное укрытие', ground: 'грунт', concrete: 'железобетон 300 мм', size: 'от 5 до 15 человек' },
 };
 function heroArt(lang) {
   const t = HERO_ART[lang];
@@ -369,16 +369,16 @@ function calculator(p) {
     <div class="cfg">
       <div class="cfg__controls">
         <div class="cfg__group">
-          <p class="cfg__label">${C.people} <output id="calcPeopleOut">50</output></p>
-          <input type="range" id="calcRange" min="10" max="500" step="5" value="50" aria-label="${C.people}">
-          <div class="cfg__scale"><span>10</span><span>500</span></div>
+          <p class="cfg__label">${C.people} <output id="calcPeopleOut">10</output></p>
+          <input type="range" id="calcRange" min="5" max="15" step="1" value="10" aria-label="${C.people}">
+          <div class="cfg__scale"><span>5</span><span>15</span></div>
         </div>
         <div class="cfg__group">
           <p class="cfg__label">${C.exact}</p>
-          <div class="stepper" data-min="1" data-max="2000">
-            <button type="button" data-step="-5" aria-label="−">−</button>
-            <input type="number" id="calcPeople" min="1" max="2000" value="50" inputmode="numeric" aria-label="${C.people}">
-            <button type="button" data-step="5" aria-label="+">+</button>
+          <div class="stepper" data-min="5" data-max="15">
+            <button type="button" data-step="-1" aria-label="−">−</button>
+            <input type="number" id="calcPeople" min="5" max="15" value="10" inputmode="numeric" aria-label="${C.people}">
+            <button type="button" data-step="1" aria-label="+">+</button>
           </div>
         </div>
         <div class="cfg__group">
@@ -585,7 +585,7 @@ function orderForm(p) {
       <fieldset class="field">
         <legend>${F.object}</legend>
         <div class="chips">
-${F.objects.map((o, i) => `          <label><input type="radio" name="object" value="${o}"${o === p.object || (!p.object && i === 0) ? ' checked' : ''}><span>${o}</span></label>`).join('\n')}
+${F.objects.map((o, i) => `          <label><input type="radio" name="object" value="${o}"${o === p.object || (!F.objects.includes(p.object) && i === 0) ? ' checked' : ''}><span>${o}</span></label>`).join('\n')}
         </div>
       </fieldset>
       <div class="form__row">
@@ -600,10 +600,10 @@ ${F.placements.map((o) => `            <label><input type="radio" name="placemen
         <p class="budget__label"><span>${F.budget}</span><output id="budgetOut">${F.budgets[0]} ${F.budgetUnit}</output></p>
         <input type="range" id="budgetRange" min="0" max="${F.budgets.length - 1}" step="1" value="0" aria-label="${F.budget}" data-labels="${F.budgets.join('|')}" data-unit="${F.budgetUnit}">
         <input type="hidden" name="budget" id="budgetValue" value="${F.budgets[0]} ${F.budgetUnit}">
-        <div class="budget__scale"><span>1,5</span><span>2</span><span>3</span><span>5</span><span>7</span><span>10+</span></div>
+        <div class="budget__scale">${F.budgets.map((b) => `<span>${b}</span>`).join('')}</div>
       </div>
       <div class="form__row">
-        <label class="field"><span>${F.people}</span><input type="number" name="capacity" id="formCapacity" min="1" placeholder="${F.peoplePh}"></label>
+        <label class="field"><span>${F.people}</span><input type="number" name="capacity" id="formCapacity" min="5" max="15" placeholder="${F.peoplePh}"></label>
         <label class="field"><span>${F.region}</span><input type="text" name="region" placeholder="${F.regionPh}"></label>
       </div>
       <label class="field"><span>${F.comment}</span><textarea name="message" id="formMessage" rows="3" placeholder="${F.commentPh}"></textarea></label>
