@@ -590,7 +590,7 @@ ${F.objects.map((o, i) => `          <label><input type="radio" name="object" va
         <fieldset class="field" data-required="placement">
           <legend>${F.placement} *</legend>
           <div class="chips">
-${F.placements.map((o) => `            <label><input type="radio" name="placement" value="${o}" required><span>${o}</span></label>`).join('\n')}
+${F.placements.map((o) => `            <label><input type="radio" name="placement" value="${o}" required${F.placements.length === 1 ? ' checked' : ''}><span>${o}</span></label>`).join('\n')}
           </div>
         </fieldset>
       </div>

@@ -204,7 +204,8 @@
     const msg = $('#formMessage');
     if (msg) msg.value = `${T.askModel}: ${a.dataset.model}`;
     // розміщення — за типом моделі (0 — підземне, 1 — наземне)
-    const place = $$('#leadForm input[name="placement"]')[a.dataset.under === '1' ? 0 : 1];
+    const places = $$('#leadForm input[name="placement"]');
+    const place = places.length === 1 ? places[0] : places[a.dataset.under === '1' ? 0 : 1];
     if (place) place.checked = true;
   }));
 
