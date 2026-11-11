@@ -146,17 +146,7 @@
     const exact = $('#calcPeople');
     const fmt = (n) => String(Math.round(n * 10) / 10).replace('.', ',');
     const state = { people: 10 };
-    // Модельний ряд (наземні) — з data-models; підбираємо найменшу модель, що вміщує потрібну площу
-    const models = JSON.parse(calc.dataset.models || '[]').sort((a, b) => a.a - b.a);
-    const result = () => {
-      const min = state.people * 0.6;
-      const comfort = state.people * 1;
-      let model = models.find((m) => m.a >= min);
-      let count = 1;
-      if (!model) { model = models.reduce((a, b) => (b.a > a.a ? b : a)); count = Math.ceil(min / model.a); }
-      return { min, comfort, model, count, w: model.w, l: model.l };
-    };
-    const sizeText = (r) => `${r.count > 1 ? `${r.count} × ` : ''}${r.model.n}`;
+    const result = () => ({ min: state.people * 0.6, comfort: state.people * 1 });
     const draw = (syncInputs = true) => {
       const r = result();
       $('#calcPeopleOut').textContent = state.people;
@@ -165,19 +155,6 @@
       range.style.setProperty('--p', ((range.value - range.min) / (range.max - range.min)) * 100 + '%');
       $('#calcMin').textContent = `${fmt(r.min)} м²`;
       $('#calcComfort').textContent = `${fmt(r.comfort)} м²`;
-      $('#calcSize').innerHTML = '';
-      const link = document.createElement('a');
-      // блок моделей може бути прихований — тоді посилання веде на заявку
-      link.href = document.getElementById(`model-${r.model.id}`) ? `#model-${r.model.id}` : '#order';
-      link.textContent = sizeText(r);
-      $('#calcSize').appendChild(link);
-      // схема в масштабі: найдовша сторона — 520 px
-      const k = Math.min(520 / r.l, 120 / r.w);
-      const rw = r.l * k, rh = r.w * k, x = 300 - rw / 2, y = 100 - rh / 2;
-      const room = $('#calcRoom');
-      room.setAttribute('x', x); room.setAttribute('y', y); room.setAttribute('width', rw); room.setAttribute('height', rh);
-      const tw = $('#calcW'); tw.setAttribute('x', x - 10); tw.setAttribute('y', 104); tw.textContent = `${fmt(r.w)} м`;
-      const tl = $('#calcL'); tl.setAttribute('y', y + rh + 24); tl.textContent = `${fmt(r.l)} м`;
     };
     range.addEventListener('input', () => { state.people = +range.value; draw(); });
     const clamp = (v) => Math.min(15, Math.max(5, Math.round(v) || 5));
@@ -195,7 +172,7 @@
       const obj = type && $(`#leadForm input[name="object"][value="${type}"]`);
       if (obj) obj.checked = true;
       const msg = $('#formMessage');
-      if (msg) msg.value = `${T.calc}: ${state.people} ${T.people}, ${fmt(r.min)}–${fmt(r.comfort)} м², ${sizeText(r)}`;
+      if (msg) msg.value = `${T.calc}: ${state.people} ${T.people}, ${fmt(r.min)}–${fmt(r.comfort)} м²`;
     });
   }
 

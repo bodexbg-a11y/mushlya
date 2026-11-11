@@ -359,8 +359,7 @@ function calculator(p) {
   const F = pages.text[p.lang].form;
   const types = F.objects.slice(0, -1);
   const start = Math.max(0, types.indexOf(p.object));
-  const data = models.list.filter((m) => m.type === 'ground').map((m) => ({ n: `ShelterMe ${m.name}`, id: m.id, a: m.area, l: m.l, w: m.w, m: m.modules }));
-  return `<section class="section section--steel config" id="calc" data-models='${JSON.stringify(data)}'>
+  return `<section class="section section--steel config" id="calc">
   <div class="container">
     <div class="section__head">
       <h2 class="section__title">${C.title}</h2>
@@ -389,18 +388,9 @@ ${types.map((o, i) => `            <label><input type="radio" name="calcType" va
         </div>
       </div>
       <div class="cfg__preview">
-        <div class="cfg__stage">
-          <svg id="calcSvg" viewBox="0 0 600 220" role="img" aria-label="${C.scheme}">
-            <rect id="calcRoom" x="40" y="40" width="520" height="120" rx="4" class="calc__room"/>
-            <text id="calcW" x="24" y="100" text-anchor="end" class="cfg__dimtxt"></text>
-            <text id="calcL" x="300" y="190" text-anchor="middle" class="cfg__dimtxt"></text>
-          </svg>
-          <p class="cfg__hint">${C.scheme}</p>
-        </div>
         <dl class="cfg__summary">
           <div><dt>${C.sumMin}</dt><dd id="calcMin">—</dd></div>
           <div><dt>${C.sumComfort}</dt><dd id="calcComfort">—</dd></div>
-          <div><dt>${C.sumSize}</dt><dd id="calcSize">—</dd></div>
         </dl>
         <a href="#order" class="btn btn--primary btn--block btn--lg" id="calcSubmit">${C.submit} <span aria-hidden="true">→</span></a>
         <p class="cfg__note">${C.note}</p>

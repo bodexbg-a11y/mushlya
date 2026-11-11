@@ -183,7 +183,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"></noscript>
-  <link rel="stylesheet" href="/styles.css?v=e81c0e96">
+  <link rel="stylesheet" href="/styles.css?v=5197fe6a">
 </head>
 <body>
 
@@ -256,11 +256,11 @@
     </div>
   </div>
 </section>
-<section class="section section--steel config" id="calc" data-models='[{"n":"ShelterMe 2.25 XL","id":"225-xl","a":4.05,"l":5.93,"w":3.98,"m":1},{"n":"ShelterMe 2.25 2XL","id":"225-2xl","a":14.86,"l":11.03,"w":3.98,"m":2},{"n":"ShelterMe 2.25 3XL","id":"225-3xl","a":24.99,"l":15.83,"w":3.98,"m":3},{"n":"ShelterMe 3.5 2XL","id":"35-2xl","a":20.45,"l":10.63,"w":5.23,"m":2},{"n":"ShelterMe 3.5 3XL","id":"35-3xl","a":36.71,"l":15.33,"w":5.23,"m":3},{"n":"ShelterMe 3.5 4XL","id":"35-4xl","a":52.96,"l":20.03,"w":5.23,"m":4},{"n":"ShelterMe 3.5 5XL","id":"35-5xl","a":69.22,"l":24.73,"w":5.23,"m":5},{"n":"ShelterMe 4.0 3XL","id":"40-3xl","a":40,"l":15.33,"w":5.73,"m":3},{"n":"ShelterMe 6.0 3XL","id":"60-3xl","a":58.2,"l":15.33,"w":7.73,"m":3},{"n":"ShelterMe 3+2","id":"3-2","a":45.25,"l":15.9,"w":6.34,"m":5},{"n":"ShelterMe 3+3","id":"3-3","a":83.17,"l":15.33,"w":9.34,"m":6}]'>
+<section class="section section--steel config" id="calc">
   <div class="container">
     <div class="section__head">
       <h2 class="section__title">Калькулятор<br>укриття</h2>
-      <p class="section__lead">Вкажіть, скільки людей потрібно укрити (від 5 до 15), — покажемо потрібну площу й підберемо модель ShelterMe.</p>
+      <p class="section__lead">Вкажіть, скільки людей потрібно укрити (від 5 до 15), — покажемо потрібну площу.</p>
     </div>
     <div class="cfg">
       <div class="cfg__controls">
@@ -286,21 +286,12 @@
         </div>
       </div>
       <div class="cfg__preview">
-        <div class="cfg__stage">
-          <svg id="calcSvg" viewBox="0 0 600 220" role="img" aria-label="Схема укриття (вигляд зверху)">
-            <rect id="calcRoom" x="40" y="40" width="520" height="120" rx="4" class="calc__room"/>
-            <text id="calcW" x="24" y="100" text-anchor="end" class="cfg__dimtxt"></text>
-            <text id="calcL" x="300" y="190" text-anchor="middle" class="cfg__dimtxt"></text>
-          </svg>
-          <p class="cfg__hint">Схема укриття (вигляд зверху)</p>
-        </div>
         <dl class="cfg__summary">
           <div><dt>Потрібна площа</dt><dd id="calcMin">—</dd></div>
           <div><dt>Комфортно</dt><dd id="calcComfort">—</dd></div>
-          <div><dt>Підійде модель</dt><dd id="calcSize">—</dd></div>
         </dl>
         <a href="#order" class="btn btn--primary btn--block btn--lg" id="calcSubmit">Отримати розрахунок <span aria-hidden="true">→</span></a>
-        <p class="cfg__note">Розрахунок орієнтовний: мінімум — 0,6 м² на людину в основному приміщенні при одноярусних місцях для сидіння, комфортно — близько 1 м². Модель підбираємо за захищеною площею; остаточне рішення — після уточнення обʼєкта й вимог ДБН В.2.2-5:2023.</p>
+        <p class="cfg__note">Розрахунок орієнтовний: мінімум — 0,6 м² на людину в основному приміщенні при одноярусних місцях для сидіння, комфортно — близько 1 м². Остаточне рішення — після уточнення обʼєкта й вимог ДБН В.2.2-5:2023.</p>
       </div>
     </div>
   </div>
@@ -516,6 +507,6 @@
   <a class="dock__lead" href="#order">Заявка</a>
 </div>
 
-<script src="/app.js?v=adf2ba85" defer></script>
+<script src="/app.js?v=9081437e" defer></script>
 </body>
 </html>

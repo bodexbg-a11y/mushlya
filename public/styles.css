@@ -472,7 +472,7 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .cfg__person circle { fill: var(--signal); stroke: none; }
 .cfg__hint { margin-top: 6px; font-size: .75rem; color: rgba(238,236,230,.62); text-align: right; }
 #cfgTube > * { transition: all .35s var(--ease); }
-.cfg__summary { margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-radius: 8px; overflow: hidden; }
+.cfg__summary { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border-radius: 8px; overflow: hidden; }
 .cfg__summary div { background: var(--steel); padding: 14px 16px; }
 .cfg__summary div:last-child { grid-column: 1 / -1; }
 .cfg__summary dt { font-size: .75rem; color: rgba(238,236,230,.68); margin-bottom: 4px; }
@@ -490,7 +490,7 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 }
 @media (max-width: 640px) {
   .cfg__summary { grid-template-columns: 1fr 1fr; }
-  .cfg__summary div:first-child { grid-column: 1 / -1; }
+  .cfg__summary div:first-child { grid-column: auto; }
   .cfg__dimtxt { font-size: 20px; }
   .cfg__times { font-size: 34px; }
   .cfg__stage { padding: 12px 8px 8px; }
