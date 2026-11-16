@@ -21,7 +21,7 @@ const UI = {
     home: 'Головна',
     toHome: 'на головну',
     menu: 'Меню',
-    calc: 'Розрахувати',
+    calc: 'Замовити',
     lead: 'Залишити заявку',
     fab: 'Заявка',
     call: 'Подзвонити',
@@ -31,16 +31,16 @@ const UI = {
     footerFor: 'Рішення',
     footerInfo: 'Інформація',
     office: 'Миколаївська обл.',
-    delivery: 'Доставка по всій Україні',
+    delivery: 'Безкоштовна доставка по Україні',
     rights: 'Модульні бетонні укриття та бомбосховища.',
-    notice: 'Зараз виготовляємо лише наземні укриття до 15 осіб.',
+    notice: 'Зараз виготовляємо лише наземні укриття від 6 до 15 осіб.',
   },
   ru: {
     tagline: 'модульные укрытия',
     home: 'Главная',
     toHome: 'на главную',
     menu: 'Меню',
-    calc: 'Рассчитать',
+    calc: 'Заказать',
     lead: 'Оставить заявку',
     fab: 'Заявка',
     call: 'Позвонить',
@@ -50,9 +50,9 @@ const UI = {
     footerFor: 'Решения',
     footerInfo: 'Информация',
     office: 'Николаевская обл.',
-    delivery: 'Доставка по всей Украине',
+    delivery: 'Бесплатная доставка по Украине',
     rights: 'Модульные бетонные укрытия и бомбоубежища.',
-    notice: 'Сейчас изготавливаем только наземные укрытия до 15 человек.',
+    notice: 'Сейчас изготавливаем только наземные укрытия от 6 до 15 человек.',
   },
 };
 const EMAIL = 'sheltermeua@gmail.com';
@@ -259,8 +259,8 @@ ${dock(p)}`;
 
 // Схема-переріз модульного укриття замість фото
 const HERO_ART = {
-  uk: { aria: 'Схема: наземне модульне залізобетонне укриття в розрізі', head: 'Наземне укриття', ground: 'ґрунт', concrete: 'залізобетон 200 мм', size: 'від 5 до 15 осіб' },
-  ru: { aria: 'Схема: наземное модульное железобетонное укрытие в разрезе', head: 'Наземное укрытие', ground: 'грунт', concrete: 'железобетон 200 мм', size: 'от 5 до 15 человек' },
+  uk: { aria: 'Схема: наземне модульне залізобетонне укриття в розрізі', head: 'Наземне укриття', ground: 'ґрунт', concrete: 'залізобетон 200 мм', size: 'від 6 до 15 осіб' },
+  ru: { aria: 'Схема: наземное модульное железобетонное укрытие в разрезе', head: 'Наземное укрытие', ground: 'грунт', concrete: 'железобетон 200 мм', size: 'от 6 до 15 человек' },
 };
 function heroArt(lang) {
   const t = HERO_ART[lang];
@@ -443,7 +443,7 @@ function landing(p) {
       <p class="hero__lead">${p.lead}</p>
       ${p.hidden ? `<p class="hero__notice">${UI[p.lang].notice}</p>` : ''}
       <div class="hero__actions">
-        <a href="${p.noCalc ? '#order' : '#calc'}" class="btn btn--primary">${L.getCalc} <span aria-hidden="true">→</span></a>
+        <a href="#order" class="btn btn--primary">${L.getCalc} <span aria-hidden="true">→</span></a>
         <a href="tel:+${PHONE}" class="btn btn--ghost" data-contact="phone">${L.call}: ${PHONE_TXT}</a>
       </div>
 ${callback(p.lang)}    </div>
@@ -453,7 +453,6 @@ ${callback(p.lang)}    </div>
   </div>
 </section>
 ${p.product ? productBlock(p) : ''}
-${p.noCalc ? '' : calculator(p)}
 ${SHOW_MODELS ? modelsBlock(p) : ''}
 <section class="section">
   <div class="container">
@@ -615,14 +614,8 @@ ${F.placements.map((o) => `            <label><input type="radio" name="placemen
           </div>
         </fieldset>
       </div>
-      <div class="field budget">
-        <p class="budget__label"><span>${F.budget}</span><output id="budgetOut">${F.budgets[0]} ${F.budgetUnit}</output></p>
-        <input type="range" id="budgetRange" min="0" max="${F.budgets.length - 1}" step="1" value="0" aria-label="${F.budget}" data-labels="${F.budgets.join('|')}" data-unit="${F.budgetUnit}">
-        <input type="hidden" name="budget" id="budgetValue" value="${F.budgets[0]} ${F.budgetUnit}">
-        <div class="budget__scale">${F.budgets.map((b) => `<span>${b}</span>`).join('')}</div>
-      </div>
       <div class="form__row">
-        <label class="field"><span>${F.people}</span><input type="number" name="capacity" id="formCapacity" min="5" max="15" placeholder="${F.peoplePh}"></label>
+        <label class="field"><span>${F.people}</span><input type="number" name="capacity" id="formCapacity" min="6" max="15" placeholder="${F.peoplePh}"></label>
         <label class="field"><span>${F.region}</span><input type="text" name="region" placeholder="${F.regionPh}"></label>
       </div>
       <label class="field"><span>${F.comment}</span><textarea name="message" id="formMessage" rows="3" placeholder="${F.commentPh}"></textarea></label>
