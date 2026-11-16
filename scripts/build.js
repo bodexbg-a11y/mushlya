@@ -259,8 +259,8 @@ ${dock(p)}`;
 
 // Схема-переріз модульного укриття замість фото
 const HERO_ART = {
-  uk: { aria: 'Схема: наземне модульне залізобетонне укриття в розрізі', head: 'Наземне укриття', ground: 'ґрунт', concrete: 'залізобетон 300 мм', size: 'від 5 до 15 осіб' },
-  ru: { aria: 'Схема: наземное модульное железобетонное укрытие в разрезе', head: 'Наземное укрытие', ground: 'грунт', concrete: 'железобетон 300 мм', size: 'от 5 до 15 человек' },
+  uk: { aria: 'Схема: наземне модульне залізобетонне укриття в розрізі', head: 'Наземне укриття', ground: 'ґрунт', concrete: 'залізобетон 200 мм', size: 'від 5 до 15 осіб' },
+  ru: { aria: 'Схема: наземное модульное железобетонное укрытие в разрезе', head: 'Наземное укрытие', ground: 'грунт', concrete: 'железобетон 200 мм', size: 'от 5 до 15 человек' },
 };
 function heroArt(lang) {
   const t = HERO_ART[lang];
@@ -287,6 +287,33 @@ function heroArt(lang) {
           <text x="40" y="446" class="ha-label">${t.ground}</text>
         </svg>
       </figure>`;
+}
+
+// Сімейний модуль: ціна й розміри одразу
+function productBlock(p) {
+  const T = pages.text[p.lang].product;
+  return `<section class="section" id="product">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">${T.title}</h2>
+      <p class="section__lead">${T.lead}</p>
+    </div>
+    <article class="product">
+      <div class="product__info">
+        <h3 class="product__name">${T.name}</h3>
+        <dl class="product__specs">
+${T.specs.map(([k, v]) => `          <div><dt>${k}</dt><dd>${v}</dd></div>`).join('\n')}
+        </dl>
+      </div>
+      <div class="product__buy">
+        <p class="product__label">${T.priceLabel}</p>
+        <p class="product__price">${T.price}</p>
+        <p class="product__note">${T.note}</p>
+        <a href="#order" class="btn btn--primary btn--block btn--lg model__ask" data-model="${T.askMsg}" data-under="0">${T.ask} <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+  </div>
+</section>`;
 }
 
 // «Чому модульне укриття» — спільний блок для всіх сторінок
@@ -425,6 +452,7 @@ ${callback(p.lang)}    </div>
     </div>
   </div>
 </section>
+${p.product ? productBlock(p) : ''}
 ${p.noCalc ? '' : calculator(p)}
 ${SHOW_MODELS ? modelsBlock(p) : ''}
 <section class="section">

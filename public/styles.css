@@ -843,3 +843,20 @@ input[type="range"]:focus-visible { outline: 3px solid var(--signal); outline-of
 .hero-render::before { content: ""; position: absolute; left: 8%; right: 8%; bottom: 12%; height: 22%; background: radial-gradient(ellipse at center, rgba(255,176,0,.28), transparent 70%); filter: blur(10px); z-index: 0; }
 .hero-render img { position: relative; z-index: 1; display: block; width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgba(0,0,0,.55)); }
 .hero-render figcaption { position: absolute; z-index: 2; right: 4%; top: 6%; padding: 7px 12px; border: 1.5px solid var(--signal); border-radius: 6px; color: var(--signal); font: 600 .78rem/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; background: rgba(17,19,22,.7); }
+/* Сімейний модуль */
+.product { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); border: 2px solid var(--text); background: var(--paper); }
+.product__info { padding: 32px; }
+.product__name { font-size: 1.3rem; text-transform: uppercase; margin: 0 0 20px; }
+.product__specs { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; background: var(--text); border: 2px solid var(--text); }
+.product__specs div { background: var(--paper); padding: 14px 16px; }
+.product__specs dt { font-size: .78rem; color: var(--muted); margin-bottom: 4px; }
+.product__specs dd { margin: 0; font-weight: 800; font-size: 1.05rem; }
+.product__buy { background: var(--ink); color: var(--paper); padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+.product__label { margin: 0; font-size: .85rem; color: rgba(238,236,230,.7); text-transform: uppercase; letter-spacing: .08em; }
+.product__price { margin: 6px 0 10px; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: var(--signal); line-height: 1.1; }
+.product__note { margin: 0 0 20px; color: rgba(238,236,230,.75); font-size: .92rem; }
+@media (max-width: 760px) {
+  .product { grid-template-columns: 1fr; }
+  .product__info, .product__buy { padding: 22px; }
+}
+@media (max-width: 420px) { .product__specs { grid-template-columns: 1fr; } }
